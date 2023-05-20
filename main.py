@@ -3,22 +3,24 @@ from loguru import logger
 import wise
 from wise.utils import get_bank_transfer_in_balance_out
 
-SOURCE_CURRENCIES = ['GBP', 'EUR']
+SOURCE_CURRENCIES = ['GBP', 'EUR', 'CAD']
 
 
 def calculate_wise_fee(source_currency: float, target_amount: float, target_currency: str, card_fee: float):
-    source_currency_in_twd = float(
-        wise.visa_rate(amount=1, from_curr='TWD', to_curr=source_currency).fxRateWithAdditionalFee)
+    source_twd_rate = float(wise.visa_rate(amount=1, from_curr='TWD', to_curr=source_currency).fxRateWithAdditionalFee)
 
+    # 取得 wise 的價格
     prices = wise.wise_rate(target_amount=target_amount,
                             source_currency=source_currency,
                             target_currency=target_currency)
+    # 找出銀行轉帳到 wise balance 的價格
+    # 使用 Google Pay 的 PayInMethod 會是 Bank Transfer 
     price = get_bank_transfer_in_balance_out(prices)
 
     source_amount = price.sourceAmount
     logger.info('source amount: {} {}', source_amount, source_currency)
 
-    payment_in_twd = source_amount * source_currency_in_twd
+    payment_in_twd = source_amount * source_twd_rate
     logger.info('payment in TWD: {}', payment_in_twd)
 
     card_fee_in_twd = payment_in_twd * card_fee
