@@ -6,7 +6,7 @@ from wise.utils import get_bank_transfer_in_balance_out
 SOURCE_CURRENCIES = ['GBP', 'EUR']
 
 
-def wise_fee(source_currency: float, target_amount: float, target_currency: str, card_fee: float):
+def calculate_wise_fee(source_currency: float, target_amount: float, target_currency: str, card_fee: float):
     source_currency_in_twd = float(
         wise.visa_rate(amount=1, from_curr='TWD', to_curr=source_currency).fxRateWithAdditionalFee)
 
@@ -56,7 +56,7 @@ def main():
     # source currency 是要拿來付款的貨幣
     for source_currency in SOURCE_CURRENCIES:
         logger.info('計算使用 {} 購買 {} {} 的手續費', source_currency, target_amount, target_currency)
-        wise_fee(
+        calculate_wise_fee(
             source_currency=source_currency,
             target_amount=target_amount,
             target_currency=target_currency,
