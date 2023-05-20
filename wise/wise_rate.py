@@ -1,17 +1,38 @@
+from typing import List
+
 import requests
+from pydantic import BaseModel
 from requests.utils import default_headers
 
 
-def wise_rate(
-    source_amount: float = None,
-    source_currency: str = None,
-    target_amount: float = None,
-    target_currency: str = None,
-    profile_id: str = None,
-    profile_country: str = "US",
-    profile_type: str = 'PERSONAL',
-    markers: str = 'FCF_PRICING',
-):
+class Price(BaseModel):
+    priceSetId: int
+    sourceAmount: float
+    targetAmount: float
+    payInMethod: str
+    payOutMethod: str
+    sourceCcy: str
+    targetCcy: str
+    total: float
+    variableFee: float
+    variableFeePercent: float
+    swiftPayoutFlatFee: float
+    flatFee: float
+    midRate: float
+    ecbRate: float
+    ecbRateTimestamp: int
+    ecbMarkupPercent: float
+    additionalFeeDetails: dict
+
+
+def wise_rate(source_amount: float = None,
+              source_currency: str = None,
+              target_amount: float = None,
+              target_currency: str = None,
+              profile_id: str = None,
+              profile_country: str = "US",
+              profile_type: str = 'PERSONAL',
+              markers: str = 'FCF_PRICING') -> List[Price]:
     url = 'https://wise.com/gateway/v1/price'
 
     params = dict(
@@ -32,4 +53,4 @@ def wise_rate(
 
     resp = requests.get(url=url, params=params, headers=default_headers())
 
-    return resp.json()
+    return [Price.parse_obj(d) for d in resp.json()]
