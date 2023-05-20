@@ -14,37 +14,32 @@ def calculate_wise_fee(source_currency: float, target_amount: float, target_curr
                             source_currency=source_currency,
                             target_currency=target_currency)
     # 找出銀行轉帳到 wise balance 的價格
-    # 使用 Google Pay 的 PayInMethod 會是 Bank Transfer 
+    # 使用 Google Pay 的 PayInMethod 會是 Bank Transfer
     price = get_bank_transfer_in_balance_out(prices)
 
     source_amount = price.sourceAmount
-    logger.info('source amount: {} {}', source_amount, source_currency)
-
     payment_in_twd = source_amount * source_twd_rate
-    logger.info('payment in TWD: {}', payment_in_twd)
+    logger.info('Payment: {} {} = {} TWD', source_amount, source_currency, payment_in_twd)
 
     card_fee_in_twd = payment_in_twd * card_fee
-    logger.info('card fee in TWD: {}', card_fee_in_twd)
+    logger.info('Card Fee: {} TWD', card_fee_in_twd)
 
     miles = payment_in_twd / 10.0
-    logger.info('miles: {}', miles)
+    logger.info('Miles: {}', miles)
 
     target_currency_in_twd = float(
         wise.visa_rate(amount=1, from_curr='TWD', to_curr=target_currency).fxRateWithAdditionalFee)
     logger.info('{}TWD: {}', target_currency, target_currency_in_twd)
 
     wise_fee_in_twd = payment_in_twd - target_amount * target_currency_in_twd
-    logger.info('wise fee in TWD: {}', wise_fee_in_twd)
-
-    # 		totalFeeInTWD := wiseFeeInTWD + cardFeeInTWD
-    total_fee_in_twd = wise_fee_in_twd + card_fee_in_twd
-    logger.info('total fee in TWD: {}', total_fee_in_twd)
+    logger.info('Wise Fee: {} TWD', wise_fee_in_twd)
 
     total_payment_in_twd = payment_in_twd + card_fee_in_twd
-    logger.info('total payment in TWD: {}', total_payment_in_twd)
+    logger.info('Total Payment: {} TWD', total_payment_in_twd)
 
+    total_fee_in_twd = wise_fee_in_twd + card_fee_in_twd
     fee_in_percent = 100 * total_fee_in_twd / total_payment_in_twd
-    logger.info('fee in percent: {}%', fee_in_percent)
+    logger.info('Total Fee: {}({:.2f}%) TWD', total_fee_in_twd, fee_in_percent)
 
 
 def main():
