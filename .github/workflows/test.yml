@@ -23,5 +23,4 @@ jobs:
         with:
           poetry-version: ${{ matrix.poetry-version }}
       - name: Test
-        env:
         run: make test
