@@ -24,5 +24,4 @@ jobs:
           poetry-version: ${{ matrix.poetry-version }}
       - name: Test
         env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-        run: make cover
+        run: make test

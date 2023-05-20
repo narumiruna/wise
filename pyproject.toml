@@ -6,12 +6,12 @@ authors = ["なるみ"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
+cloudscraper = "^1.2.71"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^5.0.4"
 yapf = "^0.32.0"
 pytest = "^7.2.0"
-codecov = "^2.1.12"
 toml = "^0.10.2"
 
 [build-system]
