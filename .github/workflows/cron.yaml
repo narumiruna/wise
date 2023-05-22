@@ -47,6 +47,6 @@ jobs:
       - uses: exuanbo/actions-deploy-gist@v1
         with:
           token: ${{ secrets.GIST_TOKEN }}
-          gist_id: ${{ secrets.GIST_ID }}
+          gist_id: ${{ vars.GIST_ID }}
           file_path: output.txt
           file_type: text
