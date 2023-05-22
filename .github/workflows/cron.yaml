@@ -37,6 +37,7 @@ jobs:
         run: |
           poetry install
           poetry run python main.py > output.txt
+          export OUTPUT=$(cat output.txt)
 
       - uses: appleboy/telegram-action@master
         with:
@@ -44,3 +45,6 @@ jobs:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           # message: hello
           # message_file: output.txt
+      - uses: slackapi/slack-github-action@v1.24.0
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
