@@ -2,6 +2,8 @@ from datetime import datetime
 
 import cloudscraper
 from pydantic import BaseModel
+from time import sleep
+from retry import retry
 
 # d = {
 #     'originalValues': {
@@ -66,6 +68,7 @@ class FxRate(BaseModel):
     status: str
 
 
+@retry(tries=100, delay=1)
 def get_visa_fx_rate(amount: float = 1.0, from_curr: str = 'TWD', to_curr: str = 'USD', fee: float = 0.0) -> FxRate:
     url = 'https://www.visa.com.tw/cmsapi/fx/rates'
 
@@ -78,6 +81,11 @@ def get_visa_fx_rate(amount: float = 1.0, from_curr: str = 'TWD', to_curr: str =
         fee=fee,
     )
 
-    resp = cloudscraper.create_scraper().get(url=url, params=params)
+    scraper = cloudscraper.create_scraper()
+
+    resp = scraper.get(url=url, params=params)
+
+    with open('visa.html', 'wb') as f:
+        f.write(resp.content)
 
     return FxRate.parse_obj(resp.json())

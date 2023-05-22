@@ -36,7 +36,7 @@ class Payment:
         )
 
         self.price = get_bank_transfer_in_balance_out(prices)
-        logger.info(f"Price: {self.price}")
+        logger.debug(f"Price: {self.price}")
 
         return self.price
 

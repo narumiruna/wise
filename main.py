@@ -2,6 +2,9 @@ from loguru import logger
 
 import wise
 from wise.utils import get_bank_transfer_in_balance_out
+from wise.cost import Cost
+from wise.payment import Payment
+from loguru import logger
 
 SOURCE_CURRENCIES = ['GBP', 'EUR', 'CAD']
 
@@ -53,22 +56,10 @@ def calculate_wise_fee(source_currency: float, target_amount: float, target_curr
 
 
 def main():
-    # 預計要取得的美金
-    target_amount = 1000
-    target_currency = 'USD'
-
-    # 信用卡手續費
-    card_fee = 0.015
-
-    # source currency 是要拿來付款的貨幣
     for source_currency in SOURCE_CURRENCIES:
-        logger.info('計算使用 {} 購買 {} {} 的手續費', source_currency, target_amount, target_currency)
-        calculate_wise_fee(
-            source_currency=source_currency,
-            target_amount=target_amount,
-            target_currency=target_currency,
-            card_fee=card_fee,
-        )
+        payment = Payment().pay_with(source_currency).add(1000, 'USD')
+        cost = Cost(payment)
+        print(cost)
 
 
 if __name__ == '__main__':
