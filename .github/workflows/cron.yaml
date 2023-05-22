@@ -37,13 +37,6 @@ jobs:
           poetry install
           poetry run python main.py >> output.txt
 
-      - uses: slackapi/slack-github-action@v1.24.0
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-        with:
-          channel-id: C058Z4XLGTE
-          payload-file-path: payload.json
-
       - uses: exuanbo/actions-deploy-gist@v1
         with:
           token: ${{ secrets.GIST_TOKEN }}
