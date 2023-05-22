@@ -30,10 +30,7 @@ class Cost:
         self.fx_rates[symbol] = float(fx_rate.convertedAmount)
         return self.fx_rates[symbol]
 
-    def get_amount(self, currency: str = None) -> float:
-        if currency is None:
-            currency = self.base_currency
-
+    def get_amount(self) -> float:
         return self.payment.get_amount() * self.get_fx_rate(self.source_currency, self.base_currency)
 
     def get_total_amount(self) -> float:
@@ -51,19 +48,18 @@ class Cost:
     def get_total_fees(self) -> float:
         return self.get_card_fees() + self.get_wise_fees()
 
-    def get_fee_rate(self) -> float:
+    def get_total_fee_rate(self) -> float:
         return self.get_total_fees() / self.get_total_amount()
 
     def __str__(self) -> str:
         format_string = 'Add {:.2f} {}'.format(self.target_amount, self.target_currency)
         format_string += ', pay {:.2f} {}'.format(self.payment.get_amount(), self.payment.source_currency)
-        format_string += ' ({:.2f} {})'.format(self.get_total_amount(), self.base_currency)
+        format_string += ' ({:.2f} {})'.format(self.get_amount(), self.base_currency)
         # format_string += ', wise fees: {:.2f} {}'.format(self.get_wise_fees(), self.base_currency)
         # format_string += ', card fees: {:.2f} {}'.format(self.get_card_fees(), self.base_currency)
         format_string += ', total fees: {:.2f} {} ({:.2f}%)'.format(self.get_total_fees(), self.base_currency,
-                                                                    self.get_fee_rate() * 100)
+                                                                    self.get_total_fee_rate() * 100)
         format_string += ', miles: {:.2f}'.format(self.get_miles())
         format_string += ', mile cost: {:.2f} {}/mile'.format(self.get_total_fees() / self.get_miles(),
                                                               self.base_currency)
-
         return format_string
