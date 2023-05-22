@@ -4,7 +4,6 @@ import wise
 from wise.utils import get_bank_transfer_in_balance_out
 from wise.cost import Cost
 from wise.payment import Payment
-from loguru import logger
 
 SOURCE_CURRENCIES = ['GBP', 'EUR', 'CAD']
 

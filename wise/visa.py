@@ -2,7 +2,6 @@ from datetime import datetime
 
 import cloudscraper
 from pydantic import BaseModel
-from time import sleep
 from retry import retry
 
 # d = {
