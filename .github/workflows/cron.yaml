@@ -35,7 +35,7 @@ jobs:
           LOGURU_LEVEL: INFO
         run: |
           poetry install
-          poetry run python main.py
+          poetry run python main.py >> output.txt
 
       - uses: slackapi/slack-github-action@v1.24.0
         env:
@@ -43,3 +43,10 @@ jobs:
         with:
           channel-id: C058Z4XLGTE
           payload-file-path: payload.json
+
+      - uses: exuanbo/actions-deploy-gist@v1
+        with:
+          token: ${{ secrets.GIST_TOKEN }}
+          gist_id: ${{ secrets.GIST_ID }}
+          file_path: output.txt
+          file_type: text
