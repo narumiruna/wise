@@ -1,2 +1,2 @@
-from .visa_rate import visa_rate
-from .wise_rate import wise_rate
+from .rate import get_wise_prices
+from .visa import get_visa_fx_rate

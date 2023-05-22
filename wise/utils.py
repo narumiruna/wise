@@ -1,10 +1,11 @@
 from typing import List
 
-from .wise_rate import Price
+from .price import Price
 
 
-def get_bank_transfer_in_balance_out(prices: List[Price]):
+def get_bank_transfer_in_balance_out(prices: List[Price]) -> Price:
     for price in prices:
         if price.payInMethod == 'BANK_TRANSFER' and price.payOutMethod == 'BALANCE':
             return price
-    return None
+
+    raise ValueError('Bank transfer in balance out not found')

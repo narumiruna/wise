@@ -49,7 +49,7 @@ class OriginalValues(BaseModel):
     benchmarks: list
 
 
-class VisaResponse(BaseModel):
+class FxRate(BaseModel):
     originalValues: OriginalValues
     conversionAmountValue: str
     conversionBankFee: str
@@ -66,7 +66,7 @@ class VisaResponse(BaseModel):
     status: str
 
 
-def visa_rate(amount: float = 1000, from_curr: str = 'TWD', to_curr: str = 'USD', fee: float = 0.0) -> VisaResponse:
+def get_visa_fx_rate(amount: float = 1.0, from_curr: str = 'TWD', to_curr: str = 'USD', fee: float = 0.0) -> FxRate:
     url = 'https://www.visa.com.tw/cmsapi/fx/rates'
 
     params = dict(
@@ -80,4 +80,4 @@ def visa_rate(amount: float = 1000, from_curr: str = 'TWD', to_curr: str = 'USD'
 
     resp = cloudscraper.create_scraper().get(url=url, params=params)
 
-    return VisaResponse.parse_obj(resp.json())
+    return FxRate.parse_obj(resp.json())

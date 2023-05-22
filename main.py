@@ -7,12 +7,12 @@ SOURCE_CURRENCIES = ['GBP', 'EUR', 'CAD']
 
 
 def calculate_wise_fee(source_currency: float, target_amount: float, target_currency: str, card_fee: float):
-    source_twd_rate = float(wise.visa_rate(amount=1, from_curr='TWD', to_curr=source_currency).fxRateWithAdditionalFee)
+    source_twd_rate = float(wise.get_visa_fx_rate(from_curr='TWD', to_curr=source_currency).fxRateWithAdditionalFee)
 
     # 取得 wise 的價格
-    prices = wise.wise_rate(target_amount=target_amount,
-                            source_currency=source_currency,
-                            target_currency=target_currency)
+    prices = wise.get_wise_prices(target_amount=target_amount,
+                                  source_currency=source_currency,
+                                  target_currency=target_currency)
     # 找出銀行轉帳到 wise balance 的價格
     # 使用 Google Pay 的 PayInMethod 會是 Bank Transfer
     price = get_bank_transfer_in_balance_out(prices)
@@ -34,7 +34,7 @@ def calculate_wise_fee(source_currency: float, target_amount: float, target_curr
 
     # 取得目標貨幣對台幣的匯率
     target_currency_in_twd = float(
-        wise.visa_rate(amount=1, from_curr='TWD', to_curr=target_currency).fxRateWithAdditionalFee)
+        wise.get_visa_fx_rate(from_curr='TWD', to_curr=target_currency).fxRateWithAdditionalFee)
     logger.info('{}TWD: {}', target_currency, target_currency_in_twd)
 
     # 計算 wise 的手續費
