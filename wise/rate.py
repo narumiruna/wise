@@ -15,7 +15,7 @@ def get_wise_prices(source_amount: float = None,
                     profile_country: str = "GB",
                     profile_type: str = 'PERSONAL',
                     markers: str = 'FCF_PRICING') -> List[Price]:
-    url = 'https://wise.com/gateway/v1/price'
+    url = 'http://wise.com/gateway/v1/price'
 
     params = dict(
         sourceCurrency=source_currency,

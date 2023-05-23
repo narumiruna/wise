@@ -69,7 +69,7 @@ class FxRate(BaseModel):
 
 @retry(tries=100, delay=1)
 def get_visa_fx_rate(amount: float = 1.0, from_curr: str = 'TWD', to_curr: str = 'USD', fee: float = 0.0) -> FxRate:
-    url = 'https://www.visa.com.tw/cmsapi/fx/rates'
+    url = 'http://www.visa.com.tw/cmsapi/fx/rates'
 
     params = dict(
         amount=amount,
