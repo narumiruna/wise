@@ -3,7 +3,9 @@ from datetime import datetime
 import cloudscraper
 from pydantic import BaseModel
 from retry import retry
+from datetime import timedelta
 
+import json
 # d = {
 #     'originalValues': {
 #         'fromCurrency': 'USD',
@@ -68,13 +70,20 @@ class FxRate(BaseModel):
 
 
 @retry(tries=100, delay=1)
-def get_visa_fx_rate(amount: float = 1.0, from_curr: str = 'TWD', to_curr: str = 'USD', fee: float = 0.0) -> FxRate:
+def get_visa_fx_rate(amount: float = 1.0,
+                     from_curr: str = 'TWD',
+                     to_curr: str = 'USD',
+                     fee: float = 0.0,
+                     date: datetime = None) -> FxRate:
     url = 'http://www.visa.com.tw/cmsapi/fx/rates'
+
+    if date is None:
+        date = datetime.now()
 
     params = dict(
         amount=amount,
-        utcConvertedDate=datetime.now().strftime('%m%d%Y'),
-        exchangedate=datetime.now().strftime('%m/%d/%Y'),
+        utcConvertedDate=date.strftime('%m/%d/%Y'),
+        exchangedate=date.strftime('%m/%d/%Y'),
         fromCurr=from_curr,
         toCurr=to_curr,
         fee=fee,
@@ -84,4 +93,9 @@ def get_visa_fx_rate(amount: float = 1.0, from_curr: str = 'TWD', to_curr: str =
 
     resp = scraper.get(url=url, params=params)
 
-    return FxRate.parse_obj(resp.json())
+    try:
+        fx_rate = FxRate.parse_obj(resp.json())
+    except json.decoder.JSONDecodeError:
+        fx_rate = get_visa_fx_rate(amount, from_curr, to_curr, fee, date - timedelta(days=1))
+
+    return fx_rate
