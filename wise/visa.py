@@ -84,7 +84,4 @@ def get_visa_fx_rate(amount: float = 1.0, from_curr: str = 'TWD', to_curr: str =
 
     resp = scraper.get(url=url, params=params)
 
-    with open('visa.html', 'wb') as f:
-        f.write(resp.content)
-
     return FxRate.parse_obj(resp.json())
