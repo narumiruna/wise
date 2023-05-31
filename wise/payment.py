@@ -4,7 +4,7 @@ from loguru import logger
 
 from .price import Price
 from .rate import get_wise_prices
-from .utils import get_bank_transfer_in_balance_out
+from .utils import find_price
 
 
 class Payment:
@@ -35,7 +35,7 @@ class Payment:
             target_currency=self.target_currency,
         )
 
-        self.price = get_bank_transfer_in_balance_out(prices)
+        self.price = find_price(prices, pay_in_method='VISA_CREDIT', pay_out_method='BALANCE')
         logger.debug(f"Price: {self.price}")
 
         return self.price
