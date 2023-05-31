@@ -1,5 +1,6 @@
 from wise.cost import Cost
 from wise.payment import Payment
+from typing import List
 
 
 def main():
@@ -25,9 +26,15 @@ def main():
         'SGD',
         'USD',
     ]
+
+    costs: List[Cost] = []
     for source_currency in source_currencies:
         payment = Payment().pay_with(source_currency).add(1000, 'USD')
         cost = Cost(payment)
+        costs.append(cost)
+
+    # sort by total fee rate
+    for cost in sorted(costs, key=lambda x: x.get_total_fee_rate()):
         print(cost)
 
 
