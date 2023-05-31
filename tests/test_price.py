@@ -15,5 +15,5 @@ def test_get_wise_prices():
     assert isinstance(prices, List)
     assert isinstance(prices[0], Price)
     assert prices[0].targetAmount == target_amount
-    assert prices[0].targetCurrency == target_currency
-    assert prices[0].sourceCurrency == source_currency
+    assert prices[0].targetCcy == target_currency
+    assert prices[0].sourceCcy == source_currency
