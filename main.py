@@ -6,7 +6,7 @@ from typing import List
 def main():
     source_currencies = [
         'AUD',
-        'BGN',
+        # 'BGN',  # google pay not supported
         'BRL',
         'CAD',
         'CHF',
