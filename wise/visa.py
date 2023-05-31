@@ -6,35 +6,6 @@ from retry import retry
 from datetime import timedelta
 
 import json
-# d = {
-#     'originalValues': {
-#         'fromCurrency': 'USD',
-#         'fromCurrencyName': 'United States Dollar',
-#         'toCurrency': 'TWD',
-#         'toCurrencyName': 'New Taiwan Dollar',
-#         'asOfDate': 1684595009,
-#         'fromAmount': '1000',
-#         'toAmountWithVisaRate': '30619',
-#         'toAmountWithAdditionalFee': '30619',
-#         'fxRateVisa': '30.619',
-#         'fxRateWithAdditionalFee': '30.619',
-#         'lastUpdatedVisaRate': 1684540259,
-#         'benchmarks': []
-#     },
-#     'conversionAmountValue': '1000',
-#     'conversionBankFee': '0.0',
-#     'conversionInputDate': '05/20/2023',
-#     'conversionFromCurrency': 'TWD',
-#     'conversionToCurrency': 'USD',
-#     'fromCurrencyName': 'United States Dollar',
-#     'toCurrencyName': 'New Taiwan Dollar',
-#     'convertedAmount': '30,619.000000',
-#     'benchMarkAmount': '',
-#     'fxRateWithAdditionalFee': '30.619',
-#     'reverseAmount': '0.032659',
-#     'disclaimerDate': 'May 20, 2023',
-#     'status': 'success'
-# }
 
 
 class OriginalValues(BaseModel):
