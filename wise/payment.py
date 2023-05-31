@@ -3,7 +3,7 @@ from __future__ import annotations
 from loguru import logger
 
 from .price import Price
-from .rate import get_wise_prices
+from .price import get_wise_prices
 from .utils import find_price
 
 
