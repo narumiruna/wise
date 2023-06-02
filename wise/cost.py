@@ -43,7 +43,7 @@ class Cost:
         return self.get_amount() * miles_rate
 
     def get_wise_fees(self) -> float:
-        return self.get_amount() - self.target_amount * self.get_fx_rate(self.target_currency, self.base_currency)
+        return self.get_amount() - self.target_amount / self.get_fx_rate(self.base_currency, self.target_currency)
 
     def get_total_fees(self) -> float:
         return self.get_card_fees() + self.get_wise_fees()
