@@ -1,8 +1,7 @@
-from pydantic import BaseModel
-
 from typing import List
 
 import requests
+from pydantic import BaseModel
 from pydantic import parse_obj_as
 from requests.utils import default_headers
 

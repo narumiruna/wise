@@ -1,0 +1,41 @@
+import os
+
+import influxdb_client
+from dotenv import load_dotenv
+from influxdb_client import InfluxDBClient
+from influxdb_client import Point
+from influxdb_client.client.write_api import SYNCHRONOUS
+
+from .cost import Cost
+
+DEFAULT_INFLUXDB_ORG = 'narumi'
+DEFAULT_INFLUXDB_URL = 'http://10.0.0.10:8086'
+
+
+class CostWriter:
+
+    def __init__(self, client: InfluxDBClient, bucket: str = 'wise'):
+        self.client = client
+        self.bucket = bucket
+
+        self.write_api = self.client.write_api(write_options=SYNCHRONOUS)
+
+    def write(self, cost: Cost):
+        point = Point('cost')
+        point.tag('source_currency', cost.source_currency)
+        point.tag('target_currency', 'USD')
+        point.tag('amount', cost.target_amount)
+        point.field('total_fee_rate', cost.get_total_fee_rate())
+
+        self.write_api.write(bucket=self.bucket, org=self.client.org, record=point)
+
+    @classmethod
+    def from_env(cls, bucket: str = 'wise'):
+        load_dotenv()
+
+        token = os.environ.get('INFLUXDB_TOKEN')
+        org = os.environ.get('INFLUXDB_ORG', DEFAULT_INFLUXDB_ORG)
+        url = os.environ.get('INFLUXDB_URL', DEFAULT_INFLUXDB_URL)
+
+        client = influxdb_client.InfluxDBClient(url=url, token=token, org=org)
+        return cls(client, bucket=bucket)

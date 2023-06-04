@@ -1,11 +1,10 @@
+import json
 from datetime import datetime
+from datetime import timedelta
 
 import cloudscraper
 from pydantic import BaseModel
 from retry import retry
-from datetime import timedelta
-
-import json
 
 
 class OriginalValues(BaseModel):

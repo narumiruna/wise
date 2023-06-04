@@ -1,5 +1,5 @@
-from wise.visa import get_visa_fx_rate
 from wise.visa import FxRate
+from wise.visa import get_visa_fx_rate
 
 
 def test_get_visa_fx_rate():

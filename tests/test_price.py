@@ -1,6 +1,7 @@
-from wise.price import get_wise_prices, Price
-
 from typing import List
+
+from wise.price import Price
+from wise.price import get_wise_prices
 
 
 def test_get_wise_prices():
