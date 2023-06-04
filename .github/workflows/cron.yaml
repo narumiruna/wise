@@ -33,9 +33,12 @@ jobs:
       - name: Run
         env:
           LOGURU_LEVEL: INFO
+          INFLUXDB_URL: ${{ secrets.INFLUXDB_URL }}
+          INFLUXDB_TOKEN: ${{ secrets.INFLUXDB_TOKEN }}
+          INFLUXDB_ORG: ${{ secrets.INFLUXDB_ORG }}
         run: |
           poetry install
-          poetry run python main.py >> output.txt
+          poetry run python main.py --write-cost >> output.txt
 
       - uses: exuanbo/actions-deploy-gist@v1
         with:

@@ -33,9 +33,9 @@ class CostWriter:
     def from_env(cls, bucket: str = 'wise'):
         load_dotenv()
 
+        url = os.environ.get('INFLUXDB_URL', DEFAULT_INFLUXDB_URL)
         token = os.environ.get('INFLUXDB_TOKEN')
         org = os.environ.get('INFLUXDB_ORG', DEFAULT_INFLUXDB_ORG)
-        url = os.environ.get('INFLUXDB_URL', DEFAULT_INFLUXDB_URL)
 
         client = influxdb_client.InfluxDBClient(url=url, token=token, org=org)
         return cls(client, bucket=bucket)
