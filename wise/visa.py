@@ -1,6 +1,7 @@
 import json
 from datetime import datetime
 from datetime import timedelta
+from time import sleep
 
 import cloudscraper
 from pydantic import BaseModel
@@ -68,4 +69,5 @@ def get_visa_fx_rate(amount: float = 1.0,
     except json.decoder.JSONDecodeError:
         fx_rate = get_visa_fx_rate(amount, from_curr, to_curr, fee, date - timedelta(days=1))
 
+    sleep(0.1)
     return fx_rate

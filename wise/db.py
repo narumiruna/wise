@@ -1,4 +1,5 @@
 import os
+from typing import List
 
 import influxdb_client
 from dotenv import load_dotenv
@@ -14,13 +15,21 @@ DEFAULT_INFLUXDB_URL = 'http://127.0.0.1:8086'
 
 class CostWriter:
 
-    def __init__(self, client: InfluxDBClient, bucket: str = 'wise'):
+    def __init__(self, client: InfluxDBClient, bucket: str):
         self.client = client
         self.bucket = bucket
 
         self.write_api = self.client.write_api(write_options=SYNCHRONOUS)
 
     def write(self, cost: Cost):
+        points = []
+
+        points.append(self.get_cost_point(cost))
+        points.extend(self.get_fx_rate_points(cost))
+
+        self.write_api.write(bucket=self.bucket, org=self.client.org, record=points)
+
+    def get_cost_point(self, cost: Cost) -> Point:
         point = Point('cost')
         point.tag('source_currency', cost.source_currency)
         point.tag('target_currency', 'USD')
@@ -34,8 +43,20 @@ class CostWriter:
         point.field('amount', cost.amount)
         point.field('total_amount', cost.total_amount)
         point.field('source_amount', cost.source_amount)
+        return point
 
-        self.write_api.write(bucket=self.bucket, org=self.client.org, record=point)
+    def get_fx_rate_points(self, cost: Cost) -> List[Point]:
+        base_currencies = [cost.source_currency, cost.target_currency]
+
+        points = []
+        for base_currency in base_currencies:
+            point = Point('fx_rate')
+            point.tag('base_currency', base_currency)
+            point.tag('quote_currency', cost.quote_currency)
+            point.field('rate', cost.get_fx_rate(base_currency, cost.quote_currency))
+            points.append(point)
+
+        return points
 
     @classmethod
     def from_env(cls, bucket: str = 'wise'):
