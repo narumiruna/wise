@@ -59,6 +59,10 @@ class Cost:
     def total_fee_rate(self):
         return self.total_fee / self.total_amount
 
+    @property
+    def mile_price(self):
+        return self.total_fee / self.miles
+
     def get_fx_rate(self, from_curr: str, to_curr: str):
         symbol = f'{from_curr}{to_curr}'
         if symbol in self.fx_rates.keys():
@@ -76,6 +80,6 @@ class Cost:
         # format_string += ', card fees: {:.2f} {}'.format(self.card_fees, self.base_currency)
         format_string += ', total fees: {:.2f} {} ({:.2f}%)'.format(self.total_fee, self.quote_currency,
                                                                     self.total_fee_rate * 100)
-        format_string += ', miles: {:.2f}'.format(self.miles())
-        format_string += ', mile cost: {:.2f} {}/mile'.format(self.total_fee / self.miles, self.quote_currency)
+        format_string += ', miles: {:.2f}'.format(self.miles)
+        format_string += ', mile price: {:.2f} {}/mile'.format(self.mile_price, self.quote_currency)
         return format_string
