@@ -25,7 +25,7 @@ class CostWriter:
         point.tag('source_currency', cost.source_currency)
         point.tag('target_currency', 'USD')
         point.tag('amount', cost.target_amount)
-        point.field('total_fee_rate', cost.get_total_fee_rate())
+        point.field('total_fee_rate', cost.total_fee_rate)
 
         self.write_api.write(bucket=self.bucket, org=self.client.org, record=point)
 
