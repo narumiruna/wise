@@ -9,7 +9,7 @@ from influxdb_client.client.write_api import SYNCHRONOUS
 from .cost import Cost
 
 DEFAULT_INFLUXDB_ORG = 'narumi'
-DEFAULT_INFLUXDB_URL = 'http://10.0.0.10:8086'
+DEFAULT_INFLUXDB_URL = 'http://127.0.0.1:8086'
 
 
 class CostWriter:
