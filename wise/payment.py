@@ -40,7 +40,7 @@ class Payment:
 
         return self.price
 
-    def get_amount(self) -> float:
+    def get_source_amount(self) -> float:
         return self.get_price().sourceAmount
 
     def get_total_fees(self) -> float:

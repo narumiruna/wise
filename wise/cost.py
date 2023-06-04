@@ -31,7 +31,7 @@ class Cost:
         return self.fx_rates[symbol]
 
     def get_amount(self) -> float:
-        return self.payment.get_amount() * self.get_fx_rate(self.source_currency, self.quote_currency)
+        return self.payment.get_source_amount() * self.get_fx_rate(self.source_currency, self.quote_currency)
 
     def get_total_amount(self) -> float:
         return self.get_amount() + self.get_card_fees()
@@ -53,7 +53,7 @@ class Cost:
 
     def __str__(self) -> str:
         format_string = 'Add {:.2f} {}'.format(self.target_amount, self.target_currency)
-        format_string += ', pay {:.2f} {}'.format(self.payment.get_amount(), self.payment.source_currency)
+        format_string += ', pay {:.2f} {}'.format(self.payment.get_source_amount(), self.payment.source_currency)
         format_string += ' ({:.2f} {})'.format(self.get_amount(), self.quote_currency)
         # format_string += ', wise fees: {:.2f} {}'.format(self.get_wise_fees(), self.base_currency)
         # format_string += ', card fees: {:.2f} {}'.format(self.get_card_fees(), self.base_currency)
