@@ -12,9 +12,12 @@ class Payment:
     def __init__(self):
         self.target_amount = None
         self.target_currency = None
-        self.source_amount = None
         self.source_currency = None
         self.price = None
+
+    @property
+    def source_amount(self) -> float:
+        return self.get_price().sourceAmount
 
     def pay_with(self, currency: str) -> Payment:
         self.source_currency = currency
@@ -39,9 +42,3 @@ class Payment:
         logger.debug(f"Price: {self.price}")
 
         return self.price
-
-    def get_source_amount(self) -> float:
-        return self.get_price().sourceAmount
-
-    def get_total_fees(self) -> float:
-        return self.get_price().total

@@ -34,7 +34,7 @@ def main(write_cost: bool):
             writer.write(cost)
 
     # sort by total fee rate
-    for cost in sorted(costs, key=lambda x: x.get_total_fee_rate()):
+    for cost in sorted(costs, key=lambda x: x.total_fee_rate):
         print(cost)
 
 
