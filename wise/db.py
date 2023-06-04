@@ -43,6 +43,7 @@ class CostWriter:
         point.field('amount', cost.amount)
         point.field('total_amount', cost.total_amount)
         point.field('source_amount', cost.source_amount)
+        point.field('mile_price', cost.mile_price)
         return point
 
     def get_fx_rate_points(self, cost: Cost) -> List[Point]:
