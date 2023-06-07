@@ -36,7 +36,7 @@ jobs:
           INFLUXDB_URL: ${{ secrets.INFLUXDB_URL }}
           INFLUXDB_TOKEN: ${{ secrets.INFLUXDB_TOKEN }}
           INFLUXDB_ORG: ${{ secrets.INFLUXDB_ORG }}
-          SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
         run: |
           poetry install
           poetry run python main.py --write-cost --send-slack >> output.txt
