@@ -10,7 +10,7 @@ from .cost import Cost
 
 class SlackBot:
 
-    def __init__(self, token: str, channel: str = '#wise', threshold: float = 0.025):
+    def __init__(self, token: str, channel: str = '#wise', threshold: float = 0.02):
         self.client = WebClient(token=token)
         self.channel = channel
         self.threshold = threshold
