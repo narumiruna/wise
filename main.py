@@ -20,7 +20,7 @@ def main(write_cost: bool, send_slack: bool):
         'SEK', 'SGD', 'USD'
     ]
 
-    amounts = [2000]
+    amounts = [1000, 1500, 2000]
 
     writer = None
     if write_cost:
