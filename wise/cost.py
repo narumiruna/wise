@@ -1,5 +1,6 @@
+from visafx import rates
+
 from .payment import Payment
-from .visa import get_visa_fx_rate
 
 
 class Cost:
@@ -68,7 +69,7 @@ class Cost:
         if symbol in self.fx_rates.keys():
             return self.fx_rates[symbol]
 
-        fx_rate = get_visa_fx_rate(from_curr=to_curr, to_curr=from_curr)
+        fx_rate = rates(from_curr=to_curr, to_curr=from_curr)
         self.fx_rates[symbol] = float(fx_rate.convertedAmount)
         return self.fx_rates[symbol]
 
