@@ -1,10 +1,10 @@
-name: Test
+name: Python
 
 on:
   push:
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
 
     strategy:
@@ -26,5 +26,11 @@ jobs:
           python-version: ${{ matrix.python-version }}
           cache: poetry
 
+      - name: Install dependencies
+        run: poetry install
+
+      - name: Lint with flake8
+        run: poetry run flake8 --verbose
+
       - name: Test
-        run: make test
+        run: poetry run pytest -v -s --disable-warnings tests
