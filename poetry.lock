@@ -601,6 +601,21 @@ socks = ["pysocks (>=1.5.6,!=1.5.7,<2.0)"]
 zstd = ["zstandard (>=0.18.0)"]
 
 [[package]]
+name = "visafx"
+version = "0.1.0"
+description = ""
+optional = false
+python-versions = ">=3.9,<4.0"
+files = [
+    {file = "visafx-0.1.0-py3-none-any.whl", hash = "sha256:5d3f0c7e7eb576ce2d322db56c4da3a2f70eb9caa034a470fb2969c760de7e00"},
+]
+
+[package.dependencies]
+cloudscraper = ">=1.2.71,<2.0.0"
+pydantic = ">=1.10.9,<2.0.0"
+retry = ">=0.9.2,<0.10.0"
+
+[[package]]
 name = "win32-setctime"
 version = "1.1.0"
 description = "A small Python utility to set file creation time on Windows"
@@ -628,4 +643,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "e9ee69b533a65d359d48f7c5d073a52b05a216102e1438f9630beb6c4d02fe68"
+content-hash = "e9e823fc30d2b19886953155abba11ff7c7418e4ba97e829ecdd5831813bfe6f"
