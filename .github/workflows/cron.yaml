@@ -41,12 +41,12 @@ jobs:
           poetry install
           poetry run python main.py --write-cost --send-slack >> wise.txt
 
-      - uses: exuanbo/actions-deploy-gist@v1
-        with:
-          token: ${{ secrets.GIST_TOKEN }}
-          gist_id: ${{ vars.GIST_ID }}
-          file_path: wise.txt
-          file_type: text
+#       - uses: exuanbo/actions-deploy-gist@v1
+#         with:
+#           token: ${{ secrets.GIST_TOKEN }}
+#           gist_id: ${{ vars.GIST_ID }}
+#           file_path: wise.txt
+#           file_type: text
           
 
       - uses: danielmcconville/gist-sync-file-action@v1.0.0
