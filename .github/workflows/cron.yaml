@@ -47,3 +47,13 @@ jobs:
           gist_id: ${{ vars.GIST_ID }}
           file_path: wise.txt
           file_type: text
+          
+
+      - uses: danielmcconville/gist-sync-file-action@v1.0.0
+        with:
+          gistPat: ${{ secrets.GIST_TOKEN }}
+          action: update
+          filename: wise.txt
+          gistId: ${{ vars.GIST_ID }}
+          # optional, used with the download action. Create the gist if it does not exist, you must supply a filename if setting this to true
+          createIfNotExists: true
