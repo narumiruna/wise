@@ -39,11 +39,11 @@ jobs:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
         run: |
           poetry install
-          poetry run python main.py --write-cost --send-slack >> "$GITHUB_OUTPUT"
+          poetry run python main.py --write-cost --send-slack >> output.txt
 
-      # - uses: exuanbo/actions-deploy-gist@v1
-      #   with:
-      #     token: ${{ secrets.GIST_TOKEN }}
-      #     gist_id: ${{ vars.GIST_ID }}
-      #     file_path: output.txt
-      #     file_type: text
+      - uses: exuanbo/actions-deploy-gist@v1
+        with:
+          token: ${{ secrets.GIST_TOKEN }}
+          gist_id: ${{ vars.GIST_ID }}
+          file_path: output.txt
+          file_type: text
