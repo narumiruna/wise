@@ -24,27 +24,28 @@ def main(write_cost: bool, threshold: float):
 
     amounts = [1000, 1500, 2000]
 
-    writer = None
-    if write_cost:
-        writer = CostWriter.from_env()
-
-    telegram_bot = TelegramBot.from_env()
-
     costs: List[Cost] = []
     for source_currency, amount in product(source_currencies, amounts):
         payment = Payment().pay_with(source_currency).add(amount, 'USD')
         cost = Cost(payment)
         costs.append(cost)
 
-        if writer is not None:
-            writer.write(cost)
+    # sort by total fee rate
+    costs = sorted(costs, key=lambda x: x.total_fee_rate)
 
+    # print costs
+    for cost in costs:
+        print(cost)
+
+    telegram_bot = TelegramBot.from_env()
+    for cost in costs:
         if cost.total_fee_rate <= threshold:
             telegram_bot.send(cost)
 
-    # sort by total fee rate
-    for cost in sorted(costs, key=lambda x: x.total_fee_rate):
-        print(cost)
+    if write_cost:
+        writer = CostWriter.from_env()
+        for cost in costs:
+            writer.write(cost)
 
 
 if __name__ == '__main__':
