@@ -40,7 +40,7 @@ jobs:
           CHAT_ID: ${{ vars.CHAT_ID }}
         run: |
           poetry install
-          poetry run python main.py --write-cost --send-slack >> output.txt
+          poetry run python main.py --write-cost >> output.txt
 
       # - uses: exuanbo/actions-deploy-gist@v1
       #   with:

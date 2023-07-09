@@ -8,10 +8,9 @@ from .cost import Cost
 
 class TelegramBot:
 
-    def __init__(self, token: str, chat_id: int, threshold: float = 0.0252):
+    def __init__(self, token: str, chat_id: int):
         self.token = token
         self.chat_id = chat_id
-        self.threshold = threshold
 
     @classmethod
     def from_env(cls):
@@ -22,8 +21,5 @@ class TelegramBot:
         return cls(token, int(chat_id.strip()))
 
     def send(self, cost: Cost):
-        if cost.total_fee_rate > self.threshold:
-            return
-
         bot = telegram.Bot(self.token)
         asyncio.run(bot.send_message(self.chat_id, str(cost)))
