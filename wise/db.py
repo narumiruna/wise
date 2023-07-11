@@ -7,7 +7,7 @@ from influxdb_client import InfluxDBClient
 from influxdb_client import Point
 from influxdb_client.client.write_api import SYNCHRONOUS
 
-from .cost import VisaFxRateCost
+from .visa_cost import VisaFxRateCost
 
 DEFAULT_INFLUXDB_ORG = 'narumi'
 DEFAULT_INFLUXDB_URL = 'http://127.0.0.1:8086'

@@ -4,11 +4,11 @@ from typing import List
 import click
 from dotenv import load_dotenv
 
-from wise.cost import VisaFxRateCost
 from wise.db import CostWriter
 from wise.payment import Payment
 from wise.telegram import TelegramBot
 from wise.utils import create_page
+from wise.visa_cost import VisaFxRateCost
 
 
 @click.command()
