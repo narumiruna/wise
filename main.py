@@ -38,8 +38,10 @@ def main(write_cost: bool, threshold: float):
     for cost in costs:
         print(cost)
 
-    s = '\n'.join([str(cost) for cost in costs if cost.total_fee_rate <= threshold])
-    TelegramBot.from_env().send(create_page(s)['url'])
+    low_costs = [str(cost) for cost in costs if cost.total_fee_rate <= threshold]
+    if low_costs:
+        s = '\n'.join(low_costs)
+        TelegramBot.from_env().send(create_page(s)['url'])
 
     if write_cost:
         writer = CostWriter.from_env()
