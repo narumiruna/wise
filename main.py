@@ -37,10 +37,8 @@ def main(write_cost: bool, threshold: float):
     for cost in costs:
         print(cost)
 
-    telegram_bot = TelegramBot.from_env()
-    for cost in costs:
-        if cost.total_fee_rate <= threshold:
-            telegram_bot.send(cost)
+    s = '\n'.join([str(cost) for cost in costs if cost.total_fee_rate <= threshold])
+    TelegramBot.from_env().send(s)
 
     if write_cost:
         writer = CostWriter.from_env()

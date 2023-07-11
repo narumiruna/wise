@@ -3,8 +3,6 @@ import os
 
 import telegram
 
-from .cost import Cost
-
 
 class TelegramBot:
 
@@ -20,6 +18,6 @@ class TelegramBot:
             raise ValueError('CHAT_ID is not set')
         return cls(token, int(chat_id.strip()))
 
-    def send(self, cost: Cost):
+    def send(self, message: str):
         bot = telegram.Bot(self.token)
-        asyncio.run(bot.send_message(self.chat_id, str(cost)))
+        asyncio.run(bot.send_message(self.chat_id, message))
