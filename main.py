@@ -8,6 +8,7 @@ from wise.cost import Cost
 from wise.db import CostWriter
 from wise.payment import Payment
 from wise.telegram import TelegramBot
+from wise.utils import create_page
 
 
 @click.command()
@@ -38,7 +39,7 @@ def main(write_cost: bool, threshold: float):
         print(cost)
 
     s = '\n'.join([str(cost) for cost in costs if cost.total_fee_rate <= threshold])
-    TelegramBot.from_env().send(s)
+    TelegramBot.from_env().send(create_page(s)['url'])
 
     if write_cost:
         writer = CostWriter.from_env()
