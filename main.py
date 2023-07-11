@@ -4,7 +4,7 @@ from typing import List
 import click
 from dotenv import load_dotenv
 
-from wise.cost import Cost
+from wise.cost import VisaFxRateCost
 from wise.db import CostWriter
 from wise.payment import Payment
 from wise.telegram import TelegramBot
@@ -25,10 +25,10 @@ def main(write_cost: bool, threshold: float):
 
     amounts = [1000, 1500, 2000]
 
-    costs: List[Cost] = []
+    costs: List[VisaFxRateCost] = []
     for source_currency, amount in product(source_currencies, amounts):
         payment = Payment().pay_with(source_currency).add(amount, 'USD')
-        cost = Cost(payment)
+        cost = VisaFxRateCost(payment)
         costs.append(cost)
 
     # sort by total fee rate

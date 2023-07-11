@@ -3,7 +3,7 @@ from visafx import rates
 from .payment import Payment
 
 
-class Cost:
+class VisaFxRateCost:
 
     def __init__(self,
                  payment: Payment,
