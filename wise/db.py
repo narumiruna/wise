@@ -1,5 +1,4 @@
 import os
-from typing import List
 
 import influxdb_client
 from dotenv import load_dotenv
@@ -25,7 +24,6 @@ class CostWriter:
         points = []
 
         points.append(self.get_cost_point(cost))
-        points.extend(self.get_fx_rate_points(cost))
 
         self.write_api.write(bucket=self.bucket, org=self.client.org, record=points)
 
@@ -45,19 +43,6 @@ class CostWriter:
         point.field('source_amount', cost.source_amount)
         point.field('mile_price', cost.mile_price)
         return point
-
-    def get_fx_rate_points(self, cost: MileCost) -> List[Point]:
-        base_currencies = [cost.source_currency, cost.target_currency]
-
-        points = []
-        for base_currency in base_currencies:
-            point = Point('fx_rate')
-            point.tag('base_currency', base_currency)
-            point.tag('quote_currency', cost.quote_currency)
-            point.field('rate', cost.get_fx_rate(base_currency, cost.quote_currency))
-            points.append(point)
-
-        return points
 
     @classmethod
     def from_env(cls, bucket: str = 'wise'):

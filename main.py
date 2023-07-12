@@ -5,10 +5,10 @@ import click
 from dotenv import load_dotenv
 
 from wise.db import CostWriter
+from wise.mile_cost import MileCost
 from wise.payment import Payment
 from wise.telegram import TelegramBot
 from wise.utils import create_page
-from wise.mile_cost import MileCost
 
 
 @click.command()
@@ -55,15 +55,15 @@ def main(write_cost: bool, threshold: float):
     for cost in costs:
         print(cost)
 
-    low_costs = [str(cost) for cost in costs if cost.total_fee_rate <= threshold]
-    if low_costs:
-        s = '\n\n'.join(low_costs)
-        TelegramBot.from_env().send(create_page(s)['url'])
+    # low_costs = [str(cost) for cost in costs if cost.total_fee_rate <= threshold]
+    # if low_costs:
+    #     s = '\n\n'.join(low_costs)
+    #     TelegramBot.from_env().send(create_page(s)['url'])
 
-    if write_cost:
-        writer = CostWriter.from_env()
-        for cost in costs:
-            writer.write(cost)
+    # if write_cost:
+    #     writer = CostWriter.from_env()
+    #     for cost in costs:
+    #         writer.write(cost)
 
 
 if __name__ == '__main__':
