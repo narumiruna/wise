@@ -7,7 +7,7 @@ from influxdb_client import InfluxDBClient
 from influxdb_client import Point
 from influxdb_client.client.write_api import SYNCHRONOUS
 
-from .visa_cost import VisaFxRateCost
+from .mile_cost import MileCost
 
 DEFAULT_INFLUXDB_ORG = 'narumi'
 DEFAULT_INFLUXDB_URL = 'http://127.0.0.1:8086'
@@ -21,7 +21,7 @@ class CostWriter:
 
         self.write_api = self.client.write_api(write_options=SYNCHRONOUS)
 
-    def write(self, cost: VisaFxRateCost):
+    def write(self, cost: MileCost):
         points = []
 
         points.append(self.get_cost_point(cost))
@@ -29,7 +29,7 @@ class CostWriter:
 
         self.write_api.write(bucket=self.bucket, org=self.client.org, record=points)
 
-    def get_cost_point(self, cost: VisaFxRateCost) -> Point:
+    def get_cost_point(self, cost: MileCost) -> Point:
         point = Point('cost')
         point.tag('source_currency', cost.source_currency)
         point.tag('target_currency', 'USD')
@@ -46,7 +46,7 @@ class CostWriter:
         point.field('mile_price', cost.mile_price)
         return point
 
-    def get_fx_rate_points(self, cost: VisaFxRateCost) -> List[Point]:
+    def get_fx_rate_points(self, cost: MileCost) -> List[Point]:
         base_currencies = [cost.source_currency, cost.target_currency]
 
         points = []

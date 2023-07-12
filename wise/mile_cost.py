@@ -1,9 +1,8 @@
-from visafx import rates
-
 from .payment import Payment
+from .yrate import rates
 
 
-class VisaFxRateCost:
+class MileCost:
 
     def __init__(self,
                  payment: Payment,
@@ -34,7 +33,7 @@ class VisaFxRateCost:
 
     @property
     def amount(self):
-        return self.source_amount * self.get_fx_rate(self.source_currency, self.quote_currency)
+        return self.source_amount * rates(self.source_currency, self.quote_currency)
 
     @property
     def card_fee(self):
@@ -50,7 +49,7 @@ class VisaFxRateCost:
 
     @property
     def wise_fee(self):
-        return self.amount - self.target_amount / self.get_fx_rate(self.quote_currency, self.target_currency)
+        return self.amount - self.target_amount * rates(self.target_currency, self.quote_currency)
 
     @property
     def total_fee(self):
@@ -63,15 +62,6 @@ class VisaFxRateCost:
     @property
     def mile_price(self):
         return self.total_fee / self.miles
-
-    def get_fx_rate(self, from_curr: str, to_curr: str):
-        symbol = f'{from_curr}{to_curr}'
-        if symbol in self.fx_rates.keys():
-            return self.fx_rates[symbol]
-
-        fx_rate = rates(from_curr=to_curr, to_curr=from_curr)
-        self.fx_rates[symbol] = float(fx_rate.convertedAmount)
-        return self.fx_rates[symbol]
 
     def __str__(self) -> str:
         format_string = 'Add {:.2f} {}'.format(self.target_amount, self.target_currency)

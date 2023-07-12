@@ -8,7 +8,7 @@ from wise.db import CostWriter
 from wise.payment import Payment
 from wise.telegram import TelegramBot
 from wise.utils import create_page
-from wise.visa_cost import VisaFxRateCost
+from wise.mile_cost import MileCost
 
 
 @click.command()
@@ -19,16 +19,33 @@ def main(write_cost: bool, threshold: float):
 
     # 'BGN',  # google pay not supported
     source_currencies = [
-        'AUD', 'BRL', 'CAD', 'CHF', 'CZK', 'DKK', 'EUR', 'GBP', 'HUF', 'IDR', 'INR', 'JPY', 'NOK', 'NZD', 'PLN', 'RON',
-        'SEK', 'SGD', 'USD'
+        'AUD',
+        # 'BRL',
+        'CAD',
+        'CHF',
+        'CZK',
+        'DKK',
+        'EUR',
+        'GBP',
+        'HUF',
+        'IDR',
+        'INR',
+        'JPY',
+        'NOK',
+        'NZD',
+        'PLN',
+        'RON',
+        'SEK',
+        'SGD',
+        'USD',
     ]
 
     amounts = [1000, 1500, 2000]
 
-    costs: List[VisaFxRateCost] = []
+    costs: List[MileCost] = []
     for source_currency, amount in product(source_currencies, amounts):
         payment = Payment().pay_with(source_currency).add(amount, 'USD')
-        cost = VisaFxRateCost(payment)
+        cost = MileCost(payment)
         costs.append(cost)
 
     # sort by total fee rate
