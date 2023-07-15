@@ -16,6 +16,7 @@ python-telegram-bot = "^20.3"
 telegraph = "^2.2.0"
 markdown = "^3.4.3"
 yfinance = "^0.2.22"
+retry = "^0.9.2"
 
 [tool.poetry.group.dev.dependencies]
 flake8 = "^5.0.4"
