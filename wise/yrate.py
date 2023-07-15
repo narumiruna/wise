@@ -1,6 +1,7 @@
 import pandas as pd
 import yfinance as yf
 from pydantic import BaseModel
+from retry import retry
 
 
 class Ticker(BaseModel):
@@ -12,6 +13,7 @@ class Ticker(BaseModel):
     Volume: float
 
 
+@retry(delay=1)
 def rates(from_curr, to_curr):
     if from_curr == to_curr:
         return 1.0
