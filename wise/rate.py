@@ -1,7 +1,9 @@
 from .payment import Payment
 
 
-def rates(from_curr, to_curr):
-    payment = Payment().add(1000, currency=to_curr).pay_with(from_curr)
+def rates(base_curr: str, quote_curr: str) -> float:
+    if base_curr == quote_curr:
+        return 1.0
+    payment = Payment().add(1000, currency=quote_curr).pay_with(base_curr)
     p = payment.price
     return p.targetAmount / (p.sourceAmount - p.total)
