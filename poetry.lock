@@ -52,13 +52,13 @@ lxml = ["lxml"]
 
 [[package]]
 name = "certifi"
-version = "2023.5.7"
+version = "2023.7.22"
 description = "Python package for providing Mozilla's CA Bundle."
 optional = false
 python-versions = ">=3.6"
 files = [
-    {file = "certifi-2023.5.7-py3-none-any.whl", hash = "sha256:c6c2e98f5c7869efca1f8916fed228dd91539f9f1b444c314c06eef02980c716"},
-    {file = "certifi-2023.5.7.tar.gz", hash = "sha256:0f0d56dc5a6ad56fd4ba36484d6cc34451e1c6548c61daad8c320169f91eddc7"},
+    {file = "certifi-2023.7.22-py3-none-any.whl", hash = "sha256:92d6037539857d8206b8f6ae472e8b77db8058fec5937a1ef3f54304089edbb9"},
+    {file = "certifi-2023.7.22.tar.gz", hash = "sha256:539cc1d13202e33ca466e88b2807e29f4c13049d6d87031a3c110744495cb082"},
 ]
 
 [[package]]
@@ -1107,22 +1107,13 @@ files = [
 
 [[package]]
 name = "yfinance"
-<<<<<<< HEAD
-version = "0.2.24"
-=======
 version = "0.2.26"
->>>>>>> e63b099 (update poetry.lock)
 description = "Download market data from Yahoo! Finance API"
 optional = false
 python-versions = "*"
 files = [
-<<<<<<< HEAD
-    {file = "yfinance-0.2.24-py2.py3-none-any.whl", hash = "sha256:1234b5ac91c5e78d5929d59817032ef1343b0da68365476f0fdf29a56a20b20d"},
-    {file = "yfinance-0.2.24.tar.gz", hash = "sha256:51104dbc897659c907fbbaac4ff27db4769431600dcf6d362f57c713282f1349"},
-=======
     {file = "yfinance-0.2.26-py2.py3-none-any.whl", hash = "sha256:3e1798e43956c7eb6266ada0b3522254f9d5099db89343cf535d93136383b5b4"},
     {file = "yfinance-0.2.26.tar.gz", hash = "sha256:a3ca2218cc99ebf345c5cfe43f69e6d1a0d360cb3cd6e0cd8f5ff80f81ee069d"},
->>>>>>> e63b099 (update poetry.lock)
 ]
 
 [package.dependencies]
