@@ -4,7 +4,6 @@ from typing import List
 import click
 from dotenv import load_dotenv
 
-from wise.db import CostWriter
 from wise.mile_cost import MileCost
 from wise.payment import Payment
 from wise.telegram import TelegramBot

@@ -33,21 +33,11 @@ jobs:
       - name: Run
         env:
           LOGURU_LEVEL: INFO
-          INFLUXDB_URL: ${{ secrets.INFLUXDB_URL }}
-          INFLUXDB_TOKEN: ${{ secrets.INFLUXDB_TOKEN }}
-          INFLUXDB_ORG: ${{ secrets.INFLUXDB_ORG }}
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           CHAT_ID: ${{ vars.CHAT_ID }}
         run: |
           poetry install
-          poetry run python main.py --write-cost >> output.txt
-
-      # - uses: exuanbo/actions-deploy-gist@v1
-      #   with:
-      #     token: ${{ secrets.GIST_TOKEN }}
-      #     gist_id: ${{ vars.GIST_ID }}
-      #     file_path: output.txt
-      #     file_type: text
+          poetry run python main.py >> output.txt
 
       - uses: danielmcconville/gist-sync-file-action@v1.0.0
         with:
