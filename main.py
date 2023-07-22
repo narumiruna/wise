@@ -12,9 +12,8 @@ from wise.utils import create_page
 
 
 @click.command()
-@click.option('--write-cost', is_flag=True, default=False, help='Write cost to influxdb')
 @click.option('--threshold', type=click.FLOAT, default=0.02, help='Threshold for telegram message')
-def main(write_cost: bool, threshold: float):
+def main(threshold: float):
     load_dotenv()
 
     # 'BGN',  # google pay not supported
@@ -59,11 +58,6 @@ def main(write_cost: bool, threshold: float):
     if low_costs:
         s = '\n\n'.join(low_costs)
         TelegramBot.from_env().send(create_page(s)['url'])
-
-    if write_cost:
-        writer = CostWriter.from_env()
-        for cost in costs:
-            writer.write(cost)
 
 
 if __name__ == '__main__':
