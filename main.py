@@ -4,7 +4,7 @@ from typing import List
 import click
 from dotenv import load_dotenv
 
-from wise.mile_cost import MileCost
+from wise.cost import Cost
 from wise.payment import Payment
 from wise.telegram import TelegramBot
 from wise.utils import create_page
@@ -22,12 +22,12 @@ def main(threshold: float):
         'SGD', 'USD'
     ]
 
-    amounts = [1000, 1500, 2000]
+    amounts = [1000]
 
-    costs: List[MileCost] = []
+    costs: List[Cost] = []
     for source_currency, amount in product(source_currencies, amounts):
         payment = Payment().pay_with(source_currency).add(amount, 'USD')
-        cost = MileCost(payment)
+        cost = Cost(payment)
         costs.append(cost)
 
     # sort by total fee rate

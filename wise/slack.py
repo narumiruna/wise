@@ -5,7 +5,7 @@ from loguru import logger
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 
-from .mile_cost import MileCost
+from .cost import Cost
 
 
 class SlackBot:
@@ -15,7 +15,7 @@ class SlackBot:
         self.channel = channel
         self.threshold = threshold
 
-    def check(self, cost: MileCost) -> None:
+    def check(self, cost: Cost) -> None:
         if cost.total_fee_rate <= self.threshold:
             format_string = f"[{cost.source_currency}]"
             format_string += f' total fee rate {cost.total_fee_rate:.2%} is below threshold {self.threshold:.2%}!'
