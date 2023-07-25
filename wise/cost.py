@@ -2,7 +2,7 @@ from .payment import Payment
 from .yrate import rates
 
 
-class MileCost:
+class Cost:
 
     def __init__(self,
                  payment: Payment,

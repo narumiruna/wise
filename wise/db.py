@@ -6,7 +6,7 @@ from influxdb_client import InfluxDBClient
 from influxdb_client import Point
 from influxdb_client.client.write_api import SYNCHRONOUS
 
-from .mile_cost import MileCost
+from .cost import Cost
 
 DEFAULT_INFLUXDB_ORG = 'narumi'
 DEFAULT_INFLUXDB_URL = 'http://127.0.0.1:8086'
@@ -20,14 +20,14 @@ class CostWriter:
 
         self.write_api = self.client.write_api(write_options=SYNCHRONOUS)
 
-    def write(self, cost: MileCost):
+    def write(self, cost: Cost):
         points = []
 
         points.append(self.get_cost_point(cost))
 
         self.write_api.write(bucket=self.bucket, org=self.client.org, record=points)
 
-    def get_cost_point(self, cost: MileCost) -> Point:
+    def get_cost_point(self, cost: Cost) -> Point:
         point = Point('cost')
         point.tag('source_currency', cost.source_currency)
         point.tag('target_currency', 'USD')
