@@ -22,7 +22,7 @@ def main(threshold: float):
         'SGD', 'USD'
     ]
 
-    amounts = [1000, 1500, 2000]
+    amounts = [1000]
 
     costs: List[MileCost] = []
     for source_currency, amount in product(source_currencies, amounts):

@@ -49,6 +49,10 @@ class MileCost:
         return self.payment.price.total
 
     @property
+    def fee_rate(self):
+        return self.wise_fee / self.source_amount
+
+    @property
     def total_fee(self):
         return self.card_fee + self.wise_fee
 
@@ -61,13 +65,9 @@ class MileCost:
         return self.total_fee * self.fx_rate / self.miles
 
     def __str__(self) -> str:
-        format_string = 'Add {:.2f} {}'.format(self.target_amount, self.target_currency)
-        format_string += ', pay {:.2f} {}'.format(self.source_amount, self.payment.source_currency)
-        # format_string += ' ({:.2f} {})'.format(self.amount, self.quote_currency)
-        # format_string += ', wise fees: {:.2f} {}'.format(self.wise_fees, self.base_currency)
-        # format_string += ', card fees: {:.2f} {}'.format(self.card_fees, self.base_currency)
-        format_string += ', total fees: {:.2f} {} ({:.2f}%)'.format(self.total_fee, self.quote_currency,
-                                                                    self.total_fee_rate * 100)
-        format_string += ', miles: {:.2f}'.format(self.miles)
-        format_string += ', mile price: {:.2f} {}/mile'.format(self.mile_price, self.quote_currency)
-        return format_string
+        return (f'Add {self.target_amount:.2f} { self.target_currency}'
+                f', pay with {self.source_amount:.2f} {self.source_currency}'
+                # f', card fee: {self.card_fee:.2f} {self.source_currency} ({self.card_fee_rate * 100:.2f}%)'
+                f', wise fee: {self.wise_fee:.2f} {self.source_currency} ({self.fee_rate * 100:.2f}%)'
+                f', total fee: {self.total_fee:.2f} {self.source_currency} ({self.total_fee_rate * 100:.2f}%)'
+                f', miles: {self.miles:.2f} ({self.mile_price:.2f} {self.quote_currency}/mile)')
