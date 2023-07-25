@@ -40,10 +40,6 @@ class MileCost:
         return self.source_amount + self.card_fee
 
     @property
-    def miles(self):
-        return self.source_amount * self.mile_rate * self.fx_rate
-
-    @property
     def wise_fee(self):
         return self.payment.price.total
 
@@ -58,6 +54,10 @@ class MileCost:
     @property
     def total_fee_rate(self):
         return self.total_fee / self.total_amount
+
+    @property
+    def miles(self):
+        return self.source_amount * self.mile_rate * self.fx_rate
 
     @property
     def mile_price(self):
