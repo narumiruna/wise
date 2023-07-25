@@ -50,7 +50,7 @@ class Cost:
 
     def __str__(self) -> str:
 
-        return (f'add {self.target_amount:.2f} {self.target_currency}'
+        return (f'Add {self.target_amount:.2f} {self.target_currency}'
                 f', pay with: {self.source_amount:.2f} {self.source_currency}'
                 f', wise fee: {self.wise_fee:.2f} {self.source_currency} ({self.fee_rate*100:.2f}%)'
                 f', total fee: {self.total_fee:.2f} {self.source_currency} ({self.total_fee_rate*100:.2f}%)')
