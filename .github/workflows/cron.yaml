@@ -39,7 +39,7 @@ jobs:
           poetry install
           poetry run python cost.py >> output.txt
           echo '====================' >> output.txt
-          poetry run python main.py >> output.txt
+          poetry run python mile_cost.py >> output.txt
 
       - uses: danielmcconville/gist-sync-file-action@v1.0.0
         with:
