@@ -1,5 +1,5 @@
 from .payment import Payment
-from .yrate import rates
+from .yrate import get_fx_rate
 
 
 class Cost:
@@ -13,7 +13,7 @@ class Cost:
         self.quote_currency = quote_currency
         self.card_fee_rate = card_fee_rate
         self.mile_rate = mile_rate
-        self.fx_rate = rates(self.source_currency, self.quote_currency)
+        self.fx_rate = get_fx_rate(self.source_currency, self.quote_currency)
 
     @property
     def source_currency(self):
