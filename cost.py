@@ -1,7 +1,5 @@
 from typing import List
 
-from dotenv import load_dotenv
-
 from wise import Payment
 from wise.cost import Cost
 
