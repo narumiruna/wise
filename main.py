@@ -15,27 +15,11 @@ from wise.utils import create_page
 def main(threshold: float):
     load_dotenv()
 
-    # 'BGN',  # google pay not supported
+    # 'BGN' not supported by google pay
+    # 'BRL' not supported by yahoo finance
     source_currencies = [
-        'AUD',
-        # 'BRL',
-        'CAD',
-        'CHF',
-        'CZK',
-        'DKK',
-        'EUR',
-        'GBP',
-        'HUF',
-        'IDR',
-        'INR',
-        'JPY',
-        'NOK',
-        'NZD',
-        'PLN',
-        'RON',
-        'SEK',
-        'SGD',
-        'USD',
+        'AUD', 'CAD', 'CHF', 'CZK', 'DKK', 'EUR', 'GBP', 'HUF', 'IDR', 'INR', 'JPY', 'NOK', 'NZD', 'PLN', 'RON', 'SEK',
+        'SGD', 'USD'
     ]
 
     amounts = [1000, 1500, 2000]
