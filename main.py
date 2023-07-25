@@ -11,7 +11,7 @@ from wise.utils import create_page
 
 
 @click.command()
-@click.option('--threshold', type=click.FLOAT, default=0.02, help='Threshold for telegram message')
+@click.option('--threshold', type=click.FLOAT, default=0.022, help='Threshold for telegram message')
 def main(threshold: float):
     load_dotenv()
 

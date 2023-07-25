@@ -20,4 +20,4 @@ class TelegramBot:
 
     def send(self, message: str):
         bot = telegram.Bot(self.token)
-        asyncio.run(bot.send_message(self.chat_id, message))
+        asyncio.run(bot.send_message(self.chat_id, message, disable_notification=True))
