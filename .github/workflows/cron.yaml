@@ -37,6 +37,8 @@ jobs:
           CHAT_ID: ${{ vars.CHAT_ID }}
         run: |
           poetry install
+          poetry run python cost.py >> output.txt
+          echo '====================' >> output.txt
           poetry run python main.py >> output.txt
 
       - uses: danielmcconville/gist-sync-file-action@v1.0.0
