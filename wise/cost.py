@@ -1,5 +1,5 @@
 from .payment import Payment
-from .yrate import get_fx_rate
+from .yf_rate import get_fx_rate
 
 
 class Cost:
