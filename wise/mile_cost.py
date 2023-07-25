@@ -8,12 +8,11 @@ class MileCost:
                  payment: Payment,
                  quote_currency: str = 'TWD',
                  card_fee_rate: float = 0.015,
-                 miles_rate: float = 0.1):
+                 mile_rate: float = 0.1):
         self.payment = payment
         self.quote_currency = quote_currency
-        self.fx_rates = {}
         self.card_fee_rate = card_fee_rate
-        self.miles_rate = miles_rate
+        self.mile_rate = mile_rate
         self.fx_rate = rates(self.source_currency, self.quote_currency)
 
     @property
@@ -42,14 +41,14 @@ class MileCost:
 
     @property
     def miles(self):
-        return self.source_amount * self.miles_rate * self.fx_rate
+        return self.source_amount * self.mile_rate * self.fx_rate
 
     @property
     def wise_fee(self):
         return self.payment.price.total
 
     @property
-    def fee_rate(self):
+    def wise_fee_rate(self):
         return self.wise_fee / self.source_amount
 
     @property
@@ -67,7 +66,6 @@ class MileCost:
     def __str__(self) -> str:
         return (f'Add {self.target_amount:.2f} { self.target_currency}'
                 f', pay with {self.source_amount:.2f} {self.source_currency}'
-                # f', card fee: {self.card_fee:.2f} {self.source_currency} ({self.card_fee_rate * 100:.2f}%)'
-                f', wise fee: {self.wise_fee:.2f} {self.source_currency} ({self.fee_rate * 100:.2f}%)'
+                f', wise fee: {self.wise_fee:.2f} {self.source_currency} ({self.wise_fee_rate * 100:.2f}%)'
                 f', total fee: {self.total_fee:.2f} {self.source_currency} ({self.total_fee_rate * 100:.2f}%)'
                 f', miles: {self.miles:.2f} ({self.mile_price:.2f} {self.quote_currency}/mile)')
