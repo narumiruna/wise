@@ -7,8 +7,6 @@ from wise.cost import Cost
 
 
 def main() -> None:
-    load_dotenv()
-
     target_amount = 1000
     target_currency = 'USD'
 
