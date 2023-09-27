@@ -8,7 +8,6 @@ from .utils import find_price
 
 
 class Payment:
-
     def __init__(self):
         self.target_amount = None
         self.target_currency = None
@@ -26,7 +25,9 @@ class Payment:
             target_currency=self.target_currency,
         )
 
-        price = find_price(prices, pay_in_method='VISA_CREDIT', pay_out_method='BALANCE')
+        price = find_price(
+            prices, pay_in_method="VISA_CREDIT", pay_out_method="BALANCE"
+        )
         logger.debug(f"Price: {price}")
 
         self._price = price

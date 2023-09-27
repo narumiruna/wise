@@ -26,15 +26,17 @@ class Price(BaseModel):
     additionalFeeDetails: dict
 
 
-def get_wise_prices(source_amount: float = None,
-                    source_currency: str = None,
-                    target_amount: float = None,
-                    target_currency: str = None,
-                    profile_id: str = None,
-                    profile_country: str = "TW",
-                    profile_type: str = 'PERSONAL',
-                    markers: str = 'FCF_PRICING') -> List[Price]:
-    url = 'http://wise.com/gateway/v1/price'
+def get_wise_prices(
+    source_amount: float = None,
+    source_currency: str = None,
+    target_amount: float = None,
+    target_currency: str = None,
+    profile_id: str = None,
+    profile_country: str = "TW",
+    profile_type: str = "PERSONAL",
+    markers: str = "FCF_PRICING",
+) -> List[Price]:
+    url = "http://wise.com/gateway/v1/price"
 
     params = dict(
         sourceCurrency=source_currency,
@@ -44,13 +46,13 @@ def get_wise_prices(source_amount: float = None,
         markers=markers,
     )
     if source_amount is not None:
-        params['sourceAmount'] = source_amount
+        params["sourceAmount"] = source_amount
 
     if target_amount is not None:
-        params['targetAmount'] = target_amount
+        params["targetAmount"] = target_amount
 
     if profile_id is not None:
-        params['profileId'] = profile_id
+        params["profileId"] = profile_id
 
     resp = requests.get(url=url, params=params, headers=default_headers())
 

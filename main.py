@@ -11,22 +11,43 @@ from wise.utils import create_page
 
 
 @click.command()
-@click.option('--threshold', type=click.FLOAT, default=0.022, help='Threshold for telegram message')
+@click.option(
+    "--threshold",
+    type=click.FLOAT,
+    default=0.022,
+    help="Threshold for telegram message",
+)
 def main(threshold: float):
     load_dotenv()
 
     # 'BGN' not supported by google pay
     # 'BRL' not supported by yahoo finance
     source_currencies = [
-        'AUD', 'CAD', 'CHF', 'CZK', 'DKK', 'EUR', 'GBP', 'HUF', 'IDR', 'INR', 'JPY', 'NOK', 'NZD', 'PLN', 'RON', 'SEK',
-        'SGD', 'USD'
+        "AUD",
+        "CAD",
+        "CHF",
+        "CZK",
+        "DKK",
+        "EUR",
+        "GBP",
+        "HUF",
+        "IDR",
+        "INR",
+        "JPY",
+        "NOK",
+        "NZD",
+        "PLN",
+        "RON",
+        "SEK",
+        "SGD",
+        "USD",
     ]
 
     amounts = [1000]
 
     costs: List[Cost] = []
     for source_currency, amount in product(source_currencies, amounts):
-        payment = Payment().pay_with(source_currency).add(amount, 'USD')
+        payment = Payment().pay_with(source_currency).add(amount, "USD")
         cost = Cost(payment)
         costs.append(cost)
 
@@ -39,9 +60,9 @@ def main(threshold: float):
 
     low_costs = [str(cost) for cost in costs if cost.total_fee_rate <= threshold]
     if low_costs:
-        s = '\n\n'.join(low_costs)
-        TelegramBot.from_env().send(create_page(s)['url'])
+        s = "\n\n".join(low_costs)
+        TelegramBot.from_env().send(create_page(s)["url"])
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

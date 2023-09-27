@@ -3,12 +3,13 @@ from .yf_rate import get_fx_rate
 
 
 class Cost:
-
-    def __init__(self,
-                 payment: Payment,
-                 quote_currency: str = 'TWD',
-                 card_fee_rate: float = 0.015,
-                 mile_rate: float = 0.1):
+    def __init__(
+        self,
+        payment: Payment,
+        quote_currency: str = "TWD",
+        card_fee_rate: float = 0.015,
+        mile_rate: float = 0.1,
+    ):
         self.payment = payment
         self.quote_currency = quote_currency
         self.card_fee_rate = card_fee_rate
@@ -64,8 +65,10 @@ class Cost:
         return self.total_fee * self.fx_rate / self.miles
 
     def __str__(self) -> str:
-        return (f'Add {self.target_amount:.2f} { self.target_currency}'
-                f', pay with {self.source_amount:.2f} {self.source_currency}'
-                f', wise fee: {self.wise_fee:.2f} {self.source_currency} ({self.wise_fee_rate * 100:.2f}%)'
-                f', total fee: {self.total_fee:.2f} {self.source_currency} ({self.total_fee_rate * 100:.2f}%)'
-                f', miles: {self.miles:.2f} ({self.mile_price:.2f} {self.quote_currency}/mile)')
+        return (
+            f"Add {self.target_amount:.2f} { self.target_currency}"
+            f", pay with {self.source_amount:.2f} {self.source_currency}"
+            f", wise fee: {self.wise_fee:.2f} {self.source_currency} ({self.wise_fee_rate * 100:.2f}%)"
+            f", total fee: {self.total_fee:.2f} {self.source_currency} ({self.total_fee_rate * 100:.2f}%)"
+            f", miles: {self.miles:.2f} ({self.mile_price:.2f} {self.quote_currency}/mile)"
+        )

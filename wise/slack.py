@@ -9,8 +9,7 @@ from .cost import Cost
 
 
 class SlackBot:
-
-    def __init__(self, token: str, channel: str = '#wise', threshold: float = 0.02):
+    def __init__(self, token: str, channel: str = "#wise", threshold: float = 0.02):
         self.client = WebClient(token=token)
         self.channel = channel
         self.threshold = threshold
@@ -18,7 +17,7 @@ class SlackBot:
     def check(self, cost: Cost) -> None:
         if cost.total_fee_rate <= self.threshold:
             format_string = f"[{cost.source_currency}]"
-            format_string += f' total fee rate {cost.total_fee_rate:.2%} is below threshold {self.threshold:.2%}!'
+            format_string += f" total fee rate {cost.total_fee_rate:.2%} is below threshold {self.threshold:.2%}!"
             try:
                 self.client.chat_postMessage(channel=self.channel, text=format_string)
             except SlackApiError as e:
@@ -27,5 +26,5 @@ class SlackBot:
     @classmethod
     def from_env(cls):
         load_dotenv()
-        token = os.environ.get('SLACK_BOT_TOKEN')
+        token = os.environ.get("SLACK_BOT_TOKEN")
         return cls(token=token)
