@@ -37,7 +37,7 @@ class CostWriter:
         point.field("total_fee", cost.total_fee)
         point.field("total_fee_rate", cost.total_fee_rate)
         point.field("miles", cost.miles)
-        point.field("amount", cost.amount)
+        point.field("amount", cost.source_amount)
         point.field("total_amount", cost.total_amount)
         point.field("source_amount", cost.source_amount)
         point.field("mile_price", cost.mile_price)
