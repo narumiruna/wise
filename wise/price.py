@@ -25,8 +25,44 @@ class Price(BaseModel):
     ecbMarkupPercent: float
     additionalFeeDetails: dict
 
+    @property
+    def target_amount(self) -> float:
+        return self.targetAmount
 
-def get_wise_prices(
+    @property
+    def target_currency(self) -> str:
+        return self.targetCcy
+
+    @property
+    def source_amount(self) -> float:
+        return self.sourceAmount
+
+    @property
+    def source_currency(self) -> str:
+        return self.sourceCcy
+
+
+def get_price(
+    source_amount: float = None,
+    source_currency: str = None,
+    target_amount: float = None,
+    target_currency: str = None,
+    pay_in_method: str = "VISA_CREDIT",
+    pay_out_method: str = "BALANCE",
+) -> Price:
+    return find_price(
+        get_prices(
+            source_amount=source_amount,
+            source_currency=source_currency,
+            target_amount=target_amount,
+            target_currency=target_currency,
+        ),
+        pay_in_method=pay_in_method,
+        pay_out_method=pay_out_method,
+    )
+
+
+def get_prices(
     source_amount: float = None,
     source_currency: str = None,
     target_amount: float = None,
@@ -57,3 +93,20 @@ def get_wise_prices(
     resp = requests.get(url=url, params=params, headers=default_headers())
 
     return parse_obj_as(List[Price], resp.json())
+
+
+def find_price(
+    prices: List[Price],
+    pay_in_method: str = "VISA_CREDIT",
+    pay_out_method: str = "BALANCE",
+) -> Price:
+    for price in prices:
+        if (
+            price.payInMethod == pay_in_method.upper()
+            and price.payOutMethod == pay_out_method.upper()
+        ):
+            return price
+
+    raise ValueError(
+        f"Price not found for pay_in_method={pay_in_method} and pay_out_method={pay_out_method}"
+    )

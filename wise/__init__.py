@@ -1,5 +1,5 @@
 from .cost import Cost
-from .payment import Payment
-from .price import get_wise_prices
+from .price import get_price
+from .price import get_prices
 from .slack import SlackBot
 from .telegram import TelegramBot

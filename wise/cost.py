@@ -1,16 +1,16 @@
-from .payment import Payment
+from .price import Price
 from .yf_rate import get_fx_rate
 
 
 class Cost:
     def __init__(
         self,
-        payment: Payment,
+        price: Price,
         quote_currency: str = "TWD",
         card_fee_rate: float = 0.015,
         mile_rate: float = 0.1,
     ):
-        self.payment = payment
+        self.price = price
         self.quote_currency = quote_currency
         self.card_fee_rate = card_fee_rate
         self.mile_rate = mile_rate
@@ -18,19 +18,19 @@ class Cost:
 
     @property
     def source_currency(self):
-        return self.payment.source_currency
+        return self.price.source_currency
 
     @property
     def target_currency(self):
-        return self.payment.target_currency
+        return self.price.target_currency
 
     @property
     def target_amount(self):
-        return self.payment.target_amount
+        return self.price.target_amount
 
     @property
     def source_amount(self):
-        return self.payment.source_amount
+        return self.price.source_amount
 
     @property
     def card_fee(self):
@@ -42,7 +42,7 @@ class Cost:
 
     @property
     def wise_fee(self):
-        return self.payment.price.total
+        return self.price.total
 
     @property
     def wise_fee_rate(self):

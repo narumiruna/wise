@@ -1,7 +1,7 @@
 from typing import List
 
 from wise.price import Price
-from wise.price import get_wise_prices
+from wise.price import get_prices
 
 
 def test_get_wise_prices():
@@ -9,7 +9,7 @@ def test_get_wise_prices():
     target_currency = "USD"
     source_currency = "GBP"
 
-    prices = get_wise_prices(
+    prices = get_prices(
         target_amount=target_amount,
         target_currency=target_currency,
         source_currency=source_currency,

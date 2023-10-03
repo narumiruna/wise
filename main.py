@@ -5,7 +5,7 @@ import click
 from dotenv import load_dotenv
 
 from wise.cost import Cost
-from wise.payment import Payment
+from wise.price import get_price
 from wise.telegram import TelegramBot
 from wise.utils import create_page
 
@@ -47,12 +47,12 @@ def main(threshold: float):
 
     costs: List[Cost] = []
     for source_currency, amount in product(source_currencies, amounts):
-        payment = Payment(
+        price = get_price(
             source_currency=source_currency,
             target_amount=amount,
             target_currency="USD",
         )
-        cost = Cost(payment)
+        cost = Cost(price)
         costs.append(cost)
 
     # sort by total fee rate
