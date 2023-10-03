@@ -2,6 +2,7 @@ from itertools import product
 from typing import List
 
 import click
+from dotenv import find_dotenv
 from dotenv import load_dotenv
 
 from wise.cost import Cost
@@ -18,7 +19,7 @@ from wise.utils import create_page
     help="Threshold for telegram message",
 )
 def main(threshold: float):
-    load_dotenv()
+    load_dotenv(find_dotenv())
 
     # 'BGN' not supported by google pay
     # 'BRL' not supported by yahoo finance

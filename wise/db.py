@@ -45,7 +45,7 @@ class CostWriter:
 
     @classmethod
     def from_env(cls, bucket: str = "wise"):
-        load_dotenv()
+        load_dotenv(find_dotenv())
 
         url = os.environ.get("INFLUXDB_URL", DEFAULT_INFLUXDB_URL)
         token = os.environ.get("INFLUXDB_TOKEN")

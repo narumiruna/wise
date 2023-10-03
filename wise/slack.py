@@ -25,6 +25,6 @@ class SlackBot:
 
     @classmethod
     def from_env(cls):
-        load_dotenv()
+        load_dotenv(find_dotenv())
         token = os.environ.get("SLACK_BOT_TOKEN")
         return cls(token=token)
