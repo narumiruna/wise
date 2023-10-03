@@ -1,5 +1,6 @@
 import os
 
+from dotenv import find_dotenv
 from dotenv import load_dotenv
 from loguru import logger
 from slack_sdk import WebClient

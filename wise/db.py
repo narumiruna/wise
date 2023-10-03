@@ -1,6 +1,7 @@
 import os
 
 import influxdb_client
+from dotenv import find_dotenv
 from dotenv import load_dotenv
 from influxdb_client import InfluxDBClient
 from influxdb_client import Point

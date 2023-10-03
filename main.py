@@ -4,6 +4,7 @@ from typing import List
 import click
 from dotenv import find_dotenv
 from dotenv import load_dotenv
+from loguru import logger
 
 from wise.cost import Cost
 from wise.price import get_price
@@ -46,18 +47,7 @@ def main(threshold: float):
 
     amounts = [1000]
 
-    costs: List[Cost] = []
-    for source_currency, amount in product(source_currencies, amounts):
-        price = get_price(
-            source_currency=source_currency,
-            target_amount=amount,
-            target_currency="USD",
-        )
-        cost = Cost(price)
-        costs.append(cost)
-
-    # sort by total fee rate
-    costs = sorted(costs, key=lambda x: x.total_fee_rate)
+    costs = get_costs(source_currencies, amounts)
 
     # print costs
     for cost in costs:
@@ -67,6 +57,24 @@ def main(threshold: float):
     if low_costs:
         s = "\n\n".join(low_costs)
         TelegramBot.from_env().send(create_page(s)["url"])
+
+
+def get_costs(source_currencies, amounts) -> List[Cost]:
+    costs = []
+    for source_currency, amount in product(source_currencies, amounts):
+        price = get_price(
+            source_currency=source_currency,
+            target_amount=amount,
+            target_currency="USD",
+        )
+        logger.debug("price: {}", price)
+        cost = Cost(price)
+        costs.append(cost)
+
+    # sort by total fee rate
+    costs = sorted(costs, key=lambda x: x.total_fee_rate)
+
+    return costs
 
 
 if __name__ == "__main__":
