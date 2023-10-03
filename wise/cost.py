@@ -14,23 +14,12 @@ class Cost:
         self.quote_currency = quote_currency
         self.card_fee_rate = card_fee_rate
         self.mile_rate = mile_rate
+
+        self.source_amount = price.source_amount
+        self.source_currency = price.source_currency
+        self.target_amount = price.target_amount
+        self.target_currency = price.target_currency
         self.fx_rate = get_fx_rate(self.source_currency, self.quote_currency)
-
-    @property
-    def source_amount(self) -> float:
-        return self.price.source_amount
-
-    @property
-    def source_currency(self) -> str:
-        return self.price.source_currency
-
-    @property
-    def target_currency(self) -> str:
-        return self.price.target_currency
-
-    @property
-    def target_amount(self) -> float:
-        return self.price.target_amount
 
     @property
     def card_fee(self) -> float:
