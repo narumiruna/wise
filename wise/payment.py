@@ -1,48 +1,40 @@
 from __future__ import annotations
 
-from loguru import logger
-
-from .price import Price
 from .price import get_wise_prices
 from .utils import find_price
 
 
 class Payment:
-    def __init__(self):
-        self.target_amount = None
-        self.target_currency = None
-        self.source_currency = None
-        self._price = None
-
-    @property
-    def price(self) -> Price:
-        if self._price is not None:
-            return self._price
-
-        prices = get_wise_prices(
-            source_currency=self.source_currency,
-            target_amount=self.target_amount,
-            target_currency=self.target_currency,
+    def __init__(
+        self,
+        source_amount: float = None,
+        source_currency: str = None,
+        target_amount: float = None,
+        target_currency: str = None,
+    ):
+        self.price = find_price(
+            get_wise_prices(
+                source_amount=source_amount,
+                source_currency=source_currency,
+                target_amount=target_amount,
+                target_currency=target_currency,
+            ),
+            pay_in_method="VISA_CREDIT",
+            pay_out_method="BALANCE",
         )
 
-        price = find_price(
-            prices, pay_in_method="VISA_CREDIT", pay_out_method="BALANCE"
-        )
-        logger.debug(f"Price: {price}")
-
-        self._price = price
-
-        return price
+    @property
+    def target_amount(self):
+        return self.price.targetAmount
 
     @property
-    def source_amount(self) -> float:
+    def target_currency(self):
+        return self.price.targetCcy
+
+    @property
+    def source_amount(self):
         return self.price.sourceAmount
 
-    def pay_with(self, currency: str) -> Payment:
-        self.source_currency = currency
-        return self
-
-    def add(self, amount: float, currency: str) -> Payment:
-        self.target_amount = amount
-        self.target_currency = currency
-        return self
+    @property
+    def source_currency(self):
+        return self.price.sourceCcy

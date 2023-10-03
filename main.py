@@ -47,7 +47,11 @@ def main(threshold: float):
 
     costs: List[Cost] = []
     for source_currency, amount in product(source_currencies, amounts):
-        payment = Payment().pay_with(source_currency).add(amount, "USD")
+        payment = Payment(
+            source_currency=source_currency,
+            target_amount=amount,
+            target_currency="USD",
+        )
         cost = Cost(payment)
         costs.append(cost)
 
