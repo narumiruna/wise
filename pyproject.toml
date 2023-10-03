@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "wise"
-version = "0.4.0"
+version = "0.5.0"
 description = ""
-authors = ["なるみ <toucans-cutouts0f@icloud.com>"]
+authors = ["narumi <toucans-cutouts0f@icloud.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
@@ -19,11 +19,11 @@ yfinance = "^0.2.22"
 retry = "^0.9.2"
 
 [tool.poetry.group.dev.dependencies]
+black = "^23.9.1"
 flake8 = "^5.0.4"
 isort = "^5.12.0"
 pytest = "^7.2.0"
 toml = "^0.10.2"
-black = "^23.9.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
