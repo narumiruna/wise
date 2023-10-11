@@ -10,31 +10,21 @@ def cli():
 
 
 @cli.command()
+@click.argument("source-currency", type=click.STRING)
 @click.argument("target-amount", type=click.FLOAT)
 @click.argument("target-currency", type=click.STRING)
 def add(
+    source_currency: str,
     target_amount: float,
     target_currency: str,
 ):
-    source_currencies = [
-        "EUR",
-        "GBP",
-        "NOK",
-    ]
-    costs = [
-        Cost(
-            get_price(
-                source_currency=source_currency,
-                target_amount=target_amount,
-                target_currency=target_currency,
-            )
-        )
-        for source_currency in source_currencies
-    ]
-    costs = sorted(costs, key=lambda x: x.total_fee_rate)
-
-    for cost in costs:
-        print(cost)
+    price = get_price(
+        source_currency=source_currency,
+        target_amount=target_amount,
+        target_currency=target_currency,
+    )
+    cost = Cost(price)
+    print(cost)
 
 
 @cli.command()
