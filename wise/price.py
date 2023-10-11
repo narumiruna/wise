@@ -41,6 +41,10 @@ class Price(BaseModel):
     def source_currency(self) -> str:
         return self.sourceCcy
 
+    def update_source_amount(self, source_amount: float) -> None:
+        self.sourceAmount = source_amount
+        self.total = self.sourceAmount - self.targetAmount / self.midRate
+
 
 def get_price(
     source_amount: float = None,
