@@ -2,7 +2,6 @@ from typing import List
 
 import requests
 from pydantic import BaseModel
-from pydantic import parse_obj_as
 from requests.utils import default_headers
 
 
@@ -96,7 +95,7 @@ def get_prices(
 
     resp = requests.get(url=url, params=params, headers=default_headers())
 
-    return parse_obj_as(List[Price], resp.json())
+    return [Price(**data) for data in resp.json()]
 
 
 def find_price(
