@@ -7,8 +7,6 @@ from loguru import logger
 
 from .cost import Cost
 from .price import get_price
-from .telegram import TelegramBot
-from .utils import create_page
 
 
 @click.group()
@@ -17,13 +15,7 @@ def cli():
 
 
 @cli.command()
-@click.option(
-    "--threshold",
-    type=click.FLOAT,
-    default=0.022,
-    help="Threshold for telegram message",
-)
-def list(threshold: float):
+def list():
     load_dotenv(find_dotenv())
 
     # 'BGN' not supported by google pay
@@ -68,11 +60,6 @@ def list(threshold: float):
     # print costs
     for cost in costs:
         print(cost)
-
-    low_costs = [str(cost) for cost in costs if cost.total_fee_rate <= threshold]
-    if low_costs:
-        s = "\n\n".join(low_costs)
-        TelegramBot.from_env().send(create_page(s)["url"])
 
 
 @cli.command()
