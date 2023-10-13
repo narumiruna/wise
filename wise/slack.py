@@ -1,7 +1,5 @@
 import os
 
-from dotenv import find_dotenv
-from dotenv import load_dotenv
 from loguru import logger
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
@@ -26,6 +24,5 @@ class SlackBot:
 
     @classmethod
     def from_env(cls):
-        load_dotenv(find_dotenv())
         token = os.environ.get("SLACK_BOT_TOKEN")
         return cls(token=token)

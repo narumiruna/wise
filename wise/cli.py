@@ -1,8 +1,6 @@
 from itertools import product
 
 import click
-from dotenv import find_dotenv
-from dotenv import load_dotenv
 from loguru import logger
 
 from .cost import Cost
@@ -16,8 +14,6 @@ def cli():
 
 @cli.command()
 def list():
-    load_dotenv(find_dotenv())
-
     # 'BGN' not supported by google pay
     # 'BRL' not supported by yahoo finance
     source_currencies = [
