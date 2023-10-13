@@ -3,8 +3,6 @@
 ## Usage
 
 ```sh
-git clone https://github.com/narumiruna/wise.git
-cd wise
-pip install .
+pip install git+https://github.com/narumiruna/wise.git
 python main.py
 ```
