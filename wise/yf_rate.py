@@ -1,16 +1,5 @@
-import pandas as pd
 import yfinance as yf
-from pydantic import BaseModel
 from retry import retry
-
-
-class Ticker(BaseModel):
-    Datetime: pd.Timestamp
-    Open: float
-    High: float
-    Low: float
-    Close: float
-    Volume: float
 
 
 @retry(delay=1)
@@ -24,5 +13,4 @@ def get_fx_rate(from_curr, to_curr):
 
     df = yf.Ticker(symbol).history(period="1d", interval="1m")
     df = df.reset_index()
-    t = Ticker.parse_obj(df.iloc[-1].to_dict())
-    return float(t.Close)
+    return float(df.iloc[-1]["Close"])
