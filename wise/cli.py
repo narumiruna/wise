@@ -1,7 +1,5 @@
-from itertools import product
-
 import click
-from loguru import logger
+from tqdm.contrib.itertools import product
 
 from .cost import Cost
 from .price import get_price
@@ -46,7 +44,6 @@ def list():
             target_amount=amount,
             target_currency="USD",
         )
-        logger.debug("price: {}", price)
         cost = Cost(price)
         costs.append(cost)
 
