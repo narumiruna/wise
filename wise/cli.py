@@ -1,5 +1,5 @@
 import click
-from tqdm.contrib.itertools import product
+from tqdm import tqdm
 
 from .cost import Cost
 from .price import get_price
@@ -11,7 +11,8 @@ def cli():
 
 
 @cli.command()
-def list():
+@click.option("--target-amount", type=click.FLOAT, default=1000)
+def list(target_amount: str) -> None:
     # 'BGN' not supported by google pay
     # 'BRL' not supported by yahoo finance
     source_currencies = [
@@ -35,13 +36,11 @@ def list():
         "USD",
     ]
 
-    amounts = [1000]
-
     costs = []
-    for source_currency, amount in product(source_currencies, amounts):
+    for source_currency in tqdm(source_currencies):
         price = get_price(
             source_currency=source_currency,
-            target_amount=amount,
+            target_amount=target_amount,
             target_currency="USD",
         )
         cost = Cost(price)
@@ -63,7 +62,7 @@ def add(
     source_currency: str,
     target_amount: float,
     target_currency: str,
-):
+) -> None:
     price = get_price(
         source_currency=source_currency,
         target_amount=target_amount,
