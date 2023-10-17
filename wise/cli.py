@@ -12,7 +12,8 @@ def cli():
 
 @cli.command()
 @click.option("--target-amount", type=click.FLOAT, default=1000)
-def list(target_amount: str) -> None:
+@click.option("--target-currency", type=click.STRING, default="USD")
+def list(target_amount: str, target_currency: str) -> None:
     # 'BGN' not supported by google pay
     # 'BRL' not supported by yahoo finance
     source_currencies = [
@@ -41,7 +42,7 @@ def list(target_amount: str) -> None:
         price = get_price(
             source_currency=source_currency,
             target_amount=target_amount,
-            target_currency="USD",
+            target_currency=target_currency,
         )
         cost = Cost(price)
         costs.append(cost)
