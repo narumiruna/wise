@@ -18,6 +18,8 @@ class Rate(BaseModel):
 
 
 def get_rate(source: str, target: str) -> Rate:
+    # https://wise.com/tools/exchange-rate-alerts/
+    # https://wise.com/rates/live?source=EUR&target=USD
     url = "https://wise.com/rates/live"
 
     resp = requests.get(url=url, params=dict(source=source, target=target))

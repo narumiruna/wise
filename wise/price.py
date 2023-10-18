@@ -75,6 +75,8 @@ def get_prices(
     profile_type: str = None,
     markers: str = None,
 ) -> List[Price]:
+    # https://wise.com/gb/pricing/receive
+    # https://wise.com/gb/pricing/send-money
     url = "http://wise.com/gateway/v1/price"
 
     params = dict(
