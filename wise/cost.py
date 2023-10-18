@@ -1,5 +1,6 @@
 from .price import Price
-from .yf_rate import get_fx_rate
+from .rate import get_rate
+from .yf_rate import get_yf_rate
 
 
 class Cost:
@@ -9,6 +10,7 @@ class Cost:
         quote_currency: str = "TWD",
         card_fee_rate: float = 0.015,
         mile_rate: float = 0.1,
+        rate_source: str = "yahoo",
     ):
         self.price = price
         self.quote_currency = quote_currency
@@ -19,7 +21,13 @@ class Cost:
         self.source_currency = price.source_currency
         self.target_amount = price.target_amount
         self.target_currency = price.target_currency
-        self.fx_rate = get_fx_rate(self.source_currency, self.quote_currency)
+
+        if rate_source == "yahoo":
+            self.fx_rate = get_yf_rate(self.source_currency, self.quote_currency)
+        elif rate_source == "wise":
+            self.fx_rate = get_rate(self.source_currency, self.quote_currency)
+        else:
+            raise ValueError("rate_source must be yahoo or wise")
 
     @property
     def card_fee(self) -> float:
