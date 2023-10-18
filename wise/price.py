@@ -71,27 +71,22 @@ def get_prices(
     target_amount: float = None,
     target_currency: str = None,
     profile_id: str = None,
-    profile_country: str = "TW",
-    profile_type: str = "PERSONAL",
-    markers: str = "FCF_PRICING",
+    profile_country: str = None,
+    profile_type: str = None,
+    markers: str = None,
 ) -> List[Price]:
     url = "http://wise.com/gateway/v1/price"
 
     params = dict(
+        sourceAmount=source_amount,
         sourceCurrency=source_currency,
+        targetAmount=target_amount,
         targetCurrency=target_currency,
+        profileId=profile_id,
         profileCountry=profile_country,
         profileType=profile_type,
         markers=markers,
     )
-    if source_amount is not None:
-        params["sourceAmount"] = source_amount
-
-    if target_amount is not None:
-        params["targetAmount"] = target_amount
-
-    if profile_id is not None:
-        params["profileId"] = profile_id
 
     resp = requests.get(url=url, params=params, headers=default_headers())
 
