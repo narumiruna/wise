@@ -25,7 +25,7 @@ class Cost:
         if rate_source == "yahoo":
             self.fx_rate = get_yf_rate(self.source_currency, self.quote_currency)
         elif rate_source == "wise":
-            self.fx_rate = get_rate(self.source_currency, self.quote_currency)
+            self.fx_rate = get_rate(self.source_currency, self.quote_currency).value
         else:
             raise ValueError("rate_source must be yahoo or wise")
 
