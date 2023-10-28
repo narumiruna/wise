@@ -52,6 +52,7 @@ class Cost:
 
     @property
     def mile_price(self) -> float:
+        # or self.total_fee / self.source_amount * self.mile_rate
         return self.total_fee * self.fx_rate / self.miles
 
     def __str__(self) -> str:
