@@ -60,5 +60,5 @@ class Cost:
             f", pay with {self.source_amount:.2f} {self.source_currency}"
             f", wise fee: {self.wise_fee:.2f} {self.source_currency} ({self.wise_fee_rate * 100:.2f}%)"
             f", total fee: {self.total_fee:.2f} {self.source_currency} ({self.total_fee_rate * 100:.2f}%)"
-            f", miles: {self.miles:.2f} ({self.mile_price:.2f} {self.quote_currency}/mile)"
+            f", miles: {self.miles:.2f} ({self.mile_price:.4f} {self.quote_currency}/mile)"
         )
