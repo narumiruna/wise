@@ -13,11 +13,11 @@ jobs:
       max-parallel: 1
       matrix:
         python-version: [3.9]
-        poetry-version: [1.5.1]
+        poetry-version: [1.6.1]
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Poetry
         uses: abatilo/actions-poetry@v2
