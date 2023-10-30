@@ -30,8 +30,9 @@ class Cost:
 
         fx_rate = get_rate(self.source_currency, self.quote_currency).value
         self.miles = self.source_amount * self.mile_rate * fx_rate
-        # or self.total_fee / (self.source_amount * self.mile_rate)
-        self.mile_price = self.total_fee * fx_rate / self.miles
+
+        # total_fee * fx_rate / (source_amount * mile_rate * fx_rate)
+        self.mile_price = self.total_fee / (self.source_amount * self.mile_rate)
 
     def __str__(self) -> str:
         return (
