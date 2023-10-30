@@ -3,8 +3,7 @@ from itertools import product
 import click
 from tqdm import tqdm
 
-from .cost import Cost
-from .price import get_price
+from .cost import get_cost
 
 # 'BGN' not supported by google pay
 # 'BRL' not supported by yahoo finance
@@ -31,29 +30,22 @@ source_currencies = [
 
 
 @click.command()
-@click.argument("source-currencies", type=click.STRING)
-@click.argument("target-amounts", type=click.STRING)
-@click.argument("target-currencies", type=click.STRING)
+@click.argument("source-currency", type=click.STRING)
+@click.argument("target-amount", type=click.STRING)
+@click.argument("target-currency", type=click.STRING)
 def cli(
-    source_currencies: str,
-    target_amounts: str,
-    target_currencies: str,
+    source_currency: str,
+    target_amount: str,
+    target_currency: str,
 ):
-    source_currencies = source_currencies.split(",")
-    target_amounts = [float(x) for x in target_amounts.split(",")]
-    target_currencies = target_currencies.split(",")
+    sources = source_currency.split(",")
+    amounts = [float(x) for x in target_amount.split(",")]
+    targets = target_currency.split(",")
 
-    costs = []
-    for source_currency, target_amount, target_currency in tqdm(
-        list(product(source_currencies, target_amounts, target_currencies))
-    ):
-        price = get_price(
-            source_currency=source_currency,
-            target_amount=target_amount,
-            target_currency=target_currency,
-        )
-        cost = Cost(price)
-        costs.append(cost)
+    costs = [
+        get_cost(source, amount, target)
+        for source, amount, target in tqdm(list(product(sources, amounts, targets)))
+    ]
 
     # sort by total fee rate
     costs = sorted(costs, key=lambda x: x.total_fee_rate)

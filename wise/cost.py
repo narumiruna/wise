@@ -1,4 +1,5 @@
 from .price import Price
+from .price import get_price
 from .rate import get_rate
 
 
@@ -40,3 +41,13 @@ class Cost:
             f", total fee: {self.total_fee:.2f} {self.source_currency} ({self.total_fee_rate * 100:.2f}%)"
             f", miles: {self.miles:.2f} ({self.mile_price:.4f} {self.quote_currency}/mile)"
         )
+
+
+def get_cost(source: str, amount: float, target: str) -> Cost:
+    price = get_price(
+        source_currency=source,
+        target_amount=amount,
+        target_currency=target,
+    )
+
+    return Cost(price)
