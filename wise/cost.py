@@ -15,45 +15,22 @@ class Cost:
         self.card_fee_rate = card_fee_rate
         self.mile_rate = mile_rate
 
-        self.source_amount = price.source_amount
-        self.source_currency = price.source_currency
-        self.target_amount = price.target_amount
-        self.target_currency = price.target_currency
+        self.source_amount = price.sourceAmount
+        self.source_currency = price.sourceCcy
+        self.target_amount = price.targetAmount
+        self.target_currency = price.targetCcy
 
-        self.fx_rate = get_rate(self.source_currency, self.quote_currency).value
+        self.card_fee = self.source_amount * self.card_fee_rate
+        self.total_amount = self.source_amount + self.card_fee
+        self.wise_fee = self.price.total
+        self.wise_fee_rate = self.wise_fee / self.source_amount
+        self.total_fee = self.card_fee + self.wise_fee
+        self.total_fee_rate = self.total_fee / self.total_amount
 
-    @property
-    def card_fee(self) -> float:
-        return self.source_amount * self.card_fee_rate
-
-    @property
-    def total_amount(self) -> float:
-        return self.source_amount + self.card_fee
-
-    @property
-    def wise_fee(self) -> float:
-        return self.price.total
-
-    @property
-    def wise_fee_rate(self) -> float:
-        return self.wise_fee / self.source_amount
-
-    @property
-    def total_fee(self) -> float:
-        return self.card_fee + self.wise_fee
-
-    @property
-    def total_fee_rate(self) -> float:
-        return self.total_fee / self.total_amount
-
-    @property
-    def miles(self) -> float:
-        return self.source_amount * self.mile_rate * self.fx_rate
-
-    @property
-    def mile_price(self) -> float:
-        # or self.total_fee / self.source_amount * self.mile_rate
-        return self.total_fee * self.fx_rate / self.miles
+        fx_rate = get_rate(self.source_currency, self.quote_currency).value
+        self.miles = self.source_amount * self.mile_rate * fx_rate
+        # or self.total_fee / (self.source_amount * self.mile_rate)
+        self.mile_price = self.total_fee * fx_rate / self.miles
 
     def __str__(self) -> str:
         return (
