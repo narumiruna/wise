@@ -34,3 +34,7 @@ jobs:
 
       - name: Test
         run: poetry run pytest -v -s --disable-warnings tests
+
+      - uses: narumiruna/auto-tag-version@main
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
