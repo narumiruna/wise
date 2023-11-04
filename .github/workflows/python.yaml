@@ -35,7 +35,7 @@ jobs:
           then
             echo "Tag ${TAG} already exists"
           else
-            git tag ${TAG} && git push origin ${TAG}
+            echo "Tag ${TAG} does not exist"
           fi
 
   # tag:
