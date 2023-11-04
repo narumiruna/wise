@@ -28,23 +28,13 @@ jobs:
         run: poetry run flake8 --verbose
       - name: Test
         run: make test
-      - name: Tag
-        run: |
-          TAG=v$(poetry version -s)
-          if [ $(git tag -l "${TAG}") ]
-          then
-            echo "Tag ${TAG} already exists"
-          else
-            git tag ${TAG} && git push origin ${TAG}
-          fi
-
-  # tag:
-  #   needs: build
-  #   runs-on: ubuntu-latest
-  #   permissions:
-  #     contents: write
-  #   steps:
-  #     - uses: narumiruna/auto-tag-version@main
-  #       with:
-  #         github-token: ${{ secrets.GITHUB_TOKEN }}
-  #         github-repository: ${{ github.repository }}
+  tag:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: narumiruna/auto-tag-version@main
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-repository: ${{ github.repository }}
