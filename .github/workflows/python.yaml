@@ -28,13 +28,3 @@ jobs:
         run: poetry run flake8 --verbose
       - name: Test
         run: make test
-  tag:
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - uses: narumiruna/auto-tag-version@main
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          github-repository: ${{ github.repository }}
