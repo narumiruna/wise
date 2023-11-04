@@ -8,28 +8,20 @@ on:
 jobs:
   cron:
     runs-on: ubuntu-latest
-
     strategy:
       max-parallel: 1
       matrix:
         python-version: [3.9]
         poetry-version: [1.6.1]
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Poetry
-        uses: abatilo/actions-poetry@v2
+      - uses: actions/checkout@v4
+      - uses: abatilo/actions-poetry@v2
         with:
           poetry-version: ${{ matrix.poetry-version }}
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
           cache: poetry
-
       - name: Run
         env:
           LOGURU_LEVEL: INFO
@@ -38,7 +30,6 @@ jobs:
         run: |
           poetry install
           poetry run wise AUD,CAD,CHF,CZK,DKK,EUR,GBP,HUF,IDR,INR,JPY,NOK,NZD,PLN,RON,SEK,SGD,USD 1000 USD >> output.txt
-
       - uses: danielmcconville/gist-sync-file-action@v1.0.0
         with:
           gistPat: ${{ secrets.GIST_TOKEN }}

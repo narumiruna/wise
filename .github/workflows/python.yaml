@@ -6,38 +6,32 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     strategy:
       max-parallel: 1
-
       matrix:
         python-version: [3.9]
         poetry-version: [1.6.1]
-
-    permissions:
-      contents: write
-
     steps:
       - uses: actions/checkout@v4
-
       - uses: abatilo/actions-poetry@v2
         with:
           poetry-version: ${{ matrix.poetry-version }}
-
       - uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
           cache: poetry
-
       - name: Install dependencies
         run: poetry install
-
       - name: Lint with flake8
         run: poetry run flake8 --verbose
-
       - name: Test
         run: poetry run pytest -v -s --disable-warnings tests
-
+  tag:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
       - uses: narumiruna/auto-tag-version@main
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
