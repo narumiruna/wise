@@ -1,8 +1,3 @@
-VERSION := $(shell poetry version -s)
-
-tag:
-	git tag v${VERSION} && git push origin v${VERSION}
-
 install:
 	poetry install
 
