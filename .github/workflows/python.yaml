@@ -27,7 +27,7 @@ jobs:
       - name: Lint with flake8
         run: poetry run flake8 --verbose
       - name: Test
-        run: poetry run pytest -v -s --disable-warnings tests
+        run: make test
       - name: Tag
         run: make tag
 
