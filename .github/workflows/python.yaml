@@ -29,7 +29,14 @@ jobs:
       - name: Test
         run: make test
       - name: Tag
-        run: make tag
+        run: |
+          TAG=v$(poetry version -s)
+          if [ $(git tag -l "${TAG}") ]
+          then
+            echo "Tag ${TAG} already exists"
+          else
+            git tag ${TAG} && git push origin ${TAG}
+          fi
 
   # tag:
   #   needs: build
