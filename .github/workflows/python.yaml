@@ -26,13 +26,16 @@ jobs:
         run: poetry run flake8 --verbose
       - name: Test
         run: poetry run pytest -v -s --disable-warnings tests
-  tag:
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - uses: narumiruna/auto-tag-version@main
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          github-repository: ${{ github.repository }}
+      - name: Tag
+        run: make tag
+
+  # tag:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     contents: write
+  #   steps:
+  #     - uses: narumiruna/auto-tag-version@main
+  #       with:
+  #         github-token: ${{ secrets.GITHUB_TOKEN }}
+  #         github-repository: ${{ github.repository }}
