@@ -10,7 +10,7 @@ jobs:
       max-parallel: 1
       matrix:
         python-version: [3.9]
-        poetry-version: [1.6.1]
+        poetry-version: [1.7.0]
     permissions:
       contents: write
     steps:
@@ -23,8 +23,8 @@ jobs:
           python-version: ${{ matrix.python-version }}
           cache: poetry
       - name: Install dependencies
-        run: poetry install
-      - name: Lint with flake8
-        run: poetry run flake8 --verbose
+        run: make install
+      - name: Lint
+        run: make lint
       - name: Test
         run: make test
