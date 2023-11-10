@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import List
 
 import requests
 from pydantic import BaseModel
@@ -25,3 +26,29 @@ def get_rate(source: str, target: str) -> Rate:
     resp = requests.get(url=url, params=dict(source=source, target=target))
 
     return Rate(**resp.json())
+
+
+def get_rate_history(
+    source: str, target: str, length: int, resolution: str, unit: str
+) -> List[Rate]:
+    if resolution not in ["hourly", "daily"]:
+        raise ValueError("resolution must be hourly or daily")
+
+    if unit not in ["day", "month", "year"]:
+        raise ValueError("unit must be day, month or year")
+
+    # https://wise.com/rates/history?source=EUR&target=USD&length=10&resolution=daily&unit=day
+    url = "https://wise.com/rates/history"
+
+    resp = requests.get(
+        url=url,
+        params=dict(
+            source=source,
+            target=target,
+            length=length,
+            resolution=resolution,
+            unit=unit,
+        ),
+    )
+
+    return [Rate(**r) for r in resp.json()]
