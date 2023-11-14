@@ -18,7 +18,7 @@ class Rate(BaseModel):
         return datetime.fromtimestamp(x // 1000)
 
 
-def get_rate(source: str, target: str) -> Rate:
+def query_rate(source: str, target: str) -> Rate:
     # https://wise.com/tools/exchange-rate-alerts/
     # https://wise.com/rates/live?source=EUR&target=USD
     url = "https://wise.com/rates/live"
@@ -28,7 +28,7 @@ def get_rate(source: str, target: str) -> Rate:
     return Rate(**resp.json())
 
 
-def get_rate_history(
+def query_rate_history(
     source: str, target: str, length: int, resolution: str, unit: str
 ) -> List[Rate]:
     if resolution not in ["hourly", "daily"]:
