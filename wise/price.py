@@ -2,27 +2,28 @@ from typing import List
 
 import requests
 from pydantic import BaseModel
+from pydantic import Field
 from requests.utils import default_headers
 
 
 class Price(BaseModel):
-    priceSetId: int
-    sourceAmount: float
-    targetAmount: float
-    payInMethod: str
-    payOutMethod: str
-    sourceCcy: str
-    targetCcy: str
+    price_set_id: int = Field(None, alias="priceSetId")
+    source_amount: float = Field(None, alias="sourceAmount")
+    target_amount: float = Field(None, alias="targetAmount")
+    pay_in_method: str = Field(None, alias="payInMethod")
+    pay_out_method: str = Field(None, alias="payOutMethod")
+    source_currency: str = Field(None, alias="sourceCcy")
+    target_currency: str = Field(None, alias="targetCcy")
     total: float
-    variableFee: float
-    variableFeePercent: float
-    swiftPayoutFlatFee: float
-    flatFee: float
-    midRate: float
-    ecbRate: float
-    ecbRateTimestamp: int
-    ecbMarkupPercent: float
-    additionalFeeDetails: dict
+    variable_fee: float = Field(None, alias="variableFee")
+    variable_fee_percent: float = Field(None, alias="variableFeePercent")
+    swift_payout_flat_fee: float = Field(None, alias="swiftPayoutFlatFee")
+    flat_fee: float = Field(None, alias="flatFee")
+    mid_rate: float = Field(None, alias="midRate")
+    ecb_rate: float = Field(None, alias="ecbRate")
+    ecb_rate_timestamp: int = Field(None, alias="ecbRateTimestamp")
+    ecb_markup_percent: float = Field(None, alias="ecbMarkupPercent")
+    additional_fee_details: dict = Field(None, alias="additionalFeeDetails")
 
 
 def get_price(
@@ -82,8 +83,8 @@ def find_price(
 ) -> Price:
     for price in prices:
         if (
-            price.payInMethod == pay_in_method.upper()
-            and price.payOutMethod == pay_out_method.upper()
+            price.pay_in_method == pay_in_method.upper()
+            and price.pay_out_method == pay_out_method.upper()
         ):
             return price
 

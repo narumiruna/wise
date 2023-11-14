@@ -15,9 +15,9 @@ def test_get_price():
         source_currency=source, target_amount=amount, target_currency=target
     )
 
-    assert price.sourceCcy == source
-    assert price.targetAmount == amount
-    assert price.targetCcy == target
+    assert price.source_currency == source
+    assert price.target_amount == amount
+    assert price.target_currency == target
 
 
 def test_get_prices():
@@ -35,6 +35,6 @@ def test_get_prices():
 
     assert isinstance(prices, List)
     assert isinstance(price, Price)
-    assert price.targetAmount == amount
-    assert price.targetCcy == target
-    assert price.sourceCcy == source
+    assert price.target_amount == amount
+    assert price.target_currency == target
+    assert price.source_currency == source
