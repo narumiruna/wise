@@ -26,7 +26,7 @@ class Price(BaseModel):
     additional_fee_details: dict = Field(None, alias="additionalFeeDetails")
 
 
-def get_price(
+def query_price(
     source_amount: float = None,
     source_currency: str = None,
     target_amount: float = None,
@@ -35,7 +35,7 @@ def get_price(
     pay_out_method: str = "BALANCE",
 ) -> Price:
     return find_price(
-        get_prices(
+        query_prices(
             source_amount=source_amount,
             source_currency=source_currency,
             target_amount=target_amount,
@@ -46,7 +46,7 @@ def get_price(
     )
 
 
-def get_prices(
+def query_prices(
     source_amount: float = None,
     source_currency: str = None,
     target_amount: float = None,

@@ -1,5 +1,5 @@
 from .price import Price
-from .price import get_price
+from .price import query_price
 
 
 class Cost:
@@ -28,7 +28,7 @@ class Cost:
 
 
 def get_cost(source: str, amount: float, target: str) -> Cost:
-    price = get_price(
+    price = query_price(
         source_currency=source,
         target_amount=amount,
         target_currency=target,
