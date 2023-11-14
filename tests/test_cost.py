@@ -10,6 +10,6 @@ def test_get_cost():
     cost = get_cost(source=source, amount=amount, target=target)
 
     assert isinstance(cost, Cost)
-    assert cost.source_currency == source
-    assert cost.target_amount == amount
-    assert cost.target_currency == target
+    assert cost.price.sourceCcy == source
+    assert cost.price.targetAmount == amount
+    assert cost.price.targetCcy == target

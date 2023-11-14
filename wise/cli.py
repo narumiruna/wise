@@ -48,7 +48,7 @@ def cli(
     ]
 
     # sort by total fee rate
-    costs = sorted(costs, key=lambda x: x.total_fee_rate)
+    costs = sorted(costs, key=lambda x: x.price.total)
 
     # print costs
     for cost in costs:
