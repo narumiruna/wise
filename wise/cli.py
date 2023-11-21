@@ -5,29 +5,6 @@ from tqdm import tqdm
 
 from .cost import get_cost
 
-# 'BGN' not supported by google pay
-# 'BRL' not supported by yahoo finance
-source_currencies = [
-    "AUD",
-    "CAD",
-    "CHF",
-    "CZK",
-    "DKK",
-    "EUR",
-    "GBP",
-    "HUF",
-    "IDR",
-    "INR",
-    "JPY",
-    "NOK",
-    "NZD",
-    "PLN",
-    "RON",
-    "SEK",
-    "SGD",
-    "USD",
-]
-
 
 @click.command()
 @click.argument("source-currency", type=click.STRING)
