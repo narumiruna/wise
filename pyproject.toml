@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "wise"
-version = "0.5.6"
+version = "0.6.0"
 description = ""
 authors = ["narumi <toucans-cutouts0f@icloud.com>"]
 
