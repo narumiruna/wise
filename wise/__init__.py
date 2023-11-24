@@ -1,6 +1,6 @@
 from .cost import get_cost
 from .currency import query_currencies
-from .price import query_prices
+from .price import query_price
 from .rate import Rate
 from .rate import RateHistoryRequest
 from .rate import RateRequest

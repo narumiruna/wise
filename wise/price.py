@@ -49,15 +49,15 @@ class PriceRequest(BaseModel):
         return [Price(**data) for data in resp.json()]
 
 
-def query_prices(
-    source_amount: float = None,
-    source_currency: str = None,
-    target_amount: float = None,
-    target_currency: str = None,
-    profile_id: str = None,
-    profile_country: str = None,
-    profile_type: str = None,
-    markers: str = None,
+def query_price(
+    source_amount: Optional[float] = None,
+    source_currency: Optional[str] = None,
+    target_amount: Optional[float] = None,
+    target_currency: Optional[str] = None,
+    profile_id: Optional[str] = None,
+    profile_country: Optional[str] = None,
+    profile_type: Optional[str] = None,
+    markers: Optional[str] = None,
 ) -> List[Price]:
     return PriceRequest(
         source_amount=source_amount,

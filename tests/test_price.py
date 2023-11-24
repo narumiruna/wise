@@ -2,7 +2,7 @@ from typing import List
 
 from wise.price import Price
 from wise.price import find_price
-from wise.price import query_prices
+from wise.price import query_price
 
 
 def test_get_prices():
@@ -10,7 +10,7 @@ def test_get_prices():
     source = "GBP"
     target = "USD"
 
-    prices = query_prices(
+    prices = query_price(
         target_amount=amount,
         target_currency=target,
         source_currency=source,
