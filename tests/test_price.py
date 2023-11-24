@@ -2,22 +2,7 @@ from typing import List
 
 from wise.price import Price
 from wise.price import find_price
-from wise.price import query_price
 from wise.price import query_prices
-
-
-def test_get_price():
-    source = "GBP"
-    amount = 1000
-    target = "USD"
-
-    price = query_price(
-        source_currency=source, target_amount=amount, target_currency=target
-    )
-
-    assert price.source_currency == source
-    assert price.target_amount == amount
-    assert price.target_currency == target
 
 
 def test_get_prices():

@@ -49,26 +49,6 @@ class PriceRequest(BaseModel):
         return [Price(**data) for data in resp.json()]
 
 
-def query_price(
-    source_amount: float = None,
-    source_currency: str = None,
-    target_amount: float = None,
-    target_currency: str = None,
-    pay_in_method: str = "VISA_CREDIT",
-    pay_out_method: str = "BALANCE",
-) -> Price:
-    return find_price(
-        PriceRequest(
-            source_amount=source_amount,
-            source_currency=source_currency,
-            target_amount=target_amount,
-            target_currency=target_currency,
-        ).do(),
-        pay_in_method=pay_in_method,
-        pay_out_method=pay_out_method,
-    )
-
-
 def query_prices(
     source_amount: float = None,
     source_currency: str = None,

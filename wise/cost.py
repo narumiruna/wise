@@ -1,7 +1,8 @@
 from pydantic import BaseModel
 
 from .price import Price
-from .price import query_price
+from .price import PriceRequest
+from .price import find_price
 
 
 class Cost(BaseModel):
@@ -27,9 +28,14 @@ class Cost(BaseModel):
 
 
 def get_cost(source: str, amount: float, target: str) -> Cost:
-    price = query_price(
+    prices = PriceRequest(
         source_currency=source,
         target_amount=amount,
         target_currency=target,
+    ).do()
+    price = find_price(
+        prices,
+        pay_in_method="VISA_CREDIT",
+        pay_out_method="BALANCE",
     )
     return Cost(price=price)
