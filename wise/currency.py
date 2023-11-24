@@ -19,5 +19,5 @@ class Currency(BaseModel):
     supports_decimals: bool = Field(alias="supportsDecimals")
 
 
-def query_currencies() -> List[Currency]:
+def query_currency() -> List[Currency]:
     return CurrencyRequest().do()
