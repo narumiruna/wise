@@ -2,5 +2,10 @@ from .cost import get_cost
 from .currency import query_currencies
 from .price import query_price
 from .price import query_prices
+from .rate import Rate
+from .rate import RateHistoryRequest
+from .rate import RateRequest
+from .rate import Resolution
+from .rate import Unit
 from .rate import query_rate
 from .rate import query_rate_history
