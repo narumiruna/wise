@@ -1,0 +1,9 @@
+from wise.currency import Currency
+from wise.currency import query_currency
+
+
+def test_get_currency():
+    currencies = query_currency()
+
+    assert len(currencies) > 0
+    assert isinstance(currencies[0], Currency)
