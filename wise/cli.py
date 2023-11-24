@@ -20,7 +20,7 @@ def cli(
     targets = target_currency.split(",")
 
     costs = [
-        get_cost(source, amount, target)
+        get_cost(source, float(amount), target)
         for source, amount, target in tqdm(list(product(sources, amounts, targets)))
     ]
 

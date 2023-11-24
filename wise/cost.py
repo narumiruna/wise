@@ -1,14 +1,13 @@
+from pydantic import BaseModel
+
 from .price import Price
 from .price import query_price
 
 
-class Cost:
-    def __init__(
-        self, price: Price, card_fee_rate: float = 0.015, mile_rate: float = 0.1
-    ):
-        self.price = price
-        self.card_fee_rate = card_fee_rate
-        self.mile_rate = mile_rate
+class Cost(BaseModel):
+    price: Price
+    card_fee_rate: float = 0.015
+    mile_rate: float = 0.1
 
     def __str__(self) -> str:
         card_fee = self.price.source_amount * self.card_fee_rate
@@ -33,4 +32,4 @@ def get_cost(source: str, amount: float, target: str) -> Cost:
         target_amount=amount,
         target_currency=target,
     )
-    return Cost(price)
+    return Cost(price=price)

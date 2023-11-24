@@ -5,6 +5,12 @@ from pydantic import BaseModel
 from pydantic import Field
 
 
+class CurrencyRequest(BaseModel):
+    def do(self) -> List["Currency"]:
+        resp = requests.get(url="https://wise.com/gateway/v1/currencies")
+        return [Currency(**c) for c in resp.json()]
+
+
 class Currency(BaseModel):
     code: str
     symbol: str
@@ -14,8 +20,4 @@ class Currency(BaseModel):
 
 
 def query_currencies() -> List[Currency]:
-    url = "https://wise.com/gateway/v1/currencies"
-
-    resp = requests.get(url)
-
-    return [Currency(**c) for c in resp.json()]
+    return CurrencyRequest().do()

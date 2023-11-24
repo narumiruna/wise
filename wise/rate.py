@@ -1,4 +1,5 @@
 from datetime import datetime
+from enum import Enum
 from typing import List
 
 import requests
@@ -18,37 +19,53 @@ class Rate(BaseModel):
         return datetime.fromtimestamp(x // 1000)
 
 
+class Resolution(str, Enum):
+    HOURLY = "hourly"
+    DAILY = "daily"
+
+
+class Unit(str, Enum):
+    DAY = "day"
+    MONTH = "month"
+    YEAR = "year"
+
+
+class RateRequest(BaseModel):
+    source: str
+    target: str
+
+    def do(self) -> "Rate":
+        resp = requests.get(
+            "https://wise.com/rates/live",
+            params=self.model_dump(),
+        )
+        return Rate(**resp.json())
+
+
+# https://wise.com/rates/history?source=EUR&target=USD&length=10&resolution=daily&unit=day
+class RateHistoryRequest(BaseModel):
+    source: str
+    target: str
+    length: int
+    resolution: Resolution
+    unit: Unit
+
+    def do(self) -> List["Rate"]:
+        resp = requests.get(
+            url="https://wise.com/rates/history",
+            params=self.model_dump(),
+        )
+
+        return [Rate(**r) for r in resp.json()]
+
+
 def query_rate(source: str, target: str) -> Rate:
-    # https://wise.com/tools/exchange-rate-alerts/
-    # https://wise.com/rates/live?source=EUR&target=USD
-    url = "https://wise.com/rates/live"
-
-    resp = requests.get(url=url, params=dict(source=source, target=target))
-
-    return Rate(**resp.json())
+    return RateRequest(source=source, target=target).do()
 
 
 def query_rate_history(
     source: str, target: str, length: int, resolution: str, unit: str
 ) -> List[Rate]:
-    if resolution not in ["hourly", "daily"]:
-        raise ValueError("resolution must be hourly or daily")
-
-    if unit not in ["day", "month", "year"]:
-        raise ValueError("unit must be day, month or year")
-
-    # https://wise.com/rates/history?source=EUR&target=USD&length=10&resolution=daily&unit=day
-    url = "https://wise.com/rates/history"
-
-    resp = requests.get(
-        url=url,
-        params=dict(
-            source=source,
-            target=target,
-            length=length,
-            resolution=resolution,
-            unit=unit,
-        ),
-    )
-
-    return [Rate(**r) for r in resp.json()]
+    return RateHistoryRequest(
+        source=source, target=target, length=length, resolution=resolution, unit=unit
+    ).do()
