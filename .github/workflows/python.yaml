@@ -9,8 +9,8 @@ jobs:
     strategy:
       max-parallel: 1
       matrix:
-        python-version: [3.9]
-        poetry-version: [1.7.0]
+        python-version: ["3.9"]
+        poetry-version: ["1.7.1"]
     permissions:
       contents: write
     steps:
@@ -23,8 +23,12 @@ jobs:
           python-version: ${{ matrix.python-version }}
           cache: poetry
       - name: Install dependencies
-        run: make install
+        run: poetry install
       - name: Lint
-        run: make lint
+        run: poetry run flake8 -v .
       - name: Test
-        run: make test
+        run: poetry run pytest -v -s --cov=wise --cov-report=xml tests
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
