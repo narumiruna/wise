@@ -73,7 +73,7 @@ def query_price(
 
 def find_price(
     prices: List[Price],
-    pay_in_method: str = "VISA_CREDIT",
+    pay_in_method: str = "GOOGLE_PAY",
     pay_out_method: str = "BALANCE",
 ) -> Price:
     for price in prices:
