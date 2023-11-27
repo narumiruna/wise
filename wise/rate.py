@@ -5,6 +5,7 @@ from typing import List
 import requests
 from pydantic import BaseModel
 from pydantic import Field
+from requests.utils import default_headers
 
 
 def parse_datetime(x: int) -> datetime:
@@ -38,6 +39,7 @@ class RateRequest(BaseModel):
         resp = requests.get(
             "https://wise.com/rates/live",
             params=self.model_dump(),
+            headers=default_headers(),
         )
         return Rate(**resp.json())
 
@@ -54,6 +56,7 @@ class RateHistoryRequest(BaseModel):
         resp = requests.get(
             url="https://wise.com/rates/history",
             params=self.model_dump(),
+            headers=default_headers(),
         )
 
         return [Rate(**r) for r in resp.json()]

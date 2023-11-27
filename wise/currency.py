@@ -3,11 +3,15 @@ from typing import List
 import requests
 from pydantic import BaseModel
 from pydantic import Field
+from requests.utils import default_headers
 
 
 class CurrencyRequest(BaseModel):
     def do(self) -> List["Currency"]:
-        resp = requests.get(url="https://wise.com/gateway/v1/currencies")
+        resp = requests.get(
+            url="https://wise.com/gateway/v1/currencies",
+            headers=default_headers(),
+        )
         return [Currency(**c) for c in resp.json()]
 
 
