@@ -4,7 +4,11 @@ from typing import List
 
 import requests
 from pydantic import BaseModel
-from pydantic import field_validator
+from pydantic import Field
+
+
+def parse_datetime(x: int) -> datetime:
+    return datetime.fromtimestamp(x // 1000)
 
 
 # {"source":"EUR","target":"USD","value":1.05425,"time":1697653800557}
@@ -12,11 +16,7 @@ class Rate(BaseModel):
     source: str
     target: str
     value: float
-    time: int
-
-    @field_validator("time")
-    def to_datetime(x) -> datetime:
-        return datetime.fromtimestamp(x // 1000)
+    time: datetime = Field(default_factory=parse_datetime)
 
 
 class Resolution(str, Enum):

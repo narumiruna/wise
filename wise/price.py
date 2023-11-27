@@ -8,23 +8,23 @@ from requests.utils import default_headers
 
 
 class Price(BaseModel):
-    price_set_id: int = Field(..., alias="priceSetId")
-    source_amount: float = Field(..., alias="sourceAmount")
-    target_amount: float = Field(..., alias="targetAmount")
-    pay_in_method: str = Field(..., alias="payInMethod")
-    pay_out_method: str = Field(..., alias="payOutMethod")
-    source_currency: str = Field(..., alias="sourceCcy")
-    target_currency: str = Field(..., alias="targetCcy")
+    price_set_id: int = Field(alias="priceSetId")
+    source_amount: float = Field(alias="sourceAmount")
+    target_amount: float = Field(alias="targetAmount")
+    pay_in_method: str = Field(alias="payInMethod")
+    pay_out_method: str = Field(alias="payOutMethod")
+    source_currency: str = Field(alias="sourceCcy")
+    target_currency: str = Field(alias="targetCcy")
     total: float
-    variable_fee: float = Field(..., alias="variableFee")
-    variable_fee_percent: float = Field(..., alias="variableFeePercent")
-    swift_payout_flat_fee: float = Field(..., alias="swiftPayoutFlatFee")
-    flat_fee: float = Field(..., alias="flatFee")
-    mid_rate: float = Field(..., alias="midRate")
-    ecb_rate: float = Field(..., alias="ecbRate")
-    ecb_rate_timestamp: int = Field(..., alias="ecbRateTimestamp")
-    ecb_markup_percent: float = Field(..., alias="ecbMarkupPercent")
-    additional_fee_details: dict = Field(..., alias="additionalFeeDetails")
+    variable_fee: float = Field(alias="variableFee")
+    variable_fee_percent: float = Field(alias="variableFeePercent")
+    swift_payout_flat_fee: float = Field(alias="swiftPayoutFlatFee")
+    flat_fee: float = Field(alias="flatFee")
+    mid_rate: float = Field(alias="midRate")
+    ecb_rate: float = Field(alias="ecbRate")
+    ecb_rate_timestamp: int = Field(alias="ecbRateTimestamp")
+    ecb_markup_percent: float = Field(alias="ecbMarkupPercent")
+    additional_fee_details: dict = Field(alias="additionalFeeDetails")
 
 
 class PriceRequest(BaseModel):
