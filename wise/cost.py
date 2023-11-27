@@ -27,7 +27,13 @@ class Cost(BaseModel):
         )
 
 
-def get_cost(source: str, amount: float, target: str) -> Cost:
+def get_cost(
+    source: str,
+    amount: float,
+    target: str,
+    pay_in_method: str = "GOOGLE_PAY",
+    pay_out_method: str = "BALANCE",
+) -> Cost:
     prices = PriceRequest(
         source_currency=source,
         target_amount=amount,
@@ -35,7 +41,7 @@ def get_cost(source: str, amount: float, target: str) -> Cost:
     ).do()
     price = find_price(
         prices,
-        pay_in_method="VISA_CREDIT",
-        pay_out_method="BALANCE",
+        pay_in_method=pay_in_method,
+        pay_out_method=pay_out_method,
     )
     return Cost(price=price)
