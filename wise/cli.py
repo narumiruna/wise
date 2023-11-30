@@ -35,7 +35,7 @@ def cli(
     ]
 
     # sort by total fee rate
-    costs = sorted(costs, key=lambda x: x.price.total)
+    costs = sorted(costs, key=lambda x: x.price.variable_fee_percent)
 
     # print costs
     for cost in costs:
