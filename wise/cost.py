@@ -31,7 +31,7 @@ def get_cost(
     source: str,
     amount: float,
     target: str,
-    pay_in_method: str = "GOOGLE_PAY",
+    pay_in_method: str = "VISA_CREDIT",
     pay_out_method: str = "BALANCE",
 ) -> Cost:
     prices = PriceRequest(
