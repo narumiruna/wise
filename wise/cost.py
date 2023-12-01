@@ -8,7 +8,7 @@ from .price import find_price
 class Cost(BaseModel):
     price: Price
     card_fee_rate: float = 0.015
-    mile_rate: float = 0.1
+    reward_rate: float = 0.1
 
     def __str__(self) -> str:
         card_fee = self.price.source_amount * self.card_fee_rate
@@ -16,7 +16,7 @@ class Cost(BaseModel):
         wise_fee_rate = self.price.total / self.price.source_amount
         total_fee = card_fee + self.price.total
         total_fee_rate = total_fee / total_amount
-        cost_per_mile = total_fee / (self.price.source_amount * self.mile_rate)
+        cost_per_mile = total_fee / (self.price.source_amount * self.reward_rate)
 
         return (
             f"Add {self.price.target_amount:.2f} { self.price.target_currency}"
