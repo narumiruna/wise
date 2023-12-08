@@ -6,6 +6,14 @@ from wise import Cost
 from wise import get_cost
 
 
+def get_costs(currencies: List[str]) -> List[Cost]:
+    costs = []
+    for currency in tqdm(currencies):
+        cost = get_cost(currency, 1000, "USD")
+        costs.append(cost)
+    return costs
+
+
 def main():
     currencies = [
         "AED",
@@ -36,11 +44,7 @@ def main():
         "USD",
     ]
 
-    costs: List[Cost] = []
-    for currency in tqdm(currencies):
-        cost = get_cost(currency, 1000, "USD")
-        costs.append(cost)
-
+    costs = get_costs(currencies)
     costs = sorted(costs, key=lambda x: x.price.variable_fee_percent)
 
     for cost in costs:
