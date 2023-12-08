@@ -25,7 +25,7 @@ jobs:
       - name: Run
         run: |
           poetry install
-          poetry run wise AUD,CAD,CHF,CZK,DKK,EUR,GBP,HUF,IDR,INR,JPY,NOK,NZD,PLN,RON,SEK,SGD,USD 1000 USD >> output.txt
+          poetry run python scripts/add_usd.py >> output.txt
           poetry run python scripts/same_currency.py >> same_currency.txt
       - uses: danielmcconville/gist-sync-file-action@v1.0.0
         with:

@@ -4,7 +4,6 @@ from tqdm import tqdm
 
 from wise import Cost
 from wise import get_cost
-from wise import query_rate
 
 
 def main():
@@ -28,6 +27,7 @@ def main():
         "MYR",
         "NOK",
         "NZD",
+        "PHP",
         "PLN",
         "RON",
         "SEK",
@@ -38,8 +38,7 @@ def main():
 
     costs: List[Cost] = []
     for currency in tqdm(currencies):
-        rate = query_rate(currency, "USD")
-        cost = get_cost(currency, 1000 / rate.value, currency)
+        cost = get_cost(currency, 1000, "USD")
         costs.append(cost)
 
     costs = sorted(costs, key=lambda x: x.price.variable_fee_percent)
