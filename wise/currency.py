@@ -11,6 +11,7 @@ class CurrencyRequest(BaseModel):
         resp = requests.get(
             url="https://wise.com/gateway/v1/currencies",
             headers=default_headers(),
+            timeout=10,
         )
         return [Currency(**c) for c in resp.json()]
 

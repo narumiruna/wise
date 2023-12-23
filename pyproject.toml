@@ -30,10 +30,11 @@ exclude = ["build"]
 line-length = 120
 
 [tool.ruff.lint]
-select = ["B", "C", "E", "F", "I", "UP", "W"]
+select = ["B", "C", "E", "EM", "F", "I", "S", "UP", "W"]
 
 [tool.ruff.per-file-ignores]
 "__init__.py" = ["F401", "F403"]
+"test_*.py" = ["S101"]
 
 [tool.ruff.isort]
 force-single-line = true

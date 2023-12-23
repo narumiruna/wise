@@ -45,6 +45,7 @@ class PriceRequest(BaseModel):
             url="http://wise.com/gateway/v1/price",
             params=self.model_dump(exclude_none=True),
             headers=default_headers(),
+            timeout=10,
         )
         return [Price(**data) for data in resp.json()]
 
@@ -77,12 +78,8 @@ def find_price(
     pay_out_method: str = "BALANCE",
 ) -> Price:
     for price in prices:
-        if (
-            price.pay_in_method == pay_in_method.upper()
-            and price.pay_out_method == pay_out_method.upper()
-        ):
+        if price.pay_in_method == pay_in_method.upper() and price.pay_out_method == pay_out_method.upper():
             return price
 
-    raise ValueError(
-        f"Price not found for pay_in_method={pay_in_method} and pay_out_method={pay_out_method}"
-    )
+    msg = f"Price not found for pay_in_method={pay_in_method} and pay_out_method={pay_out_method}"
+    raise ValueError(msg)
