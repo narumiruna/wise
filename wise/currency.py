@@ -5,13 +5,15 @@ from pydantic import BaseModel
 from pydantic import Field
 from requests.utils import default_headers
 
+DEFAULT_TIMEOUT = 10
+
 
 class CurrencyRequest(BaseModel):
     def do(self) -> List["Currency"]:
         resp = requests.get(
             url="https://wise.com/gateway/v1/currencies",
             headers=default_headers(),
-            timeout=10,
+            timeout=DEFAULT_TIMEOUT,
         )
         return [Currency(**c) for c in resp.json()]
 

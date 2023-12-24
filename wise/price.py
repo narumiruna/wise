@@ -6,6 +6,8 @@ from pydantic import BaseModel
 from pydantic import Field
 from requests.utils import default_headers
 
+DEFAULT_TIMEOUT = 10
+
 
 class Price(BaseModel):
     price_set_id: int = Field(alias="priceSetId")
@@ -45,7 +47,7 @@ class PriceRequest(BaseModel):
             url="http://wise.com/gateway/v1/price",
             params=self.model_dump(exclude_none=True),
             headers=default_headers(),
-            timeout=10,
+            timeout=DEFAULT_TIMEOUT,
         )
         return [Price(**data) for data in resp.json()]
 

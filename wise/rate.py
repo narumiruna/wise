@@ -7,6 +7,8 @@ from pydantic import BaseModel
 from pydantic import Field
 from requests.utils import default_headers
 
+DEFAULT_TIMEOUT = 10
+
 
 def parse_datetime(x: int) -> datetime:
     return datetime.fromtimestamp(x // 1000)
@@ -40,7 +42,7 @@ class RateRequest(BaseModel):
             "https://wise.com/rates/live",
             params=self.model_dump(),
             headers=default_headers(),
-            timeout=10,
+            timeout=DEFAULT_TIMEOUT,
         )
         return Rate(**resp.json())
 
@@ -58,7 +60,7 @@ class RateHistoryRequest(BaseModel):
             url="https://wise.com/rates/history",
             params=self.model_dump(),
             headers=default_headers(),
-            timeout=10,
+            timeout=DEFAULT_TIMEOUT,
         )
 
         return [Rate(**r) for r in resp.json()]
