@@ -10,33 +10,33 @@ DEFAULT_TIMEOUT = 10
 
 
 class Price(BaseModel):
-    price_set_id: int = Field(alias="priceSetId")
-    source_amount: float = Field(alias="sourceAmount")
-    target_amount: float = Field(alias="targetAmount")
-    pay_in_method: str = Field(alias="payInMethod")
-    pay_out_method: str = Field(alias="payOutMethod")
-    source_currency: str = Field(alias="sourceCcy")
-    target_currency: str = Field(alias="targetCcy")
+    price_set_id: int = Field(validation_alias="priceSetId")
+    source_amount: float = Field(validation_alias="sourceAmount")
+    target_amount: float = Field(validation_alias="targetAmount")
+    pay_in_method: str = Field(validation_alias="payInMethod")
+    pay_out_method: str = Field(validation_alias="payOutMethod")
+    source_currency: str = Field(validation_alias="sourceCcy")
+    target_currency: str = Field(validation_alias="targetCcy")
     total: float
-    variable_fee: float = Field(alias="variableFee")
-    variable_fee_percent: float = Field(alias="variableFeePercent")
-    swift_payout_flat_fee: float = Field(alias="swiftPayoutFlatFee")
-    flat_fee: float = Field(alias="flatFee")
-    mid_rate: float = Field(alias="midRate")
-    ecb_rate: float = Field(alias="ecbRate")
-    ecb_rate_timestamp: int = Field(alias="ecbRateTimestamp")
-    ecb_markup_percent: float = Field(alias="ecbMarkupPercent")
-    additional_fee_details: dict = Field(alias="additionalFeeDetails")
+    variable_fee: float = Field(validation_alias="variableFee")
+    variable_fee_percent: float = Field(validation_alias="variableFeePercent")
+    swift_payout_flat_fee: float = Field(validation_alias="swiftPayoutFlatFee")
+    flat_fee: float = Field(validation_alias="flatFee")
+    mid_rate: float = Field(validation_alias="midRate")
+    ecb_rate: float = Field(validation_alias="ecbRate")
+    ecb_rate_timestamp: int = Field(validation_alias="ecbRateTimestamp")
+    ecb_markup_percent: float = Field(validation_alias="ecbMarkupPercent")
+    additional_fee_details: dict = Field(validation_alias="additionalFeeDetails")
 
 
 class PriceRequest(BaseModel):
-    sourceAmount: Optional[float] = Field(None, alias="source_amount")
-    sourceCurrency: Optional[str] = Field(None, alias="source_currency")
-    targetAmount: Optional[float] = Field(None, alias="target_amount")
-    targetCurrency: Optional[str] = Field(None, alias="target_currency")
-    profileId: Optional[str] = Field(None, alias="profile_id")
-    profileCountry: Optional[str] = Field(None, alias="profile_country")
-    profileType: Optional[str] = Field(None, alias="profile_type")
+    source_amount: Optional[float] = Field(None, serialization_alias="sourceAmount")
+    source_currency: Optional[str] = Field(None, serialization_alias="sourceCurrency")
+    target_amount: Optional[float] = Field(None, serialization_alias="targetAmount")
+    target_currency: Optional[str] = Field(None, serialization_alias="targetCurrency")
+    profile_id: Optional[str] = Field(None, serialization_alias="profileId")
+    profile_country: Optional[str] = Field(None, serialization_alias="profileCountry")
+    profile_type: Optional[str] = Field(None, serialization_alias="profileType")
     markers: Optional[str] = None
 
     def do(self) -> List[Price]:
@@ -45,7 +45,7 @@ class PriceRequest(BaseModel):
 
         resp = requests.get(
             url="http://wise.com/gateway/v1/price",
-            params=self.model_dump(exclude_none=True),
+            params=self.model_dump(exclude_none=True, by_alias=True),
             headers=default_headers(),
             timeout=DEFAULT_TIMEOUT,
         )
