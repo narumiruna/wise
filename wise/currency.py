@@ -1,4 +1,3 @@
-from typing import List
 
 import requests
 from pydantic import BaseModel
@@ -9,7 +8,7 @@ DEFAULT_TIMEOUT = 10
 
 
 class CurrencyRequest(BaseModel):
-    def do(self) -> List["Currency"]:
+    def do(self) -> list["Currency"]:
         resp = requests.get(
             url="https://wise.com/gateway/v1/currencies",
             headers=default_headers(),
@@ -26,5 +25,5 @@ class Currency(BaseModel):
     supports_decimals: bool = Field(alias="supportsDecimals")
 
 
-def query_currency() -> List[Currency]:
+def query_currency() -> list[Currency]:
     return CurrencyRequest().do()

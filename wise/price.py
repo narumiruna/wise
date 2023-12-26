@@ -1,4 +1,3 @@
-from typing import List
 from typing import Optional
 
 import requests
@@ -39,7 +38,7 @@ class PriceRequest(BaseModel):
     profile_type: Optional[str] = Field(None, serialization_alias="profileType")
     markers: Optional[str] = None
 
-    def do(self) -> List[Price]:
+    def do(self) -> list[Price]:
         # https://wise.com/gb/pricing/receive
         # https://wise.com/gb/pricing/send-money
 
@@ -61,7 +60,7 @@ def query_price(
     profile_country: Optional[str] = None,
     profile_type: Optional[str] = None,
     markers: Optional[str] = None,
-) -> List[Price]:
+) -> list[Price]:
     return PriceRequest(
         source_amount=source_amount,
         source_currency=source_currency,
@@ -75,7 +74,7 @@ def query_price(
 
 
 def find_price(
-    prices: List[Price],
+    prices: list[Price],
     pay_in_method: str = "VISA_CREDIT",
     pay_out_method: str = "BALANCE",
 ) -> Price:

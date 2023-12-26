@@ -1,4 +1,3 @@
-from typing import List
 
 from wise.price import Price
 from wise.price import find_price
@@ -18,7 +17,7 @@ def test_get_price():
 
     price = find_price(prices, pay_in_method="VISA_CREDIT", pay_out_method="BALANCE")
 
-    assert isinstance(prices, List)
+    assert isinstance(prices, list)
     assert isinstance(price, Price)
     assert price.target_amount == amount
     assert price.target_currency == target

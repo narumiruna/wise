@@ -28,6 +28,7 @@ wise = "wise.cli:cli"
 [tool.ruff]
 exclude = ["build"]
 line-length = 120
+target-version = "py39"
 
 [tool.ruff.lint]
 select = ["B", "C", "E", "EM", "F", "I", "S", "UP", "W"]

@@ -1,6 +1,5 @@
 from datetime import datetime
 from enum import Enum
-from typing import List
 
 import requests
 from pydantic import BaseModel
@@ -55,7 +54,7 @@ class RateHistoryRequest(BaseModel):
     resolution: Resolution
     unit: Unit
 
-    def do(self) -> List["Rate"]:
+    def do(self) -> list["Rate"]:
         resp = requests.get(
             url="https://wise.com/rates/history",
             params=self.model_dump(),
@@ -70,5 +69,5 @@ def query_rate(source: str, target: str) -> Rate:
     return RateRequest(source=source, target=target).do()
 
 
-def query_rate_history(source: str, target: str, length: int, resolution: str, unit: str) -> List[Rate]:
+def query_rate_history(source: str, target: str, length: int, resolution: str, unit: str) -> list[Rate]:
     return RateHistoryRequest(source=source, target=target, length=length, resolution=resolution, unit=unit).do()

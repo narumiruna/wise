@@ -1,4 +1,3 @@
-from typing import List
 
 from tqdm import tqdm
 
@@ -7,7 +6,7 @@ from wise import get_cost
 from wise import query_rate
 
 
-def get_costs(currencies: List[str]) -> List[Cost]:
+def get_costs(currencies: list[str]) -> list[Cost]:
     costs = []
     for currency in tqdm(currencies):
         rate = query_rate(currency, "USD")
