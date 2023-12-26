@@ -1,5 +1,5 @@
-from wise.cost import Cost
-from wise.cost import get_cost
+from wise import Cost
+from wise import get_cost
 
 
 def test_get_cost() -> None:

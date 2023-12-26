@@ -1,4 +1,3 @@
-
 import requests
 from pydantic import BaseModel
 from pydantic import Field
@@ -23,7 +22,3 @@ class Currency(BaseModel):
     name: str
     country_keywords: list[str] = Field(alias="countryKeywords")
     supports_decimals: bool = Field(alias="supportsDecimals")
-
-
-def query_currency() -> list[Currency]:
-    return CurrencyRequest().do()

@@ -63,11 +63,3 @@ class RateHistoryRequest(BaseModel):
         )
 
         return [Rate(**r) for r in resp.json()]
-
-
-def query_rate(source: str, target: str) -> Rate:
-    return RateRequest(source=source, target=target).do()
-
-
-def query_rate_history(source: str, target: str, length: int, resolution: str, unit: str) -> list[Rate]:
-    return RateHistoryRequest(source=source, target=target, length=length, resolution=resolution, unit=unit).do()

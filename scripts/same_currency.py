@@ -1,15 +1,14 @@
-
 from tqdm import tqdm
 
 from wise import Cost
+from wise import RateRequest
 from wise import get_cost
-from wise import query_rate
 
 
 def get_costs(currencies: list[str]) -> list[Cost]:
     costs = []
     for currency in tqdm(currencies):
-        rate = query_rate(currency, "USD")
+        rate = RateRequest(source=currency, target="USD").do()
         cost = get_cost(currency, 1000 / rate.value, currency)
         costs.append(cost)
     return costs
