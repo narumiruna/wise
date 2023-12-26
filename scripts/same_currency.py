@@ -15,7 +15,7 @@ def get_costs(currencies: list[str]) -> list[Cost]:
     return costs
 
 
-def main():
+def main() -> None:
     currencies = [
         "AED",
         "AUD",

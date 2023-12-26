@@ -18,7 +18,7 @@ def cli(
     target_currency: str,
     pay_in_method: str,
     pay_out_method: str,
-):
+) -> None:
     sources = source_currency.split(",")
     amounts = [float(x) for x in target_amount.split(",")]
     targets = target_currency.split(",")

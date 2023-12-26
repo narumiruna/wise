@@ -2,7 +2,7 @@ from wise.cost import Cost
 from wise.cost import get_cost
 
 
-def test_get_cost():
+def test_get_cost() -> None:
     source = "GBP"
     amount = 1000
     target = "USD"
