@@ -1,7 +1,26 @@
-
 from wise.price import Price
+from wise.price import PriceRequest
 from wise.price import find_price
 from wise.price import query_price
+
+
+def test_price_request() -> None:
+    amount = 1000
+    source = "GBP"
+    target = "USD"
+
+    prices = PriceRequest(
+        source_amount=amount,
+        source_currency=source,
+        target_currency=target,
+    ).do()
+
+    assert isinstance(prices, list)
+    for price in prices:
+        assert isinstance(price, Price)
+        assert price.source_amount == amount
+        assert price.source_currency == source
+        assert price.target_currency == target
 
 
 def test_get_price() -> None:
