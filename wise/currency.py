@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import requests
 from pydantic import BaseModel
 from pydantic import Field
@@ -7,7 +9,7 @@ DEFAULT_TIMEOUT = 10
 
 
 class CurrencyRequest(BaseModel):
-    def do(self) -> list["Currency"]:
+    def do(self) -> list[Currency]:
         resp = requests.get(
             url="https://wise.com/gateway/v1/currencies",
             headers=default_headers(),
