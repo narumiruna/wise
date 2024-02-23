@@ -3,7 +3,7 @@ from itertools import product
 import click
 from tqdm import tqdm
 
-from .cost import get_cost
+from .cost import create_cost
 
 
 @click.command()
@@ -24,7 +24,7 @@ def cli(
     targets = target_currency.split(",")
 
     costs = [
-        get_cost(
+        create_cost(
             source,
             float(amount),
             target,

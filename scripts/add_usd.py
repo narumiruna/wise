@@ -1,14 +1,13 @@
-
 from tqdm import tqdm
 
 from wise import Cost
-from wise import get_cost
+from wise import create_cost
 
 
 def get_costs(currencies: list[str]) -> list[Cost]:
     costs = []
     for currency in tqdm(currencies):
-        cost = get_cost(currency, 1000, "USD")
+        cost = create_cost(currency, 1000, "USD")
         costs.append(cost)
     return costs
 

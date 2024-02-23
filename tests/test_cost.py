@@ -1,5 +1,5 @@
 from wise import Cost
-from wise import get_cost
+from wise import create_cost
 
 
 def test_get_cost() -> None:
@@ -7,7 +7,7 @@ def test_get_cost() -> None:
     amount = 1000
     target = "USD"
 
-    cost = get_cost(source=source, amount=amount, target=target)
+    cost = create_cost(source=source, amount=amount, target=target)
 
     assert isinstance(cost, Cost)
     assert cost.price.source_currency == source

@@ -41,7 +41,7 @@ class Cost(BaseModel):
         )
 
 
-def get_cost(
+def create_cost(
     source: str,
     amount: float,
     target: str,
