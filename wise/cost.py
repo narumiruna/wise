@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from pydantic import Field
 
 from .price import Price
 from .price import PriceRequest
@@ -7,8 +8,8 @@ from .price import find_price
 
 class Cost(BaseModel):
     price: Price
-    card_fee_rate: float = 0.015
-    reward_rate: float = 0.1
+    card_fee_rate: float = Field(default=0.015)
+    reward_rate: float = Field(default=0.1)
 
     @property
     def card_fee(self) -> float:
@@ -33,7 +34,7 @@ class Cost(BaseModel):
     def __str__(self) -> str:
         return (
             f"Add {self.price.target_amount:.2f} { self.price.target_currency}"
-            f", by paying {self.price.source_amount:.2f} {self.price.source_currency}"
+            f" by paying {self.price.source_amount:.2f} {self.price.source_currency}"
             f", wise fee: {self.price.total:.2f} {self.price.source_currency} ({self.wise_fee_rate * 100:.2f}%)"
             f", total fee: {self.total_fee:.2f} {self.price.source_currency} ({self.total_fee_rate * 100:.2f}%)"
             f", cost per mile: {self.cost_per_mile:.4f}"
