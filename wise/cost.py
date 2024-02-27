@@ -34,7 +34,7 @@ class Cost(BaseModel):
     def __str__(self) -> str:
         return (
             f"Add {self.price.target_amount:.2f} { self.price.target_currency}"
-            f" by paying {self.price.source_amount:.2f} {self.price.source_currency}"
+            f", pay {self.price.source_amount:.2f} {self.price.source_currency}"
             f", wise fee: {self.price.total:.2f} {self.price.source_currency} ({self.wise_fee_rate * 100:.2f}%)"
             f", total fee: {self.total_fee:.2f} {self.price.source_currency} ({self.total_fee_rate * 100:.2f}%)"
             f", cost per mile: {self.cost_per_mile:.4f}"
