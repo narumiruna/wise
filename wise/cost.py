@@ -8,35 +8,35 @@ from .price import find_price
 
 class Cost(BaseModel):
     price: Price
-    card_fee_rate: float = Field(default=0.015)
+    card_fee_percent: float = Field(default=1.5)
     reward_rate: float = Field(default=0.1)
 
     @property
     def card_fee(self) -> float:
-        return self.price.source_amount * self.card_fee_rate
+        return self.price.source_amount * self.card_fee_percent / 100
 
     @property
-    def wise_fee_rate(self) -> float:
-        return self.price.total / self.price.source_amount
+    def wise_fee_percent(self) -> float:
+        return 100 * self.price.total / self.price.source_amount
 
     @property
-    def total_fee(self) -> float:
+    def fee(self) -> float:
         return self.card_fee + self.price.total
 
     @property
-    def total_fee_rate(self) -> float:
-        return self.total_fee / (self.price.source_amount + self.card_fee)
+    def fee_percent(self) -> float:
+        return 100 * self.fee / (self.price.source_amount + self.card_fee)
 
     @property
     def cost_per_mile(self) -> float:
-        return self.total_fee / (self.price.source_amount * self.reward_rate)
+        return self.fee / (self.price.source_amount * self.reward_rate)
 
     def __str__(self) -> str:
         return (
             f"Add {self.price.target_amount:.2f} { self.price.target_currency}"
             f", pay {self.price.source_amount:.2f} {self.price.source_currency}"
-            f", wise fee: {self.price.total:.2f} {self.price.source_currency} ({self.wise_fee_rate * 100:.2f}%)"
-            f", total fee: {self.total_fee:.2f} {self.price.source_currency} ({self.total_fee_rate * 100:.2f}%)"
+            f", wise fee: {self.price.total:.2f} {self.price.source_currency} ({self.wise_fee_percent:.2f}%)"
+            f", total fee: {self.fee:.2f} {self.price.source_currency} ({self.fee_percent:.2f}%)"
             f", cost per mile: {self.cost_per_mile:.4f}"
         )
 
