@@ -4,7 +4,7 @@
 
 ```sh
 pip install pipx
-pipx install git+https://github.com/narumiruna/wise
+pipx install wisest
 ```
 
 ## Usage
