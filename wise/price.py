@@ -29,13 +29,13 @@ class Price(BaseModel):
 
 
 class PriceRequest(BaseModel):
-    source_amount: Optional[float] = Field(None, serialization_alias="sourceAmount")
-    source_currency: Optional[str] = Field(None, serialization_alias="sourceCurrency")
-    target_amount: Optional[float] = Field(None, serialization_alias="targetAmount")
-    target_currency: Optional[str] = Field(None, serialization_alias="targetCurrency")
-    profile_id: Optional[str] = Field(None, serialization_alias="profileId")
-    profile_country: Optional[str] = Field(None, serialization_alias="profileCountry")
-    profile_type: Optional[str] = Field(None, serialization_alias="profileType")
+    source_amount: Optional[float] = Field(default=None, serialization_alias="sourceAmount")
+    source_currency: Optional[str] = Field(default=None, serialization_alias="sourceCurrency")
+    target_amount: Optional[float] = Field(default=None, serialization_alias="targetAmount")
+    target_currency: Optional[str] = Field(default=None, serialization_alias="targetCurrency")
+    profile_id: Optional[str] = Field(default=None, serialization_alias="profileId")
+    profile_country: Optional[str] = Field(default=None, serialization_alias="profileCountry")
+    profile_type: Optional[str] = Field(default=None, serialization_alias="profileType")
     markers: Optional[str] = None
 
     def do(self) -> list[Price]:

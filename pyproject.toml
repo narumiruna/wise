@@ -14,10 +14,13 @@ tqdm = "^4.66.1"
 requests = "^2.31.0"
 
 [tool.poetry.group.dev.dependencies]
+mypy = "^1.8.0"
 pytest = "^7.2.0"
 pytest-cov = "^4.1.0"
 ruff = "^0.1.8"
 toml = "^0.10.2"
+types-requests = "^2.31.0.20240218"
+types-tqdm = "^4.66.0.20240106"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -39,6 +42,7 @@ select = [
     "EM", # flake8-errmsg
     "F", # Pyflakes
     "I", # isort
+    "N", # pep8-naming
     "NPY", # NumPy-specific rules
     "PTH", # flake8-use-pathlib
     "S", # flake8-bandit
@@ -48,11 +52,11 @@ select = [
 
 ]
 
-[tool.ruff.per-file-ignores]
+[tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401", "F403"]
 "test_*.py" = ["S101"]
 
-[tool.ruff.isort]
+[tool.ruff.lint.isort]
 force-single-line = true
 
 [tool.pytest.ini_options]
