@@ -12,16 +12,15 @@ jobs:
     strategy:
       max-parallel: 1
       matrix:
-        python-version: ["3.9", "3.10", "3.11"]
-        poetry-version: ["1.7.1"]
+        python-version: ["3.9"]
+        poetry-version: ["1.8.2"]
     permissions:
       contents: write
     steps:
       - uses: actions/checkout@v4
-      - uses: abatilo/actions-poetry@v2
-        with:
-          poetry-version: ${{ matrix.poetry-version }}
-      - uses: actions/setup-python@v4
+      - name: Install poetry
+        run: pipx install poetry==${{ matrix.poetry-version }}
+      - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
           cache: poetry
