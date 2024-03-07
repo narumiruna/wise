@@ -1,4 +1,4 @@
-from typing import Optional
+from __future__ import annotations
 
 import requests
 from pydantic import BaseModel
@@ -29,14 +29,14 @@ class Price(BaseModel):
 
 
 class PriceRequest(BaseModel):
-    source_amount: Optional[float] = Field(default=None, serialization_alias="sourceAmount")
-    source_currency: Optional[str] = Field(default=None, serialization_alias="sourceCurrency")
-    target_amount: Optional[float] = Field(default=None, serialization_alias="targetAmount")
-    target_currency: Optional[str] = Field(default=None, serialization_alias="targetCurrency")
-    profile_id: Optional[str] = Field(default=None, serialization_alias="profileId")
-    profile_country: Optional[str] = Field(default=None, serialization_alias="profileCountry")
-    profile_type: Optional[str] = Field(default=None, serialization_alias="profileType")
-    markers: Optional[str] = None
+    source_amount: float | None = Field(default=None, serialization_alias="sourceAmount")
+    source_currency: str | None = Field(default=None, serialization_alias="sourceCurrency")
+    target_amount: float | None = Field(default=None, serialization_alias="targetAmount")
+    target_currency: str | None = Field(default=None, serialization_alias="targetCurrency")
+    profile_id: str | None = Field(default=None, serialization_alias="profileId")
+    profile_country: str | None = Field(default=None, serialization_alias="profileCountry")
+    profile_type: str | None = Field(default=None, serialization_alias="profileType")
+    markers: str | None = None
 
     def do(self) -> list[Price]:
         # https://wise.com/gb/pricing/receive

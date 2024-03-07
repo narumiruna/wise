@@ -41,6 +41,7 @@ select = [
     "E", # pycodestyle Error
     "EM", # flake8-errmsg
     "F", # Pyflakes
+    "FA", # flake8-future-annotations
     "I", # isort
     "N", # pep8-naming
     "NPY", # NumPy-specific rules
