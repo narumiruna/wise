@@ -1,3 +1,5 @@
+import pytest
+
 from wise import PayInMethod
 from wise import PayOutMethod
 from wise import Price
@@ -5,11 +7,10 @@ from wise import PriceRequest
 from wise import find_price
 
 
-def test_price_request() -> None:
-    amount = 1000
-    source = "GBP"
-    target = "USD"
-
+@pytest.mark.parametrize("amount", [1000])
+@pytest.mark.parametrize("source", ["GBP", "EUR"])
+@pytest.mark.parametrize("target", ["USD"])
+def test_price_request(amount: float, source: str, target: str) -> None:
     prices = PriceRequest(
         source_amount=amount,
         source_currency=source,

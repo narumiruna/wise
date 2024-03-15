@@ -1,3 +1,5 @@
+import pytest
+
 from wise import Rate
 from wise import RateHistoryRequest
 from wise import RateRequest
@@ -5,10 +7,9 @@ from wise import Resolution
 from wise import Unit
 
 
-def test_rate_request() -> None:
-    source = "EUR"
-    target = "USD"
-
+@pytest.mark.parametrize("source", ["GBP", "EUR"])
+@pytest.mark.parametrize("target", ["USD"])
+def test_rate_request(source: str, target: str) -> None:
     rate = RateRequest(
         source=source,
         target=target,
