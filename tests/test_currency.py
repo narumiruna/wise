@@ -1,5 +1,5 @@
-from wise import Currency
-from wise import CurrencyRequest
+from wise.currency import Currency
+from wise.currency import CurrencyRequest
 
 
 def test_currency_request() -> None:

@@ -5,6 +5,7 @@ from .method import PayOutMethod
 from .price import Price
 from .price import PriceRequest
 from .price import find_price
+from .price import query_price
 from .rate import Rate
 from .rate import RateHistoryRequest
 from .rate import RateRequest

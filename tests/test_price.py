@@ -1,10 +1,11 @@
 import pytest
 
-from wise import PayInMethod
-from wise import PayOutMethod
-from wise import Price
-from wise import PriceRequest
-from wise import find_price
+from wise.method import PayInMethod
+from wise.method import PayOutMethod
+from wise.price import Price
+from wise.price import PriceRequest
+from wise.price import find_price
+from wise.price import query_price
 
 
 @pytest.mark.parametrize("amount", [1000])
@@ -29,3 +30,18 @@ def test_price_request(amount: float, source: str, target: str) -> None:
     assert price.source_amount == amount
     assert price.source_currency == source
     assert price.target_currency == target
+
+
+@pytest.mark.parametrize("source_currency", ["GBP", "EUR"])
+@pytest.mark.parametrize("target_amount", [1000])
+@pytest.mark.parametrize("target_currency", ["USD"])
+def test_query_price(target_amount: float, source_currency: str, target_currency: str) -> None:
+    price = query_price(
+        source_currency=source_currency,
+        target_amount=target_amount,
+        target_currency=target_currency,
+    )
+
+    assert price.source_currency == source_currency
+    assert price.target_amount == target_amount
+    assert price.target_currency == target_currency

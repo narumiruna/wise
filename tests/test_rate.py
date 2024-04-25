@@ -1,10 +1,10 @@
 import pytest
 
-from wise import Rate
-from wise import RateHistoryRequest
-from wise import RateRequest
-from wise import Resolution
-from wise import Unit
+from wise.rate import Rate
+from wise.rate import RateHistoryRequest
+from wise.rate import RateRequest
+from wise.rate import Resolution
+from wise.rate import Unit
 
 
 @pytest.mark.parametrize("source", ["GBP", "EUR"])
