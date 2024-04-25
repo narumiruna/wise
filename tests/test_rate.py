@@ -2,18 +2,15 @@ import pytest
 
 from wise.rate import Rate
 from wise.rate import RateHistoryRequest
-from wise.rate import RateRequest
 from wise.rate import Resolution
 from wise.rate import Unit
+from wise.rate import query_rate
 
 
 @pytest.mark.parametrize("source", ["GBP", "EUR"])
 @pytest.mark.parametrize("target", ["USD"])
-def test_rate_request(source: str, target: str) -> None:
-    rate = RateRequest(
-        source=source,
-        target=target,
-    ).do()
+def test_query_rate(source: str, target: str) -> None:
+    rate = query_rate(source=source, target=target)
 
     assert isinstance(rate, Rate)
     assert rate.source == source
