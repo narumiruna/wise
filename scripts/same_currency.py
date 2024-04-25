@@ -1,18 +1,8 @@
 from tqdm import tqdm
 
-from wise import Price
-from wise import RateRequest
 from wise import print_cost
 from wise import query_price
-
-
-def get_prices(currencies: list[str]) -> list[Price]:
-    costs = []
-    for currency in tqdm(currencies):
-        rate = RateRequest(source=currency, target="USD").do()
-        cost = query_price(source_currency=currency, target_amount=1000 / rate.value, target_currency=currency)
-        costs.append(cost)
-    return costs
+from wise import query_rate
 
 
 def main() -> None:
@@ -44,7 +34,14 @@ def main() -> None:
         "USD",
     ]
 
-    prices = get_prices(currencies)
+    prices = [
+        query_price(
+            source_currency=currency,
+            target_amount=1000 / query_rate(source=currency, target="USD").value,
+            target_currency=currency,
+        )
+        for currency in tqdm(currencies)
+    ]
     prices = sorted(prices, key=lambda x: x.variable_fee_percent)
     for price in prices:
         print_cost(price)

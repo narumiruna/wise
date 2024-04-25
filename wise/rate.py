@@ -55,6 +55,10 @@ class RateRequest(BaseModel):
         return Rate(**resp.json())
 
 
+def query_rate(source: str, target: str) -> Rate:
+    return RateRequest(source=source, target=target).do()
+
+
 # https://wise.com/rates/history?source=EUR&target=USD&length=10&resolution=daily&unit=day
 class RateHistoryRequest(BaseModel):
     source: str

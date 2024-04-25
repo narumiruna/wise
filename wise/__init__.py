@@ -12,3 +12,4 @@ from .rate import RateHistoryRequest
 from .rate import RateRequest
 from .rate import Resolution
 from .rate import Unit
+from .rate import query_rate
