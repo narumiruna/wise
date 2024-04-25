@@ -1,15 +1,7 @@
 from tqdm import tqdm
 
-from wise import Cost
-from wise import create_cost
-
-
-def get_costs(currencies: list[str]) -> list[Cost]:
-    costs = []
-    for currency in tqdm(currencies):
-        cost = create_cost(currency, 1000, "USD")
-        costs.append(cost)
-    return costs
+from wise import print_cost
+from wise import query_price
 
 
 def main() -> None:
@@ -42,11 +34,14 @@ def main() -> None:
         "USD",
     ]
 
-    costs = get_costs(currencies)
-    costs = sorted(costs, key=lambda x: x.price.variable_fee_percent)
+    prices = [
+        query_price(source_currency=currency, target_amount=1000, target_currency="USD")
+        for currency in tqdm(currencies)
+    ]
+    prices = sorted(prices, key=lambda p: p.variable_fee_percent)
 
-    for cost in costs:
-        print(cost)
+    for price in prices:
+        print_cost(price)
 
 
 if __name__ == "__main__":
