@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "wisest"
-version = "0.6.2"
+version = "0.7.0"
 description = ""
 authors = ["narumi <toucans-cutouts0f@icloud.com>"]
 packages = [{ include = "wise" }]
