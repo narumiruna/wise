@@ -3,6 +3,7 @@ from __future__ import annotations
 import requests
 from pydantic import BaseModel
 from pydantic import Field
+from pydantic import field_validator
 from requests.utils import default_headers
 
 default_timeout = 10
@@ -38,6 +39,11 @@ class PriceRequest(BaseModel):
     profile_type: str | None = Field(default=None, serialization_alias="profileType")
     markers: str | None = None
 
+    @field_validator("source_currency", "target_currency")
+    @classmethod
+    def upper(cls, s: str) -> str:
+        return s.upper()
+
     def do(self) -> list[Price]:
         # https://wise.com/gb/pricing/receive
         # https://wise.com/gb/pricing/send-money
@@ -62,3 +68,25 @@ def find_price(
 
     msg = f"Price not found for pay_in_method={pay_in_method} and pay_out_method={pay_out_method}"
     raise ValueError(msg)
+
+
+def query_price(
+    source_amount: float | None = None,
+    source_currency: str | None = None,
+    target_amount: float | None = None,
+    target_currency: str | None = None,
+    pay_in_method: str = "VISA_CREDIT",
+    pay_out_method: str = "BALANCE",
+) -> Price:
+    prices = PriceRequest(
+        source_amount=source_amount,
+        source_currency=source_currency,
+        target_amount=target_amount,
+        target_currency=target_currency,
+    ).do()
+    price = find_price(
+        prices,
+        pay_in_method=pay_in_method,
+        pay_out_method=pay_out_method,
+    )
+    return price

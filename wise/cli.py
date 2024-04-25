@@ -3,7 +3,23 @@ from itertools import product
 import click
 from tqdm import tqdm
 
-from .cost import create_cost
+from .price import Price
+from .price import query_price
+
+
+def print_cost(price: Price, card_fee_percent: float = 1.5, reward_rate: float = 0.1) -> None:
+    card_fee = price.source_amount * card_fee_percent / 100
+    wise_fee_percent = 100 * price.total / price.source_amount
+    fee = card_fee + price.total
+    fee_percent = 100 * fee / (price.source_amount + card_fee)
+    cost_per_mile = fee / (price.source_amount * reward_rate)
+    print(
+        f"Add {price.target_amount:.2f} { price.target_currency}"
+        f", pay {price.source_amount:.2f} {price.source_currency}"
+        f", wise fee: {price.total:.2f} {price.source_currency} ({wise_fee_percent:.2f}%)"
+        f", total fee: {fee:.2f} {price.source_currency} ({fee_percent:.2f}%)"
+        f", cost per mile: {cost_per_mile:.4f}"
+    )
 
 
 @click.command()
@@ -23,11 +39,11 @@ def cli(
     amounts = [float(x) for x in target_amount.split(",")]
     targets = target_currency.split(",")
 
-    costs = [
-        create_cost(
-            source,
-            float(amount),
-            target,
+    prices = [
+        query_price(
+            source_currency=source,
+            target_amount=float(amount),
+            target_currency=target,
             pay_in_method=pay_in_method,
             pay_out_method=pay_out_method,
         )
@@ -35,8 +51,8 @@ def cli(
     ]
 
     # sort by total fee rate
-    costs = sorted(costs, key=lambda x: x.price.variable_fee_percent)
+    prices = sorted(prices, key=lambda p: p.variable_fee_percent)
 
     # print costs
-    for cost in costs:
-        print(cost)
+    for price in prices:
+        print_cost(price)
