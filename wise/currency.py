@@ -1,21 +1,20 @@
 from __future__ import annotations
 
-import requests
 from pydantic import BaseModel
 from pydantic import Field
 from requests.utils import default_headers
 
-default_timeout = 10
+from .request import get
 
 
 class CurrencyRequest(BaseModel):
     def do(self) -> list[Currency]:
-        resp = requests.get(
+        resp = get(
             url="https://wise.com/gateway/v1/currencies",
             headers=default_headers(),
-            timeout=default_timeout,
         )
-        return [Currency(**c) for c in resp.json()]
+        resp.raise_for_status()
+        return [Currency.model_validate(data) for data in resp.json()]
 
 
 class Currency(BaseModel):

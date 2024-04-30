@@ -3,12 +3,11 @@ from __future__ import annotations
 from datetime import datetime
 from enum import Enum
 
-import requests
 from pydantic import BaseModel
 from pydantic import field_validator
 from requests.utils import default_headers
 
-default_timeout = 10
+from .request import get
 
 
 # {"source":"EUR","target":"USD","value":1.05425,"time":1697653800557}
@@ -46,13 +45,13 @@ class RateRequest(BaseModel):
     target: str
 
     def do(self) -> Rate:
-        resp = requests.get(
+        resp = get(
             "https://wise.com/rates/live",
             params=self.model_dump(),
             headers=default_headers(),
-            timeout=default_timeout,
         )
-        return Rate(**resp.json())
+        resp.raise_for_status()
+        return Rate.model_validate(resp.json())
 
 
 def query_rate(source: str, target: str) -> Rate:
@@ -68,10 +67,10 @@ class RateHistoryRequest(BaseModel):
     unit: Unit
 
     def do(self) -> list[Rate]:
-        resp = requests.get(
+        resp = get(
             url="https://wise.com/rates/history",
             params=self.model_dump(),
             headers=default_headers(),
-            timeout=default_timeout,
         )
-        return [Rate(**r) for r in resp.json()]
+        resp.raise_for_status()
+        return [Rate.model_validate(data) for data in resp.json()]

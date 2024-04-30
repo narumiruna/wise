@@ -1,12 +1,11 @@
 from __future__ import annotations
 
-import requests
 from pydantic import BaseModel
 from pydantic import Field
 from pydantic import field_validator
 from requests.utils import default_headers
 
-default_timeout = 10
+from .request import get
 
 
 class Price(BaseModel):
@@ -48,13 +47,13 @@ class PriceRequest(BaseModel):
         # https://wise.com/gb/pricing/receive
         # https://wise.com/gb/pricing/send-money
 
-        resp = requests.get(
+        resp = get(
             url="http://wise.com/gateway/v1/price",
             params=self.model_dump(exclude_none=True, by_alias=True),
             headers=default_headers(),
-            timeout=default_timeout,
         )
-        return [Price(**data) for data in resp.json()]
+        resp.raise_for_status()
+        return [Price.model_validate(data) for data in resp.json()]
 
 
 def find_price(
