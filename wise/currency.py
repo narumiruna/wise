@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from pydantic import BaseModel
 from pydantic import Field
-from requests.utils import default_headers
 
 from .request import get
 
@@ -11,7 +10,6 @@ class CurrencyRequest(BaseModel):
     def do(self) -> list[Currency]:
         resp = get(
             url="https://wise.com/gateway/v1/currencies",
-            headers=default_headers(),
         )
         resp.raise_for_status()
         return [Currency.model_validate(data) for data in resp.json()]

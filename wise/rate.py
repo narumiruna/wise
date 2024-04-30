@@ -5,7 +5,6 @@ from enum import Enum
 
 from pydantic import BaseModel
 from pydantic import field_validator
-from requests.utils import default_headers
 
 from .request import get
 
@@ -48,7 +47,6 @@ class RateRequest(BaseModel):
         resp = get(
             "https://wise.com/rates/live",
             params=self.model_dump(),
-            headers=default_headers(),
         )
         resp.raise_for_status()
         return Rate.model_validate(resp.json())
@@ -69,8 +67,7 @@ class RateHistoryRequest(BaseModel):
     def do(self) -> list[Rate]:
         resp = get(
             url="https://wise.com/rates/history",
-            params=self.model_dump(),
-            headers=default_headers(),
+            params=self.model_dump(mode="json"),
         )
         resp.raise_for_status()
         return [Rate.model_validate(data) for data in resp.json()]
