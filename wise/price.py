@@ -3,7 +3,6 @@ from __future__ import annotations
 from pydantic import BaseModel
 from pydantic import Field
 from pydantic import field_validator
-from requests.utils import default_headers
 
 from .request import get
 
@@ -48,9 +47,8 @@ class PriceRequest(BaseModel):
         # https://wise.com/gb/pricing/send-money
 
         resp = get(
-            url="http://wise.com/gateway/v1/price",
+            url="https://wise.com/gateway/v1/price",
             params=self.model_dump(exclude_none=True, by_alias=True),
-            headers=default_headers(),
         )
         resp.raise_for_status()
         return [Price.model_validate(data) for data in resp.json()]

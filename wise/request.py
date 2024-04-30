@@ -1,5 +1,5 @@
 import functools
 
-import requests
+import httpx
 
-get = functools.partial(requests.get, timeout=10)
+get = functools.partial(httpx.get, timeout=10)
