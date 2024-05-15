@@ -56,7 +56,7 @@ class PriceRequest(BaseModel):
 
 def find_price(
     prices: list[Price],
-    pay_in_method: str = "VISA_CREDIT",
+    pay_in_method: str = "GOOGLE_PAY",
     pay_out_method: str = "BALANCE",
 ) -> Price:
     for price in prices:
@@ -72,7 +72,7 @@ def query_price(
     source_currency: str | None = None,
     target_amount: float | None = None,
     target_currency: str | None = None,
-    pay_in_method: str = "VISA_CREDIT",
+    pay_in_method: str = "GOOGLE_PAY",
     pay_out_method: str = "BALANCE",
 ) -> Price:
     prices = PriceRequest(
