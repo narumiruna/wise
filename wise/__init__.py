@@ -2,6 +2,7 @@ from .cost import print_cost
 from .cost import print_costs
 from .currency import Currency
 from .currency import CurrencyRequest
+from .currency import query_currencies
 from .method import PayInMethod
 from .method import PayOutMethod
 from .price import Price

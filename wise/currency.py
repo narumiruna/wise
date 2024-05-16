@@ -21,3 +21,7 @@ class Currency(BaseModel):
     name: str
     country_keywords: list[str] = Field(alias="countryKeywords")
     supports_decimals: bool = Field(alias="supportsDecimals")
+
+
+def query_currencies() -> list[Currency]:
+    return CurrencyRequest().do()
