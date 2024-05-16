@@ -45,4 +45,4 @@ def print_costs(prices: list[Price], card_fee_percent: float = 1.5, reward_rate:
             ]
         )
 
-    print(tabulate(rows, headers=headers, tablefmt="pretty", stralign="right"))
+    print(tabulate(rows, headers=headers, tablefmt="rounded_outline", stralign="right"))
