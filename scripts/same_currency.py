@@ -26,6 +26,7 @@ def main() -> None:
         "MYR",
         "NOK",
         "NZD",
+        "PHP",
         "PLN",
         "RON",
         "SEK",
