@@ -46,6 +46,7 @@ select = [
     "NPY", # NumPy-specific rules
     "PTH", # flake8-use-pathlib
     "S", # flake8-bandit
+    "SIM", # flake8-simplify
     "TRY", # raise-vanilla-args
     "UP", # pyupgrade
     "W", # pycodestyle Warning
