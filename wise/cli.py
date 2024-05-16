@@ -3,7 +3,7 @@ from itertools import product
 import click
 from tqdm import tqdm
 
-from .cost import print_cost
+from .cost import print_costs
 from .price import query_price
 
 
@@ -42,5 +42,4 @@ def cli(
     prices = sorted(prices, key=lambda p: p.variable_fee_percent)
 
     # print costs
-    for price in prices:
-        print_cost(price)
+    print_costs(prices)
