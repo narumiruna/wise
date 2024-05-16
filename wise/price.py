@@ -36,6 +36,7 @@ class PriceRequest(BaseModel):
     profile_country: str | None = Field(default=None, serialization_alias="profileCountry")
     profile_type: str | None = Field(default=None, serialization_alias="profileType")
     markers: str | None = None
+    price_set_id: int | None = Field(default=None, serialization_alias="priceSetId")
 
     @field_validator("source_currency", "target_currency")
     @classmethod
@@ -45,6 +46,7 @@ class PriceRequest(BaseModel):
     def do(self) -> list[Price]:
         # https://wise.com/gb/pricing/receive
         # https://wise.com/gb/pricing/send-money
+        # https://wise.com/price-change/borderless-add
 
         resp = get(
             url="https://wise.com/gateway/v1/price",
@@ -74,12 +76,14 @@ def query_price(
     target_currency: str | None = None,
     pay_in_method: str = "GOOGLE_PAY",
     pay_out_method: str = "BALANCE",
+    price_set_id: int = 2586,
 ) -> Price:
     prices = PriceRequest(
         source_amount=source_amount,
         source_currency=source_currency,
         target_amount=target_amount,
         target_currency=target_currency,
+        price_set_id=price_set_id,
     ).do()
     price = find_price(
         prices,
