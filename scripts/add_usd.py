@@ -1,6 +1,6 @@
 from tqdm import tqdm
 
-from wise import print_cost
+from wise import print_costs
 from wise import query_price
 
 
@@ -40,8 +40,7 @@ def main() -> None:
     ]
     prices = sorted(prices, key=lambda p: p.variable_fee_percent)
 
-    for price in prices:
-        print_cost(price)
+    print_costs(prices)
 
 
 if __name__ == "__main__":

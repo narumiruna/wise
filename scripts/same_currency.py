@@ -1,6 +1,6 @@
 from tqdm import tqdm
 
-from wise import print_cost
+from wise import print_costs
 from wise import query_price
 from wise import query_rate
 
@@ -43,8 +43,8 @@ def main() -> None:
         for currency in tqdm(currencies)
     ]
     prices = sorted(prices, key=lambda x: x.variable_fee_percent)
-    for price in prices:
-        print_cost(price)
+
+    print_costs(prices)
 
 
 if __name__ == "__main__":

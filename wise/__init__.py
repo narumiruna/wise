@@ -1,4 +1,5 @@
 from .cost import print_cost
+from .cost import print_costs
 from .currency import Currency
 from .currency import CurrencyRequest
 from .method import PayInMethod
