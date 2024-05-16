@@ -1,10 +1,13 @@
+import click
 from tqdm import tqdm
 
 from wise import print_costs
 from wise import query_price
 
 
-def main() -> None:
+@click.command()
+@click.option("--new", is_flag=True, type=click.BOOL, help="New price set ID")
+def main(new: bool) -> None:
     currencies = [
         "AED",
         "AUD",
@@ -35,7 +38,12 @@ def main() -> None:
     ]
 
     prices = [
-        query_price(source_currency=currency, target_amount=1000, target_currency="USD")
+        query_price(
+            source_currency=currency,
+            target_amount=1000,
+            target_currency="USD",
+            price_set_id=2593 if new else 2586,
+        )
         for currency in tqdm(currencies)
     ]
     prices = sorted(prices, key=lambda p: p.variable_fee_percent)
