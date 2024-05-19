@@ -47,7 +47,7 @@ def print_costs(prices: list[Price], card_fee_percent: float = 1.5, reward_rate:
                 "Total Fee",
                 "Cost per Mile",
             ],
-            tablefmt="rounded_outline",
+            tablefmt="rounded_grid",
             stralign="right",
         )
     )
