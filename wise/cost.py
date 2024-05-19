@@ -19,16 +19,7 @@ def print_cost(price: Price, card_fee_percent: float = 1.5, reward_rate: float =
 
 
 def print_costs(prices: list[Price], card_fee_percent: float = 1.5, reward_rate: float = 0.1) -> None:
-    table = [
-        [
-            "Source",
-            "Target",
-            "Wise Fee",
-            "Total Fee",
-            "Cost per Mile",
-        ]
-    ]
-
+    table = []
     for price in prices:
         card_fee = price.source_amount * card_fee_percent / 100
         wise_fee_percent = 100 * price.total / price.source_amount
@@ -49,6 +40,13 @@ def print_costs(prices: list[Price], card_fee_percent: float = 1.5, reward_rate:
     print(
         tabulate(
             table,
+            headers=[
+                "Source",
+                "Target",
+                "Wise Fee",
+                "Total Fee",
+                "Cost per Mile",
+            ],
             tablefmt="rounded_outline",
             stralign="right",
         )
