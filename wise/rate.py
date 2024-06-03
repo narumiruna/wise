@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from datetime import datetime
 from enum import Enum
+from functools import cache
 
 from pydantic import BaseModel
 from pydantic import field_validator
@@ -52,6 +53,7 @@ class RateRequest(BaseModel):
         return Rate.model_validate(resp.json())
 
 
+@cache
 def query_rate(source: str, target: str) -> Rate:
     return RateRequest(source=source, target=target).do()
 
