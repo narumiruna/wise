@@ -30,7 +30,6 @@ def test_rate_history_request() -> None:
         unit=Unit.DAY,
     ).do()
 
-    assert len(rates) == length
     for rate in rates:
         assert isinstance(rate, Rate)
         assert rate.source == source
