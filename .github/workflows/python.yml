@@ -2,9 +2,11 @@ name: Python
 
 on:
   push:
-    branches: ["main"]
+    branches:
+      - main
   pull_request:
-    branches: ["main"]
+    branches:
+      - main
 
 jobs:
   python:
@@ -25,10 +27,12 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           # cache: poetry
-      - run: poetry config virtualenvs.in-project true
       - run: poetry env info
       - name: Install dependencies
-        run: poetry install
+        run: |
+          poetry config virtualenvs.create false
+          poetry install
+      - run: poetry env info
       - name: Lint
         run: poetry run ruff check .
       - name: Type Check
