@@ -30,7 +30,7 @@ jobs:
       - name: Install dependencies
         run: |
           poetry config virtualenvs.create false
-          poetry install
+          poetry install --sync
       - run: poetry env info
       - name: Lint
         run: poetry run ruff check .
