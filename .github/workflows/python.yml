@@ -28,7 +28,6 @@ jobs:
           pipx install poetry==${{ matrix.poetry-version }}
       - name: Install dependencies
         run: poetry install --sync
-      - run: poetry env info
       - name: Lint
         run: poetry run ruff check .
       - name: Type Check
