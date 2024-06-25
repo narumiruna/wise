@@ -25,6 +25,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           # cache: poetry
+      - run: poetry config virtualenvs.in-project true
       - run: poetry env info
       - name: Install dependencies
         run: poetry install
