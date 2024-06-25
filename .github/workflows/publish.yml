@@ -18,10 +18,10 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install poetry
         run: pipx install poetry==${{ matrix.poetry-version }}
-      - uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python-version }}
-          cache: poetry
+      # - uses: actions/setup-python@v5
+      #   with:
+      #     python-version: ${{ matrix.python-version }}
+      #     cache: poetry
       - name: Publish
         env:
           PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
