@@ -21,10 +21,11 @@ jobs:
       - name: Install poetry
         run: pipx install poetry==${{ matrix.poetry-version }}
       - run: poetry env info
-      # - uses: actions/setup-python@v5
-      #   with:
-      #     python-version: ${{ matrix.python-version }}
-      #     cache: poetry
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          # cache: poetry
+      - run: poetry env info
       - name: Install dependencies
         run: poetry install
       - name: Lint
