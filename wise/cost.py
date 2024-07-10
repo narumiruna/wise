@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from tabulate import tabulate
 
 from .price import Price

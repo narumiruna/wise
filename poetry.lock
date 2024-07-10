@@ -35,13 +35,13 @@ trio = ["trio (>=0.23)"]
 
 [[package]]
 name = "certifi"
-version = "2024.6.2"
+version = "2024.7.4"
 description = "Python package for providing Mozilla's CA Bundle."
 optional = false
 python-versions = ">=3.6"
 files = [
-    {file = "certifi-2024.6.2-py3-none-any.whl", hash = "sha256:ddc6c8ce995e6987e7faf5e3f1b02b302836a0e5d98ece18392cb1a36c72ad56"},
-    {file = "certifi-2024.6.2.tar.gz", hash = "sha256:3cd43f1c6fa7dedc5899d69d3ad0398fd018ad1a17fba83ddaf78aa46c747516"},
+    {file = "certifi-2024.7.4-py3-none-any.whl", hash = "sha256:c198e21b1289c2ab85ee4e67bb4b4ef3ead0892059901a8d5b622f24a1101e90"},
+    {file = "certifi-2024.7.4.tar.gz", hash = "sha256:5a1e7645bc0ec61a09e26c36f6106dd4cf40c6db3a1fb6352b0244e7fb057c7b"},
 ]
 
 [[package]]
@@ -582,13 +582,13 @@ files = [
 
 [[package]]
 name = "types-docutils"
-version = "0.21.0.20240423"
+version = "0.21.0.20240710"
 description = "Typing stubs for docutils"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "types-docutils-0.21.0.20240423.tar.gz", hash = "sha256:7716ec6c68b5179b7ba1738cace2f1326e64df9f44b7ab08d9904d32c23fc15f"},
-    {file = "types_docutils-0.21.0.20240423-py3-none-any.whl", hash = "sha256:7f6e84ba8fcd2454c5b8bb8d77384d091a901929cc2b31079316e10eb346580a"},
+    {file = "types-docutils-0.21.0.20240710.tar.gz", hash = "sha256:ae6aad58120520b15acc17bc8741994f71484f465cb0d1591d7c64e11fa370ff"},
+    {file = "types_docutils-0.21.0.20240710-py3-none-any.whl", hash = "sha256:2d8b794bfe75e8aa6dc45ab8f8e7aa583f2e4fc4f1d17315274221b57f457529"},
 ]
 
 [[package]]
@@ -653,4 +653,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "42768f57fac78220bdc5ee60c1ebe9d20193b6f8f6ceb17e22f80d84b818ac10"
+content-hash = "3f509ad65f59464930713c8cd67c682da0d09faa5fccc7397f1b3f868ee57685"

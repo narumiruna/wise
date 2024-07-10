@@ -19,8 +19,6 @@ pytest = "^8.2.2"
 pytest-cov = "^5.0.0"
 ruff = "^0.5.1"
 toml = "^0.10.2"
-
-[tool.poetry.group.mypy.dependencies]
 types-colorama = "^0.4.15.20240311"
 types-pygments = "^2.18.0.20240506"
 types-setuptools = "^70.3.0.20240710"
@@ -37,7 +35,6 @@ wise = "wise.cli:cli"
 [tool.ruff]
 exclude = ["build"]
 line-length = 120
-target-version = "py39"
 
 [tool.ruff.lint]
 select = [
