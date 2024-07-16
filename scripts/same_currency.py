@@ -43,7 +43,7 @@ def main(new: bool) -> None:
             source_currency=currency,
             target_amount=1000 / query_rate(source=currency, target="USD").value,
             target_currency=currency,
-            price_set_id=2569 if new else 2619,
+            price_set_id=2619 if new else 2569,
         )
         for currency in tqdm(currencies)
     ]
