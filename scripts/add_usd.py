@@ -42,7 +42,7 @@ def main(new: bool) -> None:
             source_currency=currency,
             target_amount=1000,
             target_currency="USD",
-            price_set_id=2593 if new else 2586,
+            price_set_id=2569 if new else 2619,
         )
         for currency in tqdm(currencies)
     ]

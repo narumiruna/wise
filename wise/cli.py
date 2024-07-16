@@ -33,7 +33,7 @@ def cli(
             target_currency=target,
             pay_in_method=pay_in_method,
             pay_out_method=pay_out_method,
-            price_set_id=2593 if new else 2586,
+            price_set_id=2569 if new else 2619,
         )
         for source, amount, target in tqdm(list(product(sources, amounts, targets)))
     ]
