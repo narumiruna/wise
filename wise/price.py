@@ -76,7 +76,7 @@ def query_price(
     target_currency: str | None = None,
     pay_in_method: str = "GOOGLE_PAY",
     pay_out_method: str = "BALANCE",
-    price_set_id: int = 2586,
+    price_set_id: int | None = None,
 ) -> Price:
     prices = PriceRequest(
         source_amount=source_amount,

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import click
 from tqdm import tqdm
 
@@ -6,8 +8,8 @@ from wise import query_price
 
 
 @click.command()
-@click.option("--new", is_flag=True, type=click.BOOL, help="New price set ID")
-def main(new: bool) -> None:
+@click.option("--price-set-id", type=click.INT, default=None)
+def main(price_set_id: int | None) -> None:
     currencies = [
         "AED",
         "AUD",
@@ -42,12 +44,14 @@ def main(new: bool) -> None:
             source_currency=currency,
             target_amount=1000,
             target_currency="USD",
-            price_set_id=2619 if new else 2569,
+            price_set_id=price_set_id,
         )
         for currency in tqdm(currencies)
     ]
     prices = sorted(prices, key=lambda p: p.variable_fee_percent)
 
+    if price_set_id is not None:
+        print(f"price_set_id: {price_set_id}")
     print_costs(prices)
 
 
