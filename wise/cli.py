@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from itertools import product
 
 import click
@@ -13,14 +15,14 @@ from .price import query_price
 @click.argument("target-currency", type=click.STRING)
 @click.option("-i", "--pay-in-method", type=click.STRING, default="GOOGLE_PAY")
 @click.option("-o", "--pay-out-method", type=click.STRING, default="BALANCE")
-@click.option("--new", is_flag=True, type=click.BOOL)
+@click.option("--price-set-id", type=click.INT, default=2586)
 def cli(
     source_currency: str,
     target_amount: str,
     target_currency: str,
     pay_in_method: str,
     pay_out_method: str,
-    new: bool,
+    price_set_id: int | None,
 ) -> None:
     sources = source_currency.split(",")
     amounts = [float(x) for x in target_amount.split(",")]
@@ -33,7 +35,7 @@ def cli(
             target_currency=target,
             pay_in_method=pay_in_method,
             pay_out_method=pay_out_method,
-            price_set_id=2619 if new else 2569,
+            price_set_id=price_set_id,
         )
         for source, amount, target in tqdm(list(product(sources, amounts, targets)))
     ]

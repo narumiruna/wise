@@ -25,10 +25,14 @@ jobs:
       - name: Run
         run: |
           poetry install
-          poetry run python scripts/add_usd.py >> target_usd.txt
-          poetry run python scripts/add_usd.py --new >> target_usd_new.txt
-          poetry run python scripts/same_currency.py >> same_currency.txt
-          poetry run python scripts/same_currency.py --new >> same_currency_new.txt
+          poetry run python scripts/add_usd.py --price-set-id 2586 >> target_usd.txt
+          poetry run python scripts/add_usd.py --price-set-id 2593 >> target_usd.txt
+          poetry run python scripts/add_usd.py --price-set-id 2619 >> target_usd.txt
+          poetry run python scripts/add_usd.py --price-set-id 2569 >> target_usd.txt
+          poetry run python scripts/same_currency.py --price-set-id 2586 >> same_currency.txt
+          poetry run python scripts/same_currency.py --price-set-id 2593 >> same_currency.txt
+          poetry run python scripts/same_currency.py --price-set-id 2619 >> same_currency.txt
+          poetry run python scripts/same_currency.py --price-set-id 2569 >> same_currency.txt
       - uses: danielmcconville/gist-sync-file-action@v2.0.0
         with:
           gistPat: ${{ secrets.GIST_TOKEN }}
@@ -40,20 +44,6 @@ jobs:
         with:
           gistPat: ${{ secrets.GIST_TOKEN }}
           action: update
-          filename: target_usd_new.txt
-          gistId: ${{ vars.GIST_ID }}
-          createIfNotExists: true
-      - uses: danielmcconville/gist-sync-file-action@v2.0.0
-        with:
-          gistPat: ${{ secrets.GIST_TOKEN }}
-          action: update
           filename: same_currency.txt
-          gistId: ${{ vars.GIST_ID }}
-          createIfNotExists: true
-      - uses: danielmcconville/gist-sync-file-action@v2.0.0
-        with:
-          gistPat: ${{ secrets.GIST_TOKEN }}
-          action: update
-          filename: same_currency_new.txt
           gistId: ${{ vars.GIST_ID }}
           createIfNotExists: true
