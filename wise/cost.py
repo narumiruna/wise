@@ -18,6 +18,7 @@ def print_costs(prices: list[Price], card_fee_percent: float = 1.5, reward_rate:
             [
                 f"{price.source_amount:.2f} {price.source_currency}",
                 f"{price.target_amount:.2f} {price.target_currency}",
+                f"{price.mid_rate:.4f}",
                 f"{price.total:.2f} {price.source_currency} ({wise_fee_percent:.2f}%)",
                 f"{fee:.2f} {price.source_currency} ({fee_percent:.2f}%)",
                 f"{cost_per_mile:.4f}",
@@ -30,6 +31,7 @@ def print_costs(prices: list[Price], card_fee_percent: float = 1.5, reward_rate:
             headers=[
                 "Source",
                 "Target",
+                "Mid Rate",
                 "Wise Fee",
                 "Total Fee",
                 "Cost per Mile",
