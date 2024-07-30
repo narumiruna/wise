@@ -15,7 +15,7 @@ from .price import query_price
 @click.argument("target-currency", type=click.STRING)
 @click.option("-i", "--pay-in-method", type=click.STRING, default="GOOGLE_PAY")
 @click.option("-o", "--pay-out-method", type=click.STRING, default="BALANCE")
-@click.option("--price-set-id", type=click.INT, default=2593)
+@click.option("--price-set-id", type=click.INT, default=None)
 def cli(
     source_currency: str,
     target_amount: str,
