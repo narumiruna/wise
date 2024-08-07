@@ -1,14 +1,13 @@
 from __future__ import annotations
 
+import httpx
 from pydantic import BaseModel
 from pydantic import Field
-
-from .request import get
 
 
 class CurrencyRequest(BaseModel):
     def do(self) -> list[Currency]:
-        resp = get(
+        resp = httpx.get(
             url="https://wise.com/gateway/v1/currencies",
         )
         resp.raise_for_status()

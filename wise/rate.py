@@ -4,10 +4,9 @@ from datetime import datetime
 from enum import Enum
 from functools import cache
 
+import httpx
 from pydantic import BaseModel
 from pydantic import field_validator
-
-from .request import get
 
 
 # {"source":"EUR","target":"USD","value":1.05425,"time":1697653800557}
@@ -45,7 +44,7 @@ class RateRequest(BaseModel):
     target: str
 
     def do(self) -> Rate:
-        resp = get(
+        resp = httpx.get(
             "https://wise.com/rates/live",
             params=self.model_dump(),
         )
@@ -67,7 +66,7 @@ class RateHistoryRequest(BaseModel):
     unit: Unit
 
     def do(self) -> list[Rate]:
-        resp = get(
+        resp = httpx.get(
             url="https://wise.com/rates/history",
             params=self.model_dump(mode="json"),
         )

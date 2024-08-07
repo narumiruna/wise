@@ -1,10 +1,9 @@
 from __future__ import annotations
 
+import httpx
 from pydantic import BaseModel
 from pydantic import Field
 from pydantic import field_validator
-
-from .request import get
 
 
 class Price(BaseModel):
@@ -48,7 +47,7 @@ class PriceRequest(BaseModel):
         # https://wise.com/gb/pricing/send-money
         # https://wise.com/price-change/borderless-add
 
-        resp = get(
+        resp = httpx.get(
             url="https://wise.com/gateway/v1/price",
             params=self.model_dump(exclude_none=True, by_alias=True),
         )
