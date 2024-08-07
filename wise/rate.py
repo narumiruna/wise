@@ -45,7 +45,7 @@ class RateRequest(BaseModel):
 
     def do(self) -> Rate:
         resp = httpx.get(
-            "https://wise.com/rates/live",
+            url="https://wise.com/rates/live",
             params=self.model_dump(),
         )
         resp.raise_for_status()

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from functools import cache
+
 import httpx
 from pydantic import BaseModel
 from pydantic import Field
@@ -68,6 +70,7 @@ def find_price(
     raise ValueError(msg)
 
 
+@cache
 def query_price(
     source_amount: float | None = None,
     source_currency: str | None = None,
