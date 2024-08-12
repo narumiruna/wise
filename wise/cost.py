@@ -22,6 +22,7 @@ def print_costs(prices: list[Price], card_fee_percent: float = 1.5, reward_rate:
                 f"{price.total:.2f} {price.source_currency} ({wise_fee_percent:.2f}%)",
                 f"{fee:.2f} {price.source_currency} ({fee_percent:.2f}%)",
                 f"{cost_per_mile:.4f}",
+                f"{price.price_set_id}",
             ]
         )
 
@@ -35,6 +36,7 @@ def print_costs(prices: list[Price], card_fee_percent: float = 1.5, reward_rate:
                 "Wise Fee",
                 "Total Fee",
                 "Cost per Mile",
+                "Price Set ID",
             ],
             tablefmt="rounded_grid",
             stralign="right",
