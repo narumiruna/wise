@@ -13,7 +13,7 @@ from .price import query_price
 @click.argument("source-currency", type=click.STRING)
 @click.argument("target-amount", type=click.STRING)
 @click.argument("target-currency", type=click.STRING)
-@click.option("-i", "--pay-in-method", type=click.STRING, default="GOOGLE_PAY")
+@click.option("-i", "--pay-in-method", type=click.STRING, default="VISA_CREDIT")
 @click.option("-o", "--pay-out-method", type=click.STRING, default="BALANCE")
 @click.option("--price-set-id", type=click.INT, default=None)
 def cli(

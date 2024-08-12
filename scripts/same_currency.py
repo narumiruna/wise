@@ -9,8 +9,14 @@ from wise import query_rate
 
 
 @click.command()
+@click.option("-i", "--pay-in-method", type=click.STRING, default="VISA_CREDIT")
+@click.option("-o", "--pay-out-method", type=click.STRING, default="BALANCE")
 @click.option("--price-set-id", type=click.INT, default=None)
-def main(price_set_id: int | None) -> None:
+def main(
+    pay_in_method: str,
+    pay_out_method: str,
+    price_set_id: int | None,
+) -> None:
     currencies = [
         "AED",
         "AUD",
@@ -45,6 +51,8 @@ def main(price_set_id: int | None) -> None:
             source_currency=currency,
             target_amount=1000 / query_rate(source=currency, target="USD").value,
             target_currency=currency,
+            pay_in_method=pay_in_method,
+            pay_out_method=pay_out_method,
             price_set_id=price_set_id,
         )
         for currency in tqdm(currencies)
