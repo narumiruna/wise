@@ -25,8 +25,8 @@ jobs:
       - name: Run
         run: |
           poetry install
-          poetry run python scripts/add_usd.py --price-set-id 2640 >> target_usd.txt
-          poetry run python scripts/same_currency.py --price-set-id 2640 >> same_currency.txt
+          poetry run python scripts/add_usd.py >> target_usd.txt
+          poetry run python scripts/same_currency.py >> same_currency.txt
       - uses: danielmcconville/gist-sync-file-action@v2.0.0
         with:
           gistPat: ${{ secrets.GIST_TOKEN }}
