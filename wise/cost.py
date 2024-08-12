@@ -16,13 +16,15 @@ def print_costs(prices: list[Price], card_fee_percent: float = 1.5, reward_rate:
 
         table.append(
             [
+                f"{price.price_set_id}",
                 f"{price.source_amount:.2f} {price.source_currency}",
                 f"{price.target_amount:.2f} {price.target_currency}",
+                f"{price.pay_in_method}",
+                f"{price.pay_out_method}",
                 f"{price.mid_rate:.4f}",
                 f"{price.total:.2f} {price.source_currency} ({wise_fee_percent:.2f}%)",
                 f"{fee:.2f} {price.source_currency} ({fee_percent:.2f}%)",
                 f"{cost_per_mile:.4f}",
-                f"{price.price_set_id}",
             ]
         )
 
@@ -30,13 +32,15 @@ def print_costs(prices: list[Price], card_fee_percent: float = 1.5, reward_rate:
         tabulate(
             table,
             headers=[
+                "Price Set ID",
                 "Source",
                 "Target",
+                "Pay In Method",
+                "Pay Out Method",
                 "Mid Rate",
                 "Wise Fee",
                 "Total Fee",
                 "Cost per Mile",
-                "Price Set ID",
             ],
             tablefmt="rounded_grid",
             stralign="right",
