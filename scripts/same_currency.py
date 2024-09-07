@@ -9,7 +9,7 @@ from wise import query_rate
 
 
 @click.command()
-@click.option("-i", "--pay-in-method", type=click.STRING, default="VISA_CREDIT")
+@click.option("-i", "--pay-in-method", type=click.STRING, default="GOOGLE_PAY")
 @click.option("-o", "--pay-out-method", type=click.STRING, default="BALANCE")
 @click.option("--price-set-id", type=click.INT, default=None)
 def main(

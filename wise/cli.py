@@ -5,7 +5,7 @@ from itertools import product
 import click
 from tqdm import tqdm
 
-from .cost import print_costs
+from .cost import print_cash_back_costs
 from .price import query_price
 
 
@@ -13,7 +13,7 @@ from .price import query_price
 @click.argument("source-currency", type=click.STRING)
 @click.argument("target-amount", type=click.STRING)
 @click.argument("target-currency", type=click.STRING)
-@click.option("-i", "--pay-in-method", type=click.STRING, default="VISA_CREDIT")
+@click.option("-i", "--pay-in-method", type=click.STRING, default="GOOGLE_PAY")
 @click.option("-o", "--pay-out-method", type=click.STRING, default="BALANCE")
 @click.option("--price-set-id", type=click.INT, default=None)
 def cli(
@@ -44,4 +44,4 @@ def cli(
     prices = sorted(prices, key=lambda p: p.variable_fee_percent)
 
     # print costs
-    print_costs(prices)
+    print_cash_back_costs(prices)
