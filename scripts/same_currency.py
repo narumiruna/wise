@@ -3,7 +3,7 @@ from __future__ import annotations
 import click
 from tqdm import tqdm
 
-from wise import print_costs
+from wise import print_cash_back_costs
 from wise import query_price
 from wise import query_rate
 
@@ -61,7 +61,7 @@ def main(
 
     if price_set_id is not None:
         print(f"price_set_id: {price_set_id}")
-    print_costs(prices)
+    print_cash_back_costs(prices)
 
 
 if __name__ == "__main__":
