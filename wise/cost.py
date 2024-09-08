@@ -24,7 +24,7 @@ def print_costs(
 
         table.append(
             [
-                f"{price.price_set_id}",
+                # f"{price.price_set_id}",
                 f"{price.source_amount:.2f} {price.source_currency}",
                 f"{price.target_amount:.2f} {price.target_currency}",
                 f"{price.total:.2f} {price.source_currency} ({wise_fee_percent:.2f}%)",
@@ -39,7 +39,7 @@ def print_costs(
         tabulate(
             table,
             headers=[
-                "Price Set ID",
+                # "Price Set ID",
                 "Source",
                 "Target",
                 "Wise Fee",
