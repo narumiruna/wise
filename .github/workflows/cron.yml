@@ -8,20 +8,8 @@ on:
 jobs:
   cron:
     runs-on: ubuntu-latest
-    strategy:
-      max-parallel: 1
-      matrix:
-        python-version: ["3.9"]
-        poetry-version: ["1.7.1"]
     steps:
       - uses: actions/checkout@v4
-      - uses: abatilo/actions-poetry@v3
-        with:
-          poetry-version: ${{ matrix.poetry-version }}
-      - uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python-version }}
-          cache: poetry
       - name: Run
         run: |
           poetry install
