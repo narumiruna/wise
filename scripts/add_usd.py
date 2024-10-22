@@ -3,9 +3,9 @@ from __future__ import annotations
 import click
 from tqdm import tqdm
 
-from wise import query_price
-from wise.cost import print_cash_back_costs
-from wise.cost import print_costs
+from wisest import query_price
+from wisest.cost import print_cash_back_costs
+from wisest.cost import print_costs
 
 
 @click.command()

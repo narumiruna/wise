@@ -1,9 +1,9 @@
 import pytest
 
-from wise.method import PayInMethod
-from wise.method import PayOutMethod
-from wise.price import Price
-from wise.price import query_price
+from wisest.method import PayInMethod
+from wisest.method import PayOutMethod
+from wisest.price import Price
+from wisest.price import query_price
 
 
 @pytest.mark.parametrize("source_currency", ["GBP", "EUR"])

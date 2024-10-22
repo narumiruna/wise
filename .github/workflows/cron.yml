@@ -12,21 +12,16 @@ jobs:
       max-parallel: 1
       matrix:
         python-version: ["3.9"]
-        poetry-version: ["1.7.1"]
     steps:
       - uses: actions/checkout@v4
-      - uses: abatilo/actions-poetry@v3
-        with:
-          poetry-version: ${{ matrix.poetry-version }}
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-          cache: poetry
       - name: Run
         run: |
-          poetry install
-          poetry run python scripts/add_usd.py >> target_usd.txt
-          poetry run python scripts/same_currency.py >> same_currency.txt
+          pip install .
+          python scripts/add_usd.py >> target_usd.txt
+          python scripts/same_currency.py >> same_currency.txt
       - uses: danielmcconville/gist-sync-file-action@v2.0.0
         with:
           gistPat: ${{ secrets.GIST_TOKEN }}
