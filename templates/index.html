@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Query Price</title>
+    <style>
+      body {
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #1e1e1e;
+        color: #f4f4f4;
+      }
+      h1, h2 {
+        color: #00d1b2;
+        text-align: center;
+      }
+      h1 {
+        font-size: 2.5em;
+        margin-bottom: 20px;
+      }
+      h2 {
+        font-size: 2em;
+        margin-top: 40px;
+      }
+      form {
+        background: #2e2e2e;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        max-width: 600px;
+        margin: auto;
+      }
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+      }
+      input, select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #444;
+        border-radius: 4px;
+        background-color: #3e3e3e;
+        color: #f4f4f4;
+      }
+      button {
+        background-color: #00d1b2;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      button:hover {
+        background-color: #00bfa5;
+      }
+      pre {
+        background: #2e2e2e;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        max-width: 600px;
+        margin: auto;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        overflow-x: auto;
+      }
+      .json-key {
+        color: #ff8c00;
+      }
+      .json-value {
+        color: #00d1b2;
+      }
+      .json-string {
+        color: #ff8c00;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px auto;
+        max-width: 600px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        border-radius: 8px;
+        overflow: hidden;
+        background-color: #2e2e2e;
+      }
+      th, td {
+        padding: 12px;
+        border: 1px solid #444;
+        text-align: left;
+        color: #f4f4f4;
+      }
+      th {
+        background-color: #3e3e3e;
+        box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+      }
+      tr:nth-child(even) {
+        background-color: #3e3e3e;
+      }
+      tr:hover {
+        background-color: #444;
+      }
+      .nested-table {
+        margin: 10px 0;
+        border: 1px solid #444;
+        border-radius: 4px;
+        background-color: #3e3e3e;
+      }
+      .nested-table th, .nested-table td {
+        padding: 8px;
+        border: 1px solid #444;
+        text-align: left;
+        color: #f4f4f4;
+      }
+      .nested-table th {
+        background-color: #4e4e4e;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Query Price</h1>
+    <form id="queryForm">
+      <label for="source_amount">Source Amount:</label>
+      <input
+        type="number"
+        id="source_amount"
+        name="source_amount"
+      /><br /><br />
+
+      <label for="source_currency">Source Currency:</label>
+      <select id="source_currency" name="source_currency" required>
+        <option value="USD">USD</option>
+        <option value="EUR">EUR</option>
+        <option value="JPY">JPY</option>
+        <!-- Add more options as needed -->
+      </select><br /><br />
+
+      <label for="target_amount">Target Amount:</label>
+      <input
+        type="number"
+        id="target_amount"
+        name="target_amount"
+        value="1000"
+        required
+      /><br /><br />
+
+      <label for="target_currency">Target Currency:</label>
+      <select id="target_currency" name="target_currency" required>
+        <option value="USD">USD</option>
+        <option value="EUR">EUR</option>
+        <option value="JPY">JPY</option>
+        <!-- Add more options as needed -->
+      </select><br /><br />
+
+      <label for="pay_in_method">Pay In Method:</label>
+      <select id="pay_in_method" name="pay_in_method">
+        <option value="GOOGLE_PAY" selected>GOOGLE_PAY</option>
+        <option value="ALIPAY">ALIPAY</option>
+        <option value="APPLE_PAY">APPLE_PAY</option>
+        <option value="BALANCE">BALANCE</option>
+        <option value="BANK_TRANSFER">BANK_TRANSFER</option>
+        <option value="BANKGIRO">BANKGIRO</option>
+        <option value="BILL_PAYMENT">BILL_PAYMENT</option>
+        <option value="BOLETO">BOLETO</option>
+        <option value="CARD">CARD</option>
+        <option value="CFSB_SWIFT">CFSB_SWIFT</option>
+        <option value="CREDIT">CREDIT</option>
+        <option value="DEBIT">DEBIT</option>
+        <option value="DIRECT_DEBIT">DIRECT_DEBIT</option>
+        <option value="EVOLVE_SWIFT">EVOLVE_SWIFT</option>
+        <option value="FAST_DIRECT_DEBIT">FAST_DIRECT_DEBIT</option>
+        <option value="FPX">FPX</option>
+        <option value="GBP_SWIFT">GBP_SWIFT</option>
+        <option value="IDEAL">IDEAL</option>
+        <option value="INSTA_DEBIT">INSTA_DEBIT</option>
+        <option value="INT_CREDIT_WITH_EUROPEAN_CARD">INT_CREDIT_WITH_EUROPEAN_CARD</option>
+        <option value="INT_DEBIT_WITH_EUROPEAN_CARD">INT_DEBIT_WITH_EUROPEAN_CARD</option>
+        <option value="INTERAC">INTERAC</option>
+        <option value="INTERNATIONAL_CREDIT">INTERNATIONAL_CREDIT</option>
+        <option value="INTERNATIONAL_DEBIT">INTERNATIONAL_DEBIT</option>
+        <option value="MAESTRO">MAESTRO</option>
+        <option value="MC_BUSINESS_CREDIT">MC_BUSINESS_CREDIT</option>
+        <option value="MC_BUSINESS_DEBIT">MC_BUSINESS_DEBIT</option>
+        <option value="MC_CREDIT">MC_CREDIT</option>
+        <option value="MC_DEBIT_OR_PREPAID">MC_DEBIT_OR_PREPAID</option>
+        <option value="OSKO">OSKO</option>
+        <option value="PAYNOW">PAYNOW</option>
+        <option value="PAYPAL">PAYPAL</option>
+        <option value="PEOPLES_TRUST_SWIFT">PEOPLES_TRUST_SWIFT</option>
+        <option value="PISP">PISP</option>
+        <option value="PIX">PIX</option>
+        <option value="POLI">POLI</option>
+        <option value="PROMPT_PAY">PROMPT_PAY</option>
+        <option value="QONTO_SWIFT">QONTO_SWIFT</option>
+        <option value="RECEIVE_BANK_TRANSFER">RECEIVE_BANK_TRANSFER</option>
+        <option value="SOFORT">SOFORT</option>
+        <option value="SWIFT">SWIFT</option>
+        <option value="TRUSTED_PRE_FUND_BULK">TRUSTED_PRE_FUND_BULK</option>
+        <option value="TRUSTED_PRE_FUND_TX">TRUSTED_PRE_FUND_TX</option>
+        <option value="TRUSTLY">TRUSTLY</option>
+        <option value="VENMO_PUSH">VENMO_PUSH</option>
+        <option value="VISA_BUSINESS_CREDIT">VISA_BUSINESS_CREDIT</option>
+        <option value="VISA_BUSINESS_DEBIT">VISA_BUSINESS_DEBIT</option>
+        <option value="VISA_CREDIT">VISA_CREDIT</option>
+        <option value="VISA_DEBIT_OR_PREPAID">VISA_DEBIT_OR_PREPAID</option>
+      </select><br /><br />
+
+      <label for="pay_out_method">Pay Out Method:</label>
+      <select id="pay_out_method" name="pay_out_method">
+        <option value="BALANCE" selected>BALANCE</option>
+        <option value="SWIFT">SWIFT</option>
+        <option value="WECHATPAY">WECHATPAY</option>
+        <option value="DIRECT_DEBIT">DIRECT_DEBIT</option>
+        <option value="SWIFT_UA_PRIVAT">SWIFT_UA_PRIVAT</option>
+        <option value="BANK_TRANSFER">BANK_TRANSFER</option>
+        <option value="WIRE">WIRE</option>
+        <option value="ALIPAY">ALIPAY</option>
+        <option value="CARD">CARD</option>
+        <option value="SWIFT_HK">SWIFT_HK</option>
+        <option value="BANK_OF_SHANGHAI">BANK_OF_SHANGHAI</option>
+        <option value="SWIFT_OUR_TIER_2">SWIFT_OUR_TIER_2</option>
+        <option value="SWIFT_OUR_TIER_1">SWIFT_OUR_TIER_1</option>
+        <option value="SWIFT_SG_DBS">SWIFT_SG_DBS</option>
+        <option value="INTERAC">INTERAC</option>
+      </select><br /><br />
+
+      <button type="button" onclick="queryPrice()">Query Price</button>
+    </form>
+
+    <h2>Result:</h2>
+    <div id="result"></div>
+
+    <script>
+      function queryPrice() {
+        const form = document.getElementById("queryForm");
+        const formData = new FormData(form);
+        const params = new URLSearchParams();
+
+        for (const [key, value] of formData.entries()) {
+          if (value) {
+            params.append(key, value);
+          }
+        }
+
+        fetch(`/query_price?${params.toString()}`)
+          .then((response) => response.json())
+          .then((data) => {
+            document.getElementById("result").innerHTML = jsonToTable(data);
+          })
+          .catch((error) => {
+            document.getElementById("result").textContent = `Error: ${error}`;
+          });
+      }
+
+      function jsonToTable(json) {
+        let table = '<table>';
+        for (const key in json) {
+          if (json.hasOwnProperty(key)) {
+            if (key === 'additional_fee_details') {
+              table += `<tr><th>${key}</th><td>${jsonToNestedTable(json[key])}</td></tr>`;
+            } else {
+              table += `<tr><th>${key}</th><td>${JSON.stringify(json[key], null, 2)}</td></tr>`;
+            }
+          }
+        }
+        table += '</table>';
+        return table;
+      }
+
+      function jsonToNestedTable(json) {
+        let nestedTable = '<table class="nested-table">';
+        for (const key in json) {
+          if (json.hasOwnProperty(key)) {
+            nestedTable += `<tr><th>${key}</th><td>${JSON.stringify(json[key], null, 2)}</td></tr>`;
+          }
+        }
+        nestedTable += '</table>';
+        return nestedTable;
+      }
+    </script>
+  </body>
+</html>
