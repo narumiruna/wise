@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from rich import print
 from tabulate import tabulate
 
 from .price import Price
