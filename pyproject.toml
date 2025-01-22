@@ -1,6 +1,6 @@
 [project]
 name = "wisest"
-version = "0.13.1"
+version = "0.14.0"
 description = ""
 readme = "README.md"
 authors = [{ name = "narumi", email = "toucans-cutouts0f@icloud.com" }]
