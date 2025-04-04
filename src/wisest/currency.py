@@ -13,6 +13,12 @@ class CurrencyRequest(BaseModel):
         resp.raise_for_status()
         return [Currency.model_validate(data) for data in resp.json()]
 
+    async def async_do(self) -> list[Currency]:
+        async with httpx.AsyncClient() as client:
+            resp = await client.get(url="https://wise.com/gateway/v1/currencies")
+            resp.raise_for_status()
+            return [Currency.model_validate(data) for data in resp.json()]
+
 
 class Currency(BaseModel):
     code: str

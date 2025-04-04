@@ -3,6 +3,7 @@ import pytest
 from wisest.method import PayInMethod
 from wisest.method import PayOutMethod
 from wisest.price import Price
+from wisest.price import PriceRequest
 from wisest.price import query_price
 
 
@@ -32,3 +33,26 @@ def test_query_price(
     assert price.target_currency == target_currency
     assert price.pay_in_method == pay_in_method
     assert price.pay_out_method == pay_out_method
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("source_currency", ["GBP", "EUR"])
+@pytest.mark.parametrize("target_amount", [1000])
+@pytest.mark.parametrize("target_currency", ["USD"])
+async def test_price_request_async(
+    target_amount: float,
+    source_currency: str,
+    target_currency: str,
+) -> None:
+    prices = await PriceRequest(
+        source_currency=source_currency,
+        target_amount=target_amount,
+        target_currency=target_currency,
+    ).async_do()
+
+    assert isinstance(prices, list)
+    for price in prices:
+        assert isinstance(price, Price)
+        assert price.source_currency == source_currency
+        assert price.target_amount == target_amount
+        assert price.target_currency == target_currency
