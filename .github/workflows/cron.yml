@@ -20,8 +20,8 @@ jobs:
       - name: Run
         run: |
           pip install .
-          python scripts/add_usd.py >> target_usd.txt
-          python scripts/same_currency.py >> same_currency.txt
+          python scripts/add_usd.py -i INTERNATIONAL_CREDIT >> target_usd.txt
+          python scripts/same_currency.py -i INTERNATIONAL_CREDIT >> same_currency.txt
       - uses: danielmcconville/gist-sync-file-action@v2.0.0
         with:
           gistPat: ${{ secrets.GIST_TOKEN }}

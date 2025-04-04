@@ -6,7 +6,8 @@ from tqdm import tqdm
 from wisest import query_price
 from wisest import query_rate
 from wisest.cost import print_cash_back_costs
-from wisest.cost import print_costs
+
+# from wisest.cost import print_costs
 
 
 @click.command()
@@ -62,7 +63,7 @@ def main(
 
     if price_set_id is not None:
         print(f"price_set_id: {price_set_id}")
-    print_costs(prices)
+    # print_costs(prices)
     print_cash_back_costs(prices)
 
 
