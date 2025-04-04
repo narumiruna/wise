@@ -130,3 +130,6 @@ dmypy.json
 
 # price cache
 tmp/
+
+# VS Code
+.vscode/
