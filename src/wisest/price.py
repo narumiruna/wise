@@ -56,6 +56,15 @@ class PriceRequest(BaseModel):
         resp.raise_for_status()
         return [Price.model_validate(data) for data in resp.json()]
 
+    async def async_do(self) -> list[Price]:
+        async with httpx.AsyncClient() as client:
+            resp = await client.get(
+                url="https://wise.com/gateway/v1/price",
+                params=self.model_dump(exclude_none=True, by_alias=True),
+            )
+            resp.raise_for_status()
+            return [Price.model_validate(data) for data in resp.json()]
+
 
 def find_price(
     prices: list[Price],

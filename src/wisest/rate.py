@@ -51,6 +51,15 @@ class RateRequest(BaseModel):
         resp.raise_for_status()
         return Rate.model_validate(resp.json())
 
+    async def async_do(self) -> Rate:
+        async with httpx.AsyncClient() as client:
+            resp = await client.get(
+                url="https://wise.com/rates/live",
+                params=self.model_dump(),
+            )
+            resp.raise_for_status()
+            return Rate.model_validate(resp.json())
+
 
 @cache
 def query_rate(source: str, target: str) -> Rate:
@@ -72,3 +81,12 @@ class RateHistoryRequest(BaseModel):
         )
         resp.raise_for_status()
         return [Rate.model_validate(data) for data in resp.json()]
+
+    async def async_do(self) -> list[Rate]:
+        async with httpx.AsyncClient() as client:
+            resp = await client.get(
+                url="https://wise.com/rates/history",
+                params=self.model_dump(mode="json"),
+            )
+            resp.raise_for_status()
+            return [Rate.model_validate(data) for data in resp.json()]
