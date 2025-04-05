@@ -14,14 +14,13 @@ jobs:
         python-version: ["3.12"]
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: astral-sh/setup-uv@v5
         with:
           python-version: ${{ matrix.python-version }}
       - name: Run
         run: |
-          pip install .
-          python scripts/add_usd.py -i INTERNATIONAL_CREDIT >> target_usd.txt
-          python scripts/same_currency.py -i INTERNATIONAL_CREDIT >> same_currency.txt
+          uv run python scripts/add_usd.py -i INTERNATIONAL_CREDIT >> target_usd.txt
+          uv run python scripts/same_currency.py -i INTERNATIONAL_CREDIT >> same_currency.txt
       - uses: danielmcconville/gist-sync-file-action@v2.0.0
         with:
           gistPat: ${{ secrets.GIST_TOKEN }}
