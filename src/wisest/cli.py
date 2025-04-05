@@ -1,28 +1,24 @@
 from __future__ import annotations
 
 from itertools import product
+from typing import Annotated
 
-import click
+import typer
 from tqdm import tqdm
 
 from .cost import print_cash_back_costs
+from .method import PayInMethod
+from .method import PayOutMethod
 from .price import query_price
 
 
-@click.command()
-@click.argument("source-currency", type=click.STRING)
-@click.argument("target-amount", type=click.STRING)
-@click.argument("target-currency", type=click.STRING)
-@click.option("-i", "--pay-in-method", type=click.STRING, default="GOOGLE_PAY")
-@click.option("-o", "--pay-out-method", type=click.STRING, default="BALANCE")
-@click.option("--price-set-id", type=click.INT, default=None)
-def cli(
+def _main(
     source_currency: str,
     target_amount: str,
     target_currency: str,
-    pay_in_method: str,
-    pay_out_method: str,
-    price_set_id: int | None,
+    pay_in_method: Annotated[PayInMethod, typer.Option("-i", "--pay-in-method")] = PayInMethod.GOOGLE_PAY,
+    pay_out_method: Annotated[PayOutMethod, typer.Option("-o", "--pay-out-method")] = PayOutMethod.BALANCE,
+    price_set_id: int | None = None,
 ) -> None:
     sources = source_currency.split(",")
     amounts = [float(x) for x in target_amount.split(",")]
@@ -45,3 +41,7 @@ def cli(
 
     # print costs
     print_cash_back_costs(prices)
+
+
+def main() -> None:
+    typer.run(_main)
