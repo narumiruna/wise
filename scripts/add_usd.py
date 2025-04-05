@@ -16,7 +16,7 @@ def main(
     pay_in_method: Annotated[PayInMethod, typer.Option("-i", "--pay-in-method")] = PayInMethod.INTERNATIONAL_CREDIT,
     pay_out_method: Annotated[PayOutMethod, typer.Option("-o", "--pay-out-method")] = PayOutMethod.BALANCE,
     price_set_id: int | None = None,
-    output_file: Annotated[str, typer.Option("-o", "--output-file")] = "add_usd.txt",
+    output_file: Annotated[str, typer.Option("--output-file")] = "add_usd.txt",
 ) -> None:
     currencies = [
         "AED",
