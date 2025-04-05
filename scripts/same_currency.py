@@ -68,7 +68,15 @@ def main(
     print(result)
 
     with Path(output_file).open("w") as f:
-        f.write(result)
+        f.write(
+            "\n".join(
+                [
+                    f"Pay in Method: {pay_in_method.name}",
+                    f"Pay out Method: {pay_out_method.name}",
+                    result,
+                ]
+            )
+        )
 
 
 if __name__ == "__main__":
