@@ -8,11 +8,13 @@ from tqdm import tqdm
 
 from wisest import query_price
 from wisest.cost import format_cash_back_costs
+from wisest.method import PayInMethod
+from wisest.method import PayOutMethod
 
 
 def main(
-    pay_in_method: str = "GOOGLE_PAY",
-    pay_out_method: str = "BALANCE",
+    pay_in_method: Annotated[PayInMethod, typer.Option("-i", "--pay-in-method")] = PayInMethod.GOOGLE_PAY,
+    pay_out_method: Annotated[PayOutMethod, typer.Option("-o", "--pay-out-method")] = PayOutMethod.BALANCE,
     price_set_id: int | None = None,
     output_file: Annotated[str, typer.Option("-o", "--output-file")] = "add_usd.txt",
 ) -> None:
