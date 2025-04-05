@@ -49,12 +49,11 @@ def print_costs(prices: list[Price], card_fee_percent: float = 1.5, reward_rate:
     )
 
 
-def print_cash_back_costs(
+def format_cash_back_costs(
     prices: list[Price],
     card_fee_percent: float = 1.5,
-    # reward_rate: float = 0.1,
     cash_back_percent: float = 3.0,
-) -> None:
+):
     table = []
     for price in prices:
         card_fee = price.source_amount * card_fee_percent / 100
@@ -64,11 +63,9 @@ def print_cash_back_costs(
         cash_back = price.source_amount * cash_back_percent / 100
         cost = fee - cash_back
         cost_percent = 100 * cost / price.source_amount
-        # cost_per_mile = fee / (price.source_amount * reward_rate)
 
         table.append(
             [
-                # f"{price.price_set_id}",
                 f"{price.source_amount:.2f} {price.source_currency}",
                 f"{price.target_amount:.2f} {price.target_currency}",
                 f"{price.total:.2f} {price.source_currency} ({wise_fee_percent:.2f}%)",
@@ -78,21 +75,32 @@ def print_cash_back_costs(
                 # f"{cost_per_mile:.4f}",
             ]
         )
+    return tabulate(
+        table,
+        headers=[
+            # "Price Set ID",
+            "Source",
+            "Target",
+            "Wise Fee",
+            "Total Fee",
+            "Cash Back",
+            "Cost",
+            # "Cost per Mile",
+        ],
+        tablefmt="rounded_grid",
+        stralign="right",
+    )
 
+
+def print_cash_back_costs(
+    prices: list[Price],
+    card_fee_percent: float = 1.5,
+    cash_back_percent: float = 3.0,
+) -> None:
     print(
-        tabulate(
-            table,
-            headers=[
-                # "Price Set ID",
-                "Source",
-                "Target",
-                "Wise Fee",
-                "Total Fee",
-                "Cash Back",
-                "Cost",
-                # "Cost per Mile",
-            ],
-            tablefmt="rounded_grid",
-            stralign="right",
+        format_cash_back_costs(
+            prices,
+            card_fee_percent=card_fee_percent,
+            cash_back_percent=cash_back_percent,
         )
     )

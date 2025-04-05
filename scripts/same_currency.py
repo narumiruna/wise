@@ -1,23 +1,23 @@
 from __future__ import annotations
 
-import click
+from pathlib import Path
+from typing import Annotated
+
+import typer
 from tqdm import tqdm
 
 from wisest import query_price
 from wisest import query_rate
-from wisest.cost import print_cash_back_costs
+from wisest.cost import format_cash_back_costs
+from wisest.method import PayInMethod
+from wisest.method import PayOutMethod
 
-# from wisest.cost import print_costs
 
-
-@click.command()
-@click.option("-i", "--pay-in-method", type=click.STRING, default="GOOGLE_PAY")
-@click.option("-o", "--pay-out-method", type=click.STRING, default="BALANCE")
-@click.option("--price-set-id", type=click.INT, default=None)
 def main(
-    pay_in_method: str,
-    pay_out_method: str,
-    price_set_id: int | None,
+    pay_in_method: Annotated[PayInMethod, typer.Option("-i", "--pay-in-method")] = PayInMethod.INTERNATIONAL_CREDIT,
+    pay_out_method: Annotated[PayOutMethod, typer.Option("-o", "--pay-out-method")] = PayOutMethod.BALANCE,
+    price_set_id: int | None = None,
+    output_file: Annotated[str, typer.Option("--output-file")] = "same_currency.txt",
 ) -> None:
     currencies = [
         # "AED",
@@ -64,7 +64,19 @@ def main(
     if price_set_id is not None:
         print(f"price_set_id: {price_set_id}")
     # print_costs(prices)
-    print_cash_back_costs(prices)
+    result = format_cash_back_costs(prices)
+    print(result)
+
+    with Path(output_file).open("w") as f:
+        f.write(
+            "\n".join(
+                [
+                    f"Pay in Method: {pay_in_method.name}",
+                    f"Pay out Method: {pay_out_method.name}",
+                    result,
+                ]
+            )
+        )
 
 
 if __name__ == "__main__":
