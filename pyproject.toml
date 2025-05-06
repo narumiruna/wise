@@ -68,3 +68,9 @@ force-single-line = true
 
 [tool.pytest.ini_options]
 filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.bumpversion]
+current_version = "0.1.0"
+tag = true
+commit = true
+pre_commit_hooks = ["uv lock", "git add uv.lock"]
