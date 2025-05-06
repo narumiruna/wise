@@ -4,7 +4,6 @@ from pathlib import Path
 from typing import Annotated
 
 import typer
-from tqdm import tqdm
 
 from wisest import query_price
 from wisest import query_rate
@@ -57,7 +56,7 @@ def main(
             pay_out_method=pay_out_method,
             price_set_id=price_set_id,
         )
-        for currency in tqdm(currencies)
+        for currency in currencies
     ]
     prices = sorted(prices, key=lambda x: x.variable_fee_percent)
 

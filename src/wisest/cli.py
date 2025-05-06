@@ -4,7 +4,6 @@ from itertools import product
 from typing import Annotated
 
 import typer
-from tqdm import tqdm
 
 from .cost import print_cash_back_costs
 from .method import PayInMethod
@@ -33,7 +32,7 @@ def _main(
             pay_out_method=pay_out_method,
             price_set_id=price_set_id,
         )
-        for source, amount, target in tqdm(list(product(sources, amounts, targets)))
+        for source, amount, target in list(product(sources, amounts, targets))
     ]
 
     # sort by total fee rate
