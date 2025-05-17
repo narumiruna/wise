@@ -1,4 +1,5 @@
 import pytest
+from aiolimiter import AsyncLimiter
 
 from wisest.currency import Currency
 from wisest.currency import CurrencyRequest
@@ -14,7 +15,8 @@ def test_currency_request() -> None:
 
 @pytest.mark.asyncio
 async def test_currency_request_async() -> None:
-    currencies = await CurrencyRequest().async_do()
+    async with AsyncLimiter(1, 0.05):
+        currencies = await CurrencyRequest().async_do()
 
     assert len(currencies) > 0
     for currency in currencies:

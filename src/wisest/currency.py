@@ -6,8 +6,6 @@ import httpx
 from pydantic import BaseModel
 from pydantic import Field
 
-from .rate_limit import rate_limit
-
 
 class CurrencyRequest(BaseModel):
     def do(self) -> list[Currency]:
@@ -16,7 +14,7 @@ class CurrencyRequest(BaseModel):
         return [Currency.model_validate(data) for data in resp.json()]
 
     async def async_do(self) -> list[Currency]:
-        async with rate_limit, httpx.AsyncClient() as client:
+        async with httpx.AsyncClient() as client:
             resp = await client.get(url="https://wise.com/gateway/v1/currencies")
             resp.raise_for_status()
             return [Currency.model_validate(data) for data in resp.json()]

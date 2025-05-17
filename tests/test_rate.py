@@ -1,4 +1,5 @@
 import pytest
+from aiolimiter import AsyncLimiter
 
 from wisest.rate import Rate
 from wisest.rate import RateHistoryRequest
@@ -32,7 +33,8 @@ def test_rate_request(source: str, target: str) -> None:
 @pytest.mark.parametrize("source", ["GBP"])
 @pytest.mark.parametrize("target", ["USD"])
 async def test_rate_request_async(source: str, target: str) -> None:
-    rate = await RateRequest(source=source, target=target).async_do()
+    async with AsyncLimiter(1, 0.05):
+        rate = await RateRequest(source=source, target=target).async_do()
 
     assert isinstance(rate, Rate)
     assert rate.source == source
@@ -63,14 +65,14 @@ def test_rate_history_request(source: str, target: str) -> None:
 @pytest.mark.parametrize("target", ["USD"])
 async def test_rate_history_request_async(source: str, target: str) -> None:
     length = 10
-
-    rates = RateHistoryRequest(
-        source=source,
-        target=target,
-        length=length,
-        resolution=Resolution.DAILY,
-        unit=Unit.DAY,
-    ).do()
+    async with AsyncLimiter(1, 0.05):
+        rates = RateHistoryRequest(
+            source=source,
+            target=target,
+            length=length,
+            resolution=Resolution.DAILY,
+            unit=Unit.DAY,
+        ).do()
 
     for rate in rates:
         assert isinstance(rate, Rate)

@@ -8,8 +8,6 @@ import httpx
 from pydantic import BaseModel
 from pydantic import field_validator
 
-from .rate_limit import rate_limit
-
 
 # {"source":"EUR","target":"USD","value":1.05425,"time":1697653800557}
 class Rate(BaseModel):
@@ -54,7 +52,7 @@ class RateRequest(BaseModel):
         return Rate.model_validate(resp.json())
 
     async def async_do(self) -> Rate:
-        async with rate_limit, httpx.AsyncClient() as client:
+        async with httpx.AsyncClient() as client:
             resp = await client.get(
                 url="https://wise.com/rates/live",
                 params=self.model_dump(),
@@ -85,7 +83,7 @@ class RateHistoryRequest(BaseModel):
         return [Rate.model_validate(data) for data in resp.json()]
 
     async def async_do(self) -> list[Rate]:
-        async with rate_limit, httpx.AsyncClient() as client:
+        async with httpx.AsyncClient() as client:
             resp = await client.get(
                 url="https://wise.com/rates/history",
                 params=self.model_dump(mode="json"),

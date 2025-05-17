@@ -1,4 +1,5 @@
 import pytest
+from aiolimiter import AsyncLimiter
 
 from wisest.method import PayInMethod
 from wisest.method import PayOutMethod
@@ -44,11 +45,12 @@ async def test_price_request_async(
     source_currency: str,
     target_currency: str,
 ) -> None:
-    prices = await PriceRequest(
-        source_currency=source_currency,
-        target_amount=target_amount,
-        target_currency=target_currency,
-    ).async_do()
+    async with AsyncLimiter(1, 0.05):
+        prices = await PriceRequest(
+            source_currency=source_currency,
+            target_amount=target_amount,
+            target_currency=target_currency,
+        ).async_do()
 
     assert isinstance(prices, list)
     for price in prices:

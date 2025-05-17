@@ -7,8 +7,6 @@ from pydantic import BaseModel
 from pydantic import Field
 from pydantic import field_validator
 
-from .rate_limit import rate_limit
-
 
 class Price(BaseModel):
     price_set_id: int = Field(validation_alias="priceSetId")
@@ -59,7 +57,7 @@ class PriceRequest(BaseModel):
         return [Price.model_validate(data) for data in resp.json()]
 
     async def async_do(self) -> list[Price]:
-        async with rate_limit, httpx.AsyncClient() as client:
+        async with httpx.AsyncClient() as client:
             resp = await client.get(
                 url="https://wise.com/gateway/v1/price",
                 params=self.model_dump(exclude_none=True, by_alias=True),
