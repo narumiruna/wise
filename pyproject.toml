@@ -71,4 +71,4 @@ filterwarnings = ["ignore::DeprecationWarning"]
 current_version = "0.15.0"
 tag = true
 commit = true
-pre_commit_hooks = ["uv lock", "git add uv.lock"]
+pre_commit_hooks = ["uv lock --upgrade", "git add uv.lock"]
