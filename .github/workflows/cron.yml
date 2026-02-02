@@ -21,14 +21,14 @@ jobs:
         run: |
           uv run python scripts/add_usd.py -i INTERNATIONAL_CREDIT --output-file target_usd.txt
           uv run python scripts/same_currency.py -i INTERNATIONAL_CREDIT --output-file same_currency.txt
-      - uses: danielmcconville/gist-sync-file-action@v2.0.0
+      - uses: danielmcconville/gist-sync-file-action@v2.1.0
         with:
           gistPat: ${{ secrets.GIST_TOKEN }}
           action: update
           filename: target_usd.txt
           gistId: ${{ vars.GIST_ID }}
           createIfNotExists: true
-      - uses: danielmcconville/gist-sync-file-action@v2.0.0
+      - uses: danielmcconville/gist-sync-file-action@v2.1.0
         with:
           gistPat: ${{ secrets.GIST_TOKEN }}
           action: update
