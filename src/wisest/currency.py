@@ -9,10 +9,10 @@ from pydantic import Field
 
 
 class CurrencyRequest(BaseModel):
-    def do(self) -> list[Currency]:
-        return asyncio.run(self.async_do())
+    def do_sync(self) -> list[Currency]:
+        return asyncio.run(self.do())
 
-    async def async_do(self) -> list[Currency]:
+    async def do(self) -> list[Currency]:
         async with httpx.AsyncClient() as client:
             resp = await client.get(url="https://wise.com/gateway/v1/currencies")
             resp.raise_for_status()
@@ -29,4 +29,4 @@ class Currency(BaseModel):
 
 @cache
 def query_currencies() -> list[Currency]:
-    return CurrencyRequest().do()
+    return CurrencyRequest().do_sync()

@@ -50,7 +50,7 @@ async def test_price_request_async(
             source_currency=source_currency,
             target_amount=target_amount,
             target_currency=target_currency,
-        ).async_do()
+        ).do()
 
     assert isinstance(prices, list)
     for price in prices:

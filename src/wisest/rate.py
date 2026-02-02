@@ -44,10 +44,10 @@ class RateRequest(BaseModel):
     source: str
     target: str
 
-    def do(self) -> Rate:
-        return asyncio.run(self.async_do())
+    def do_sync(self) -> Rate:
+        return asyncio.run(self.do())
 
-    async def async_do(self) -> Rate:
+    async def do(self) -> Rate:
         async with httpx.AsyncClient() as client:
             resp = await client.get(
                 url="https://wise.com/rates/live",
@@ -59,7 +59,7 @@ class RateRequest(BaseModel):
 
 @cache
 def query_rate(source: str, target: str) -> Rate:
-    return RateRequest(source=source, target=target).do()
+    return RateRequest(source=source, target=target).do_sync()
 
 
 # https://wise.com/rates/history?source=EUR&target=USD&length=10&resolution=daily&unit=day
@@ -70,10 +70,10 @@ class RateHistoryRequest(BaseModel):
     resolution: Resolution
     unit: Unit
 
-    def do(self) -> list[Rate]:
-        return asyncio.run(self.async_do())
+    def do_sync(self) -> list[Rate]:
+        return asyncio.run(self.do())
 
-    async def async_do(self) -> list[Rate]:
+    async def do(self) -> list[Rate]:
         async with httpx.AsyncClient() as client:
             resp = await client.get(
                 url="https://wise.com/rates/history",

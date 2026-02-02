@@ -22,7 +22,7 @@ def test_query_rate(source: str, target: str) -> None:
 @pytest.mark.parametrize("source", ["GBP"])
 @pytest.mark.parametrize("target", ["USD"])
 def test_rate_request(source: str, target: str) -> None:
-    rate = RateRequest(source=source, target=target).do()
+    rate = RateRequest(source=source, target=target).do_sync()
 
     assert isinstance(rate, Rate)
     assert rate.source == source
@@ -34,7 +34,7 @@ def test_rate_request(source: str, target: str) -> None:
 @pytest.mark.parametrize("target", ["USD"])
 async def test_rate_request_async(source: str, target: str) -> None:
     async with AsyncLimiter(1, 0.05):
-        rate = await RateRequest(source=source, target=target).async_do()
+        rate = await RateRequest(source=source, target=target).do()
 
     assert isinstance(rate, Rate)
     assert rate.source == source
@@ -52,7 +52,7 @@ def test_rate_history_request(source: str, target: str) -> None:
         length=length,
         resolution=Resolution.DAILY,
         unit=Unit.DAY,
-    ).do()
+    ).do_sync()
 
     for rate in rates:
         assert isinstance(rate, Rate)
@@ -72,7 +72,7 @@ async def test_rate_history_request_async(source: str, target: str) -> None:
             length=length,
             resolution=Resolution.DAILY,
             unit=Unit.DAY,
-        ).async_do()
+        ).do()
 
     for rate in rates:
         assert isinstance(rate, Rate)

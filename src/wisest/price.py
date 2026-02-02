@@ -45,10 +45,10 @@ class PriceRequest(BaseModel):
     def upper(cls, s: str) -> str:
         return s.upper()
 
-    def do(self) -> list[Price]:
-        return asyncio.run(self.async_do())
+    def do_sync(self) -> list[Price]:
+        return asyncio.run(self.do())
 
-    async def async_do(self) -> list[Price]:
+    async def do(self) -> list[Price]:
         # https://wise.com/gb/pricing/receive
         # https://wise.com/gb/pricing/send-money
         # https://wise.com/price-change/borderless-add
@@ -91,7 +91,7 @@ def query_price(
         target_amount=target_amount,
         target_currency=target_currency,
         price_set_id=price_set_id,
-    ).do()
+    ).do_sync()
     price = find_price(
         prices,
         pay_in_method=pay_in_method,
