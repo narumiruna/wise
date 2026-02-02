@@ -53,7 +53,7 @@ def format_cash_back_costs(
     prices: list[Price],
     card_fee_percent: float = 1.5,
     cash_back_percent: float = 3.0,
-):
+) -> str:
     table = []
     for price in prices:
         card_fee = price.source_amount * card_fee_percent / 100

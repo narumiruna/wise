@@ -92,9 +92,8 @@ def query_price(
         target_currency=target_currency,
         price_set_id=price_set_id,
     ).do_sync()
-    price = find_price(
+    return find_price(
         prices,
         pay_in_method=pay_in_method,
         pay_out_method=pay_out_method,
     )
-    return price

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+from datetime import UTC
 from datetime import datetime
 from enum import Enum
 from functools import cache
@@ -22,11 +23,10 @@ class Rate(BaseModel):
     def validate_time(cls, v: int | datetime) -> datetime:
         if isinstance(v, datetime):
             return v
-        elif isinstance(v, int):
-            return datetime.fromtimestamp(v // 1000)
-        else:
-            msg = f"invalid time: {v}"
-            raise TypeError(msg)
+        if isinstance(v, int):
+            return datetime.fromtimestamp(v // 1000, tz=UTC)
+        msg = f"invalid time: {v}"
+        raise TypeError(msg)
 
 
 class Resolution(str, Enum):
