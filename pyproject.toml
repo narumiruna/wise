@@ -15,7 +15,7 @@ dependencies    = [
 ]
 
 [project.scripts]
-wise = "wisest.cli:main"
+wise = "wise.cli:main"
 
 [dependency-groups]
 dev = [
@@ -37,6 +37,9 @@ current_version  = "0.15.2"
 tag              = true
 commit           = true
 pre_commit_hooks = ["uv lock --upgrade", "git add uv.lock"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/wise"]
 
 [tool.pytest]
 filterwarnings = ["ignore::DeprecationWarning"]

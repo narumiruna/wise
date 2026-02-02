@@ -1,5 +1,5 @@
-from wisest import query_currencies
-from wisest import query_price
+from wise import query_currencies
+from wise import query_price
 
 
 def main() -> None:
