@@ -1,11 +1,11 @@
 [project]
-name = "wisest"
-version = "0.15.2"
-description = ""
-readme = "README.md"
+name            = "wisest"
+version         = "0.15.2"
+description     = ""
+readme          = "README.md"
 requires-python = ">=3.11"
-authors = [{ name = "narumi", email = "toucans-cutouts0f@icloud.com" }]
-dependencies = [
+authors         = [{ name = "narumi", email = "toucans-cutouts0f@icloud.com" }]
+dependencies    = [
   "aiolimiter>=1.2.1",
   "httpx>=0.27.2",
   "pydantic>=2.9.2",
@@ -29,44 +29,47 @@ dev = [
 ]
 
 [build-system]
-requires = ["hatchling"]
+requires      = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.bumpversion]
-current_version = "0.15.2"
-tag = true
-commit = true
+current_version  = "0.15.2"
+tag              = true
+commit           = true
 pre_commit_hooks = ["uv lock --upgrade", "git add uv.lock"]
 
 [tool.pytest]
 filterwarnings = ["ignore::DeprecationWarning"]
 
 [tool.ruff]
-exclude = ["build"]
 line-length = 120
 
 [tool.ruff.lint]
 select = [
-  "B",  # flake8-bugbear
-  "C",  # flake8-comprehensions
-  "E",  # pycodestyle Error
-  "EM",  # flake8-errmsg
-  "F",  # Pyflakes
-  "FA",  # flake8-future-annotations
-  "I",  # isort
-  "N",  # pep8-naming
-  "NPY",  # NumPy-specific rules
-  "PTH",  # flake8-use-pathlib
-  "S",  # flake8-bandit
-  "SIM",  # flake8-simplify
-  "TRY",  # raise-vanilla-args
-  "UP",  # pyupgrade
-  "W",  # pycodestyle Warning
+  "B",      # flake8-bugbear
+  "C",      # flake8-comprehensions
+  "E",      # pycodestyle Error
+  "EM",     # flake8-errmsg
+  "F",      # Pyflakes
+  "FA",     # flake8-future-annotations
+  "I",      # isort
+  "N",      # pep8-naming
+  "NPY",    # NumPy-specific rules
+  "PTH",    # flake8-use-pathlib
+  "S",      # flake8-bandit
+  "SIM",    # flake8-simplify
+  "TRY",    # raise-vanilla-args
+  "UP",     # pyupgrade
+  "W",      # pycodestyle Warning
 ]
 
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401", "F403"]
-"test_*.py" = ["S101"]
+"test_*.py"   = ["S101"]
 
 [tool.ruff.lint.isort]
 force-single-line = true
+
+[tool.tombi.format.rules]
+key-value-equals-sign-alignment = true
+trailing-comment-alignment      = true
