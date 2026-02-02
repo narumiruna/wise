@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 from functools import cache
 
 import httpx
@@ -9,9 +10,7 @@ from pydantic import Field
 
 class CurrencyRequest(BaseModel):
     def do(self) -> list[Currency]:
-        resp = httpx.get(url="https://wise.com/gateway/v1/currencies")
-        resp.raise_for_status()
-        return [Currency.model_validate(data) for data in resp.json()]
+        return asyncio.run(self.async_do())
 
     async def async_do(self) -> list[Currency]:
         async with httpx.AsyncClient() as client:

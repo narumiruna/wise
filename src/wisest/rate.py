@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 from datetime import datetime
 from enum import Enum
 from functools import cache
@@ -44,12 +45,7 @@ class RateRequest(BaseModel):
     target: str
 
     def do(self) -> Rate:
-        resp = httpx.get(
-            url="https://wise.com/rates/live",
-            params=self.model_dump(),
-        )
-        resp.raise_for_status()
-        return Rate.model_validate(resp.json())
+        return asyncio.run(self.async_do())
 
     async def async_do(self) -> Rate:
         async with httpx.AsyncClient() as client:
@@ -58,7 +54,7 @@ class RateRequest(BaseModel):
                 params=self.model_dump(),
             )
             resp.raise_for_status()
-            return Rate.model_validate(resp.json())
+        return Rate.model_validate(resp.json())
 
 
 @cache
@@ -75,12 +71,7 @@ class RateHistoryRequest(BaseModel):
     unit: Unit
 
     def do(self) -> list[Rate]:
-        resp = httpx.get(
-            url="https://wise.com/rates/history",
-            params=self.model_dump(mode="json"),
-        )
-        resp.raise_for_status()
-        return [Rate.model_validate(data) for data in resp.json()]
+        return asyncio.run(self.async_do())
 
     async def async_do(self) -> list[Rate]:
         async with httpx.AsyncClient() as client:
@@ -89,4 +80,4 @@ class RateHistoryRequest(BaseModel):
                 params=self.model_dump(mode="json"),
             )
             resp.raise_for_status()
-            return [Rate.model_validate(data) for data in resp.json()]
+        return [Rate.model_validate(data) for data in resp.json()]

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 from functools import cache
 
 import httpx
@@ -45,18 +46,13 @@ class PriceRequest(BaseModel):
         return s.upper()
 
     def do(self) -> list[Price]:
+        return asyncio.run(self.async_do())
+
+    async def async_do(self) -> list[Price]:
         # https://wise.com/gb/pricing/receive
         # https://wise.com/gb/pricing/send-money
         # https://wise.com/price-change/borderless-add
 
-        resp = httpx.get(
-            url="https://wise.com/gateway/v1/price",
-            params=self.model_dump(exclude_none=True, by_alias=True),
-        )
-        resp.raise_for_status()
-        return [Price.model_validate(data) for data in resp.json()]
-
-    async def async_do(self) -> list[Price]:
         async with httpx.AsyncClient() as client:
             resp = await client.get(
                 url="https://wise.com/gateway/v1/price",

@@ -66,13 +66,13 @@ def test_rate_history_request(source: str, target: str) -> None:
 async def test_rate_history_request_async(source: str, target: str) -> None:
     length = 10
     async with AsyncLimiter(1, 0.05):
-        rates = RateHistoryRequest(
+        rates = await RateHistoryRequest(
             source=source,
             target=target,
             length=length,
             resolution=Resolution.DAILY,
             unit=Unit.DAY,
-        ).do()
+        ).async_do()
 
     for rate in rates:
         assert isinstance(rate, Rate)
