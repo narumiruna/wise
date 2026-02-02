@@ -1,11 +1,11 @@
 import pytest
 from aiolimiter import AsyncLimiter
 
-from wisest.method import PayInMethod
-from wisest.method import PayOutMethod
-from wisest.price import Price
-from wisest.price import PriceRequest
-from wisest.price import query_price
+from wise.method import PayInMethod
+from wise.method import PayOutMethod
+from wise.price import Price
+from wise.price import PriceRequest
+from wise.price import query_price
 
 
 @pytest.mark.parametrize("source_currency", ["GBP", "EUR"])

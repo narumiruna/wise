@@ -1,8 +1,8 @@
 import pytest
 from aiolimiter import AsyncLimiter
 
-from wisest.currency import Currency
-from wisest.currency import CurrencyRequest
+from wise.currency import Currency
+from wise.currency import CurrencyRequest
 
 
 def test_currency_request() -> None:

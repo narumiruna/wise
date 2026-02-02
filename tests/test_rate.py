@@ -1,12 +1,12 @@
 import pytest
 from aiolimiter import AsyncLimiter
 
-from wisest.rate import Rate
-from wisest.rate import RateHistoryRequest
-from wisest.rate import RateRequest
-from wisest.rate import Resolution
-from wisest.rate import Unit
-from wisest.rate import query_rate
+from wise.rate import Rate
+from wise.rate import RateHistoryRequest
+from wise.rate import RateRequest
+from wise.rate import Resolution
+from wise.rate import Unit
+from wise.rate import query_rate
 
 
 @pytest.mark.parametrize("source", ["GBP"])

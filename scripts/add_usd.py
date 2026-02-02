@@ -5,10 +5,10 @@ from typing import Annotated
 
 import typer
 
-from wisest import query_price
-from wisest.cost import format_cash_back_costs
-from wisest.method import PayInMethod
-from wisest.method import PayOutMethod
+from wise import query_price
+from wise.cost import format_cash_back_costs
+from wise.method import PayInMethod
+from wise.method import PayOutMethod
 
 
 def main(
